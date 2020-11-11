@@ -57,19 +57,16 @@ public class pantalla {
 	private JTextField textField_8;
 	private JTextField textField_12;
 	private JTextField textField_13;
-	private JTextField textField_14;
 	private JTextField textField_2;
 	private JTextField textField_9;
 	private JTextField textField_10;
 	private JTextField textField_11;
 	private JTextField textField_15;
-	private JTextField textField_16;
 	private JTextField textField_17;
 	private JTextField textField_18;
 	private JTextField textField_19;
 	private JTextField textField_20;
 	private JTextField textField_21;
-	private JTextField textField_22;
 	private JTextField textField_23;
 	private JTextField textField_24;
 	private JTextField textField_25;
@@ -79,7 +76,6 @@ public class pantalla {
 	private JTextField textField_29;
 	private JTextField textField_30;
 	private JTextField textField_31;
-	private JTextField textField_32;
 	private JTable table;
 	private JTable table_1;
 	private JTable table_2;
@@ -87,6 +83,8 @@ public class pantalla {
 	private JTable table_5;
 	private JTable table_6;
 	private JTable table_4;
+	private JTextField textField_32;
+	private JTextField textField_14;
 
 	/**
 	 * Launch the application.
@@ -162,7 +160,7 @@ public class pantalla {
 		textField_3.setBounds(207, 145, 109, 20);
 		login.add(textField_3);
 
-		JLabel lblMail = new JLabel("C.I");
+		JLabel lblMail = new JLabel("Mail / C.I");
 		lblMail.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMail.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblMail.setBounds(93, 84, 104, 48);
@@ -181,13 +179,13 @@ public class pantalla {
 		btnNewButton_2_1.setBounds(227, 193, 89, 23);
 		login.add(btnNewButton_2_1);
 
-		JLabel lblCodigo_3_4_2_1_2_1 = new JLabel("Iniciar sesion");
+		JLabel lblCodigo_3_4_2_1_2_1 = new JLabel("Iniciar sesi\u00F3n");
 		lblCodigo_3_4_2_1_2_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_1_2_1.setFont(new Font("Cambria", Font.PLAIN, 25));
 		lblCodigo_3_4_2_1_2_1.setBounds(0, 29, 442, 51);
 		login.add(lblCodigo_3_4_2_1_2_1);
 
-		JButton btnNewButton_8 = new JButton("Atras");
+		JButton btnNewButton_8 = new JButton("Atr\u00E1s");
 		btnNewButton_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -204,7 +202,7 @@ public class pantalla {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnNewButton.setBounds(143, 94, 139, 23);
+		btnNewButton.setBounds(141, 101, 139, 23);
 		darAltaUsuario.add(btnNewButton);
 
 		JButton btnAltaDocente = new JButton("Docente");
@@ -212,7 +210,7 @@ public class pantalla {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnAltaDocente.setBounds(143, 128, 139, 23);
+		btnAltaDocente.setBounds(141, 135, 139, 23);
 		darAltaUsuario.add(btnAltaDocente);
 
 		JButton btnAltaFuncionario = new JButton("Funcionario");
@@ -220,7 +218,7 @@ public class pantalla {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnAltaFuncionario.setBounds(143, 162, 139, 23);
+		btnAltaFuncionario.setBounds(141, 169, 139, 23);
 		darAltaUsuario.add(btnAltaFuncionario);
 
 		JLabel lblCodigo_3_4_2_1_1 = new JLabel("Seleccione tipo de usuario");
@@ -234,35 +232,35 @@ public class pantalla {
 		darAltaMateria.setLayout(null);
 
 		textField = new JTextField();
-		textField.setBounds(208, 70, 116, 20);
+		textField.setBounds(105, 105, 86, 20);
 		darAltaMateria.add(textField);
 		textField.setColumns(10);
 
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(78, 55, 132, 48);
+		lblNombre.setBounds(28, 92, 101, 48);
 		lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNombre.setFont(new Font("Arial", Font.PLAIN, 15));
 		darAltaMateria.add(lblNombre);
 
-		JLabel lblCodigo = new JLabel("Codigo");
-		lblCodigo.setBounds(78, 94, 132, 41);
+		JLabel lblCodigo = new JLabel("C\u00F3digo");
+		lblCodigo.setBounds(28, 131, 101, 41);
 		lblCodigo.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo.setFont(new Font("Arial", Font.PLAIN, 15));
 		darAltaMateria.add(lblCodigo);
 
 		textField_1 = new JTextField();
-		textField_1.setBounds(208, 105, 116, 20);
+		textField_1.setBounds(105, 140, 86, 20);
 		textField_1.setColumns(10);
 		darAltaMateria.add(textField_1);
 
-		JLabel lblCodigo_1 = new JLabel("A\u00F1o que se dicta");
-		lblCodigo_1.setBounds(78, 135, 132, 41);
+		JLabel lblCodigo_1 = new JLabel("Nombre docente");
+		lblCodigo_1.setBounds(212, 131, 132, 41);
 		lblCodigo_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_1.setFont(new Font("Arial", Font.PLAIN, 15));
 		darAltaMateria.add(lblCodigo_1);
 
 		JButton btnNewButton_3 = new JButton("Guardar cambios");
-		btnNewButton_3.setBounds(129, 194, 160, 23);
+		btnNewButton_3.setBounds(137, 197, 160, 23);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -270,15 +268,27 @@ public class pantalla {
 		});
 		darAltaMateria.add(btnNewButton_3);
 
-		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(208, 146, 137, 20);
-		darAltaMateria.add(dateChooser_1);
-
-		JLabel lblCodigo_3_4_2_2 = new JLabel("Alta a un estudiante");
+		JLabel lblCodigo_3_4_2_2 = new JLabel("Alta a una materia");
 		lblCodigo_3_4_2_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_2.setFont(new Font("Cambria", Font.PLAIN, 25));
-		lblCodigo_3_4_2_2.setBounds(0, 6, 442, 51);
+		lblCodigo_3_4_2_2.setBounds(0, 11, 442, 51);
 		darAltaMateria.add(lblCodigo_3_4_2_2);
+		
+		JLabel lblCodigo_3_7_5 = new JLabel("A\u00F1o dictado");
+		lblCodigo_3_7_5.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCodigo_3_7_5.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblCodigo_3_7_5.setBounds(212, 105, 85, 18);
+		darAltaMateria.add(lblCodigo_3_7_5);
+		
+		JComboBox comboBox_1_4 = new JComboBox();
+		comboBox_1_4.setModel(new DefaultComboBoxModel(new String[] {"Primero", "Segundo", "Tercero"}));
+		comboBox_1_4.setBounds(335, 105, 85, 20);
+		darAltaMateria.add(comboBox_1_4);
+		
+		textField_14 = new JTextField();
+		textField_14.setColumns(10);
+		textField_14.setBounds(334, 142, 86, 20);
+		darAltaMateria.add(textField_14);
 
 		JPanel altaInasistencia = new JPanel();
 		panelMaster.add(altaInasistencia, "DISCHANGE_ABSENCE");
@@ -314,7 +324,7 @@ public class pantalla {
 		lblCodigo_3_4_2_5.setBounds(0, 29, 442, 51);
 		consultarUsuario.add(lblCodigo_3_4_2_5);
 
-		JLabel lblCodigo_3_8_1_1 = new JLabel("CI del usuario");
+		JLabel lblCodigo_3_8_1_1 = new JLabel("C.I del usuario");
 		lblCodigo_3_8_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_8_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblCodigo_3_8_1_1.setBounds(110, 117, 109, 18);
@@ -336,8 +346,23 @@ public class pantalla {
 		JLabel lblCodigo_3_4_2_3 = new JLabel("Consultar materia");
 		lblCodigo_3_4_2_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_3.setFont(new Font("Cambria", Font.PLAIN, 25));
-		lblCodigo_3_4_2_3.setBounds(0, 11, 442, 51);
+		lblCodigo_3_4_2_3.setBounds(0, 21, 442, 51);
 		consultarMateria.add(lblCodigo_3_4_2_3);
+		
+		JLabel lblCodigo_3_8_1_1_1 = new JLabel("Nombre o c\u00F3digo de materia");
+		lblCodigo_3_8_1_1_1.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCodigo_3_8_1_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblCodigo_3_8_1_1_1.setBounds(124, 98, 195, 18);
+		consultarMateria.add(lblCodigo_3_8_1_1_1);
+		
+		textField_32 = new JTextField();
+		textField_32.setColumns(10);
+		textField_32.setBounds(163, 127, 117, 20);
+		consultarMateria.add(textField_32);
+		
+		JButton btnNewButton_5_1 = new JButton("Consultar");
+		btnNewButton_5_1.setBounds(176, 176, 89, 23);
+		consultarMateria.add(btnNewButton_5_1);
 
 		JPanel consultarInasistencia = new JPanel();
 		panelMaster.add(consultarInasistencia, "CONSULT_ABSENCE");
@@ -346,27 +371,27 @@ public class pantalla {
 		JLabel lblCodigo_3_4_2_4 = new JLabel("Consultar inasistencia");
 		lblCodigo_3_4_2_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_4.setFont(new Font("Cambria", Font.PLAIN, 25));
-		lblCodigo_3_4_2_4.setBounds(0, 11, 442, 51);
+		lblCodigo_3_4_2_4.setBounds(0, 7, 442, 51);
 		consultarInasistencia.add(lblCodigo_3_4_2_4);
 
 		JLabel lblCodigo_3_3_2 = new JLabel("Inicio");
 		lblCodigo_3_3_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_3_2.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_3_2.setBounds(47, 71, 49, 18);
+		lblCodigo_3_3_2.setBounds(27, 69, 49, 18);
 		consultarInasistencia.add(lblCodigo_3_3_2);
 
 		JDateChooser dateChooser_3 = new JDateChooser();
-		dateChooser_3.setBounds(95, 71, 108, 20);
+		dateChooser_3.setBounds(71, 69, 95, 20);
 		consultarInasistencia.add(dateChooser_3);
 
 		JLabel lblCodigo_3_3_3 = new JLabel("Fin");
 		lblCodigo_3_3_3.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_3_3.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_3_3.setBounds(240, 71, 33, 18);
+		lblCodigo_3_3_3.setBounds(176, 69, 33, 18);
 		consultarInasistencia.add(lblCodigo_3_3_3);
 
 		JDateChooser dateChooser_4 = new JDateChooser();
-		dateChooser_4.setBounds(272, 71, 108, 20);
+		dateChooser_4.setBounds(208, 69, 95, 20);
 		consultarInasistencia.add(dateChooser_4);
 
 		JScrollPane scrollPane_3 = new JScrollPane();
@@ -380,6 +405,10 @@ public class pantalla {
 						{ null, null, null, null, null }, },
 				new String[] { "Materia", "Estudiante", "Fecha", "Tipo inasistencia", "Cant. horas" }));
 		scrollPane_3.setViewportView(table_6);
+		
+		JButton btnNewButton_9 = new JButton("Consultar");
+		btnNewButton_9.setBounds(326, 69, 89, 20);
+		consultarInasistencia.add(btnNewButton_9);
 
 		JPanel listarFuncionario = new JPanel();
 		panelMaster.add(listarFuncionario, "LIST_TEACHERS");
@@ -435,7 +464,7 @@ public class pantalla {
 		panelMaster.add(random, "random");
 		random.setLayout(null);
 
-		JLabel lblCodigo_3_4_2_1_2_3 = new JLabel("Seleccione opcion en el menu");
+		JLabel lblCodigo_3_4_2_1_2_3 = new JLabel("Seleccione opci\u00F3n en el men\u00FA");
 		lblCodigo_3_4_2_1_2_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_1_2_3.setFont(new Font("Cambria", Font.PLAIN, 25));
 		lblCodigo_3_4_2_1_2_3.setBounds(0, 90, 442, 51);
@@ -464,7 +493,7 @@ public class pantalla {
 		lblPasw_1.setBounds(93, 130, 104, 48);
 		Register.add(lblPasw_1);
 
-		JLabel lblMail_1 = new JLabel("C.I");
+		JLabel lblMail_1 = new JLabel("Mail / C.I");
 		lblMail_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMail_1.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblMail_1.setBounds(93, 84, 104, 48);
@@ -481,7 +510,7 @@ public class pantalla {
 		lblCodigo_3_4_2_1_2_2.setBounds(0, 30, 442, 51);
 		Register.add(lblCodigo_3_4_2_1_2_2);
 
-		JButton btnNewButton_8_1 = new JButton("Atras");
+		JButton btnNewButton_8_1 = new JButton("Atr\u00E1s");
 		btnNewButton_8_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -554,21 +583,10 @@ public class pantalla {
 		lblCodigo_3_5.setBounds(254, 92, 76, 18);
 		altaEstudiante.add(lblCodigo_3_5);
 
-		textField_14 = new JTextField();
-		textField_14.setColumns(10);
-		textField_14.setBounds(322, 122, 86, 20);
-		altaEstudiante.add(textField_14);
-
-		JLabel lblCodigo_3_6 = new JLabel("C.I");
-		lblCodigo_3_6.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCodigo_3_6.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_6.setBounds(254, 122, 46, 18);
-		altaEstudiante.add(lblCodigo_3_6);
-
 		JLabel lblCodigo_3_7 = new JLabel("Orient.");
 		lblCodigo_3_7.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_7.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_7.setBounds(254, 159, 46, 18);
+		lblCodigo_3_7.setBounds(254, 125, 46, 18);
 		altaEstudiante.add(lblCodigo_3_7);
 
 		JDateChooser dateChooser = new JDateChooser();
@@ -599,7 +617,7 @@ public class pantalla {
 
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { "TIC", "ADM" }));
-		comboBox_1.setBounds(322, 158, 86, 20);
+		comboBox_1.setBounds(322, 124, 86, 20);
 		altaEstudiante.add(comboBox_1);
 
 		JLabel lblCodigo_3_4_2 = new JLabel("Alta a un estudiante");
@@ -677,17 +695,6 @@ public class pantalla {
 		lblCodigo_3_5_1.setFont(new Font("Arial", Font.PLAIN, 15));
 		altaDocente.add(lblCodigo_3_5_1);
 
-		JLabel lblCodigo_3_6_1 = new JLabel("C.I");
-		lblCodigo_3_6_1.setBounds(253, 152, 46, 18);
-		lblCodigo_3_6_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCodigo_3_6_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		altaDocente.add(lblCodigo_3_6_1);
-
-		textField_16 = new JTextField();
-		textField_16.setBounds(321, 152, 86, 20);
-		textField_16.setColumns(10);
-		altaDocente.add(textField_16);
-
 		JButton btnNewButton_4_1 = new JButton("Guardar cambios");
 		btnNewButton_4_1.setBounds(253, 186, 154, 23);
 		altaDocente.add(btnNewButton_4_1);
@@ -708,7 +715,7 @@ public class pantalla {
 		lblCodigo_3_4_2_1_3.setBounds(0, 29, 442, 51);
 		altaExamen.add(lblCodigo_3_4_2_1_3);
 
-		JLabel lblCodigo_3_2_1_1 = new JLabel("CI estud");
+		JLabel lblCodigo_3_2_1_1 = new JLabel("C.I estud");
 		lblCodigo_3_2_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_2_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblCodigo_3_2_1_1.setBounds(32, 104, 68, 18);
@@ -811,17 +818,6 @@ public class pantalla {
 		btnNewButton_4_1_2.setBounds(253, 186, 154, 23);
 		altaFuncionario.add(btnNewButton_4_1_2);
 
-		JLabel lblCodigo_3_6_1_1 = new JLabel("C.I");
-		lblCodigo_3_6_1_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCodigo_3_6_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_6_1_1.setBounds(253, 152, 46, 18);
-		altaFuncionario.add(lblCodigo_3_6_1_1);
-
-		textField_22 = new JTextField();
-		textField_22.setColumns(10);
-		textField_22.setBounds(321, 152, 86, 20);
-		altaFuncionario.add(textField_22);
-
 		textField_23 = new JTextField();
 		textField_23.setColumns(10);
 		textField_23.setBounds(321, 122, 86, 20);
@@ -906,7 +902,7 @@ public class pantalla {
 		panelMaster.add(reporteEstadisticas, "reporteEstadisticas");
 		reporteEstadisticas.setLayout(null);
 
-		JLabel lblCodigo_3_4_2_6_3_1_1_1_1 = new JLabel("Reporte de estadisticas");
+		JLabel lblCodigo_3_4_2_6_3_1_1_1_1 = new JLabel("Reporte de estad\u00EDsticas");
 		lblCodigo_3_4_2_6_3_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_6_3_1_1_1_1.setFont(new Font("Cambria", Font.PLAIN, 25));
 		lblCodigo_3_4_2_6_3_1_1_1_1.setBounds(0, 11, 442, 51);
@@ -917,87 +913,93 @@ public class pantalla {
 		consularUsuario1.setLayout(null);
 
 		JDateChooser dateChooser_2_2_1 = new JDateChooser();
-		dateChooser_2_2_1.setBounds(118, 163, 106, 20);
+		dateChooser_2_2_1.setBounds(124, 178, 106, 20);
 		consularUsuario1.add(dateChooser_2_2_1);
 
 		JLabel lblCodigo_3_3_1_2_1 = new JLabel("Nac.");
 		lblCodigo_3_3_1_2_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_3_1_2_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_3_1_2_1.setBounds(50, 163, 68, 18);
+		lblCodigo_3_3_1_2_1.setBounds(56, 178, 68, 18);
 		consularUsuario1.add(lblCodigo_3_3_1_2_1);
 
 		JLabel lblCodigo_3_2_1_2_1 = new JLabel("Constrase\u00F1a");
 		lblCodigo_3_2_1_2_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_2_1_2_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_2_1_2_1.setBounds(50, 128, 68, 18);
+		lblCodigo_3_2_1_2_1.setBounds(56, 143, 68, 18);
 		consularUsuario1.add(lblCodigo_3_2_1_2_1);
 
 		JLabel lblCodigo_3_1_1_1_1 = new JLabel("C.I");
 		lblCodigo_3_1_1_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_1_1_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_1_1_1_1.setBounds(50, 96, 68, 18);
+		lblCodigo_3_1_1_1_1.setBounds(56, 111, 68, 18);
 		consularUsuario1.add(lblCodigo_3_1_1_1_1);
 
 		JLabel lblCodigo_3_8_1_2 = new JLabel("Mail");
 		lblCodigo_3_8_1_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_8_1_2.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_8_1_2.setBounds(50, 66, 58, 18);
+		lblCodigo_3_8_1_2.setBounds(56, 81, 58, 18);
 		consularUsuario1.add(lblCodigo_3_8_1_2);
 
 		textField_26 = new JTextField();
 		textField_26.setColumns(10);
-		textField_26.setBounds(118, 66, 86, 20);
+		textField_26.setBounds(124, 81, 86, 20);
 		consularUsuario1.add(textField_26);
 
 		textField_27 = new JTextField();
 		textField_27.setColumns(10);
-		textField_27.setBounds(118, 96, 86, 20);
+		textField_27.setBounds(124, 111, 86, 20);
 		consularUsuario1.add(textField_27);
 
 		textField_28 = new JTextField();
 		textField_28.setColumns(10);
-		textField_28.setBounds(118, 127, 86, 20);
+		textField_28.setBounds(124, 142, 86, 20);
 		consularUsuario1.add(textField_28);
 
 		JLabel lblCodigo_3_8_1_2_1 = new JLabel("Nombre");
 		lblCodigo_3_8_1_2_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_8_1_2_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_8_1_2_1.setBounds(263, 66, 58, 18);
+		lblCodigo_3_8_1_2_1.setBounds(258, 81, 58, 18);
 		consularUsuario1.add(lblCodigo_3_8_1_2_1);
 
 		textField_29 = new JTextField();
 		textField_29.setColumns(10);
-		textField_29.setBounds(331, 66, 86, 20);
+		textField_29.setBounds(326, 81, 86, 20);
 		consularUsuario1.add(textField_29);
 
 		JLabel lblCodigo_3_1_1_1_1_1 = new JLabel("Apellido");
 		lblCodigo_3_1_1_1_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_1_1_1_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_1_1_1_1_1.setBounds(263, 96, 68, 18);
+		lblCodigo_3_1_1_1_1_1.setBounds(258, 111, 68, 18);
 		consularUsuario1.add(lblCodigo_3_1_1_1_1_1);
 
 		textField_30 = new JTextField();
 		textField_30.setColumns(10);
-		textField_30.setBounds(331, 96, 86, 20);
+		textField_30.setBounds(326, 111, 86, 20);
 		consularUsuario1.add(textField_30);
 
 		JButton btnNewButton_6 = new JButton("Modificar");
-		btnNewButton_6.setBounds(302, 160, 115, 23);
+		btnNewButton_6.setBounds(297, 175, 115, 23);
 		consularUsuario1.add(btnNewButton_6);
+		
+		JLabel lblCodigo_3_4_2_6_3_1_1_1_1_2 = new JLabel("Informaci\u00F3n del usuario");
+		lblCodigo_3_4_2_6_3_1_1_1_1_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCodigo_3_4_2_6_3_1_1_1_1_2.setFont(new Font("Cambria", Font.PLAIN, 25));
+		lblCodigo_3_4_2_6_3_1_1_1_1_2.setBounds(0, 19, 442, 51);
+		consularUsuario1.add(lblCodigo_3_4_2_6_3_1_1_1_1_2);
 
 		JPanel consularUsuario2 = new JPanel();
 		panelMaster.add(consularUsuario2, "name_588634444258900");
 		consularUsuario2.setLayout(null);
 
-		JLabel lblCodigo_3_8_1_2_1_1 = new JLabel("Nombre materia");
+		JLabel lblCodigo_3_8_1_2_1_1 = new JLabel("Agregar materia");
 		lblCodigo_3_8_1_2_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_8_1_2_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_8_1_2_1_1.setBounds(111, 96, 120, 18);
+		lblCodigo_3_8_1_2_1_1.setBounds(129, 96, 120, 18);
 		consularUsuario2.add(lblCodigo_3_8_1_2_1_1);
 
 		textField_31 = new JTextField();
 		textField_31.setColumns(10);
-		textField_31.setBounds(248, 96, 86, 20);
+		textField_31.setBounds(245, 96, 86, 20);
 		consularUsuario2.add(textField_31);
 
 		JButton btnNewButton_7 = new JButton("Guardar cambios");
@@ -1007,23 +1009,30 @@ public class pantalla {
 		JLabel lblCodigo_3_8_1_2_1_1_1 = new JLabel("Nota");
 		lblCodigo_3_8_1_2_1_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_8_1_2_1_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_8_1_2_1_1_1.setBounds(121, 141, 38, 18);
+		lblCodigo_3_8_1_2_1_1_1.setBounds(266, 140, 38, 18);
 		consularUsuario2.add(lblCodigo_3_8_1_2_1_1_1);
 
-		textField_32 = new JTextField();
-		textField_32.setColumns(10);
-		textField_32.setBounds(160, 141, 71, 20);
-		consularUsuario2.add(textField_32);
-
 		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(330, 140, 30, 22);
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Ingles"}));
+		comboBox_2.setBounds(147, 139, 86, 22);
 		consularUsuario2.add(comboBox_2);
 
 		JLabel lblCodigo_3_8_1_2_1_1_1_1 = new JLabel("Materia");
 		lblCodigo_3_8_1_2_1_1_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_8_1_2_1_1_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_8_1_2_1_1_1_1.setBounds(241, 141, 58, 18);
+		lblCodigo_3_8_1_2_1_1_1_1.setBounds(91, 140, 58, 18);
 		consularUsuario2.add(lblCodigo_3_8_1_2_1_1_1_1);
+		
+		JComboBox comboBox_2_1 = new JComboBox();
+		comboBox_2_1.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
+		comboBox_2_1.setBounds(304, 139, 51, 22);
+		consularUsuario2.add(comboBox_2_1);
+		
+		JLabel lblCodigo_3_4_2_6_3_1_1_1_1_2_1 = new JLabel("Estudiante");
+		lblCodigo_3_4_2_6_3_1_1_1_1_2_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCodigo_3_4_2_6_3_1_1_1_1_2_1.setFont(new Font("Cambria", Font.PLAIN, 25));
+		lblCodigo_3_4_2_6_3_1_1_1_1_2_1.setBounds(0, 22, 442, 51);
+		consularUsuario2.add(lblCodigo_3_4_2_6_3_1_1_1_1_2_1);
 
 		JPanel consularUsuario3 = new JPanel();
 		panelMaster.add(consularUsuario3, "name_590302103418600");
@@ -1036,7 +1045,7 @@ public class pantalla {
 		JLabel lblCodigo_3_4_2_6_3_1_1_1_1_1 = new JLabel("Listar estudiantes");
 		lblCodigo_3_4_2_6_3_1_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_6_3_1_1_1_1_1.setFont(new Font("Cambria", Font.PLAIN, 25));
-		lblCodigo_3_4_2_6_3_1_1_1_1_1.setBounds(0, 11, 223, 51);
+		lblCodigo_3_4_2_6_3_1_1_1_1_1.setBounds(10, 21, 223, 51);
 		listarEstudiantes.add(lblCodigo_3_4_2_6_3_1_1_1_1_1);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -1054,23 +1063,23 @@ public class pantalla {
 		JLabel lblCodigo_3_7_1_1 = new JLabel("Gen.");
 		lblCodigo_3_7_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_7_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_7_1_1.setBounds(243, 17, 76, 18);
+		lblCodigo_3_7_1_1.setBounds(253, 27, 76, 18);
 		listarEstudiantes.add(lblCodigo_3_7_1_1);
 
 		JComboBox comboBox_3 = new JComboBox();
 		comboBox_3.setModel(new DefaultComboBoxModel(new String[] { "Primero", "Segundo", "Tercero" }));
-		comboBox_3.setBounds(311, 17, 86, 20);
+		comboBox_3.setBounds(321, 27, 86, 20);
 		listarEstudiantes.add(comboBox_3);
 
 		JLabel lblCodigo_3_7_1_2 = new JLabel("Orient.");
 		lblCodigo_3_7_1_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_7_1_2.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_7_1_2.setBounds(243, 42, 76, 18);
+		lblCodigo_3_7_1_2.setBounds(253, 52, 76, 18);
 		listarEstudiantes.add(lblCodigo_3_7_1_2);
 
 		JComboBox comboBox_4 = new JComboBox();
 		comboBox_4.setModel(new DefaultComboBoxModel(new String[] { "TIC", "ADM" }));
-		comboBox_4.setBounds(311, 42, 86, 20);
+		comboBox_4.setBounds(321, 52, 86, 20);
 		listarEstudiantes.add(comboBox_4);
 
 		JMenuBar menuBar = new JMenuBar();
@@ -1112,7 +1121,7 @@ public class pantalla {
 		JMenuItem mntmSubject_1 = new JMenuItem("Materia");
 		mnConsult.add(mntmSubject_1);
 
-		JMenuItem mntmAbsence_1 = new JMenuItem("Inasistencia");
+		JMenuItem mntmAbsence_1 = new JMenuItem("Inasistencias");
 		mnConsult.add(mntmAbsence_1);
 
 		JMenu mnList = new JMenu("Listar");
