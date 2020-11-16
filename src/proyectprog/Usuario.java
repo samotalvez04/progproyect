@@ -1,5 +1,6 @@
 package proyectprog;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Usuario {
@@ -9,16 +10,16 @@ public class Usuario {
 	private String nombre;
 	private String apellido;
 	private String mail;
-	private Date fechaNacimiento;
+	private LocalDate fechaDeNacimiento;
 
-	public Usuario(String ci, String password, String nombre, String apellido, String mail, Date fechaNacimiento) {
+	public Usuario(String ci, String password, String nombre, String apellido, String mail, LocalDate fechaDeNacimiento) {
 		super();
 		this.ci = ci;
 		this.password = password; 
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.mail = mail;
-		this.fechaNacimiento = fechaNacimiento;
+		this.fechaDeNacimiento = fechaDeNacimiento;
 	}
 
 	public String getCi() {
@@ -61,12 +62,12 @@ public class Usuario {
 		this.mail = mail;
 	}
 
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
+	public LocalDate getFechaDeNacimiento() {
+		return fechaDeNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+	public void setFechaDeNacimiento(LocalDate fechaDeNacimiento) {
+		this.fechaDeNacimiento = fechaDeNacimiento;
 	}
 
 }

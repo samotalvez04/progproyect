@@ -1,34 +1,64 @@
 package proyectprog;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Inasistencia {
-	private Date fecha;
+	private String ciEstudiante;
+	private String idMateria;
+	private LocalDate fecha;
 	private int cantHoras;
-	private TipoInasistencia tipo;
-	public Inasistencia(Date fecha, int cantHoras, TipoInasistencia tipo) {
+	private TipoInasistencia tipoInasistencia;
+
+	public Inasistencia(String ciEstudiante, String idMateria, LocalDate fecha, int cantHoras,
+			TipoInasistencia tipoInasistencia) {
 		super();
+		this.ciEstudiante = ciEstudiante;
+		this.idMateria = idMateria;
 		this.fecha = fecha;
 		this.cantHoras = cantHoras;
-		this.tipo = tipo;
+		this.tipoInasistencia = tipoInasistencia;
 	}
-	public Date getFecha() {
+
+	public String getciEstudiante() {
+		return ciEstudiante;
+	}
+
+	public void setciEstudiante(String ciEstudiante) {
+		this.ciEstudiante = ciEstudiante;
+	}
+
+	public String getidMateria() {
+		return idMateria;
+	}
+
+	public void setidMateria(String idMateria) {
+		this.idMateria = idMateria;
+	}
+
+	public LocalDate getFecha() {
 		return fecha;
 	}
-	public void setFecha(Date fecha) {
+
+	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
+
 	public int getCantHoras() {
 		return cantHoras;
 	}
+
 	public void setCantHoras(int cantHoras) {
 		this.cantHoras = cantHoras;
 	}
-	public TipoInasistencia getTipo() {
-		return tipo;
+
+	public TipoInasistencia getTipoInasistencia() {
+		return tipoInasistencia;
 	}
-	public void setTipo(TipoInasistencia tipo) {
-		this.tipo = tipo;
+
+	public void setTipoInasistencia(TipoInasistencia tipoInasistencia) {
+		this.tipoInasistencia = tipoInasistencia;
 	}
-	
+
 }

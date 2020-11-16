@@ -1,5 +1,6 @@
 package proyectprog;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Estudiante  extends Usuario{
@@ -7,8 +8,8 @@ public class Estudiante  extends Usuario{
 	private Estado estado;
 	private Generacion generacion;
 
-	public Estudiante(Orientacion orientacion, Estado estado, Generacion generacion, String ci,  String password, String nombre, String apellido, String mail, Date fechaNacimiento) {
-		super(ci, password, nombre, apellido, mail, fechaNacimiento);
+	public Estudiante(String ci, Estado estado, Orientacion orientacion, Generacion generacion, String password, String nombre, String apellido, String mail, LocalDate fechaDeNacimiento) {
+		super(ci, password, nombre, apellido, mail, fechaDeNacimiento);
 		this.orientacion = orientacion;
 		this.estado = estado;
 		this.generacion = generacion;

@@ -18,7 +18,11 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 
 import javax.swing.Action;
 import java.awt.FlowLayout;
@@ -31,6 +35,9 @@ import javax.swing.JTextPane;
 import java.awt.GridLayout;
 import javax.swing.JRadioButton;
 import com.toedter.calendar.JDateChooser;
+
+import persistencia.ControladorBD;
+
 import javax.swing.JComboBox;
 import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
@@ -43,6 +50,7 @@ import java.awt.List;
 import java.awt.Checkbox;
 
 public class pantalla {
+	ControladorLogic controladorlg = new ControladorLogic();
 
 	private JFrame contentPane;
 	private CardLayout cardLayout;
@@ -50,8 +58,6 @@ public class pantalla {
 	private JTextField textField_1;
 	private JTextField textField_3;
 	private JTextField textField_4;
-	private JPasswordField passwordField;
-	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
 	private JTextField textField_8;
@@ -76,15 +82,18 @@ public class pantalla {
 	private JTextField textField_29;
 	private JTextField textField_30;
 	private JTextField textField_31;
+	private JTable table_4;
+	private JTextField textField_32;
 	private JTable table;
 	private JTable table_1;
 	private JTable table_2;
 	private JTable table_3;
 	private JTable table_5;
-	private JTable table_6;
-	private JTable table_4;
-	private JTextField textField_32;
+	private JTextField textField_5;
 	private JTextField textField_14;
+	private JTextField textField_16;
+	private JTextField textField_22;
+	private JTable table_6;
 
 	/**
 	 * Launch the application.
@@ -113,6 +122,9 @@ public class pantalla {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+
+		SimpleDateFormat sdft = new SimpleDateFormat("yyyy-MM-dd");
+
 		contentPane = new JFrame();
 		contentPane.setResizable(false);
 		contentPane.setBounds(100, 100, 450, 300);
@@ -131,13 +143,8 @@ public class pantalla {
 
 		JButton btnNewButton_1 = new JButton("Ingresar");
 
-		btnNewButton_1.setBounds(100, 138, 104, 23);
+		btnNewButton_1.setBounds(166, 126, 104, 23);
 		crearUsuar.add(btnNewButton_1);
-
-		JButton btnNewButton_2 = new JButton("Registrarse");
-
-		btnNewButton_2.setBounds(247, 138, 104, 23);
-		crearUsuar.add(btnNewButton_2);
 
 		JLabel lblCodigo_3_4_2_1_2 = new JLabel("Bienvenido");
 		lblCodigo_3_4_2_1_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -149,7 +156,7 @@ public class pantalla {
 		panelMaster.add(login, "panelRegister");
 		login.setLayout(null);
 
-		JLabel lblPasw = new JLabel("Password");
+		JLabel lblPasw = new JLabel("Contrase\u00F1a");
 		lblPasw.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPasw.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblPasw.setBounds(93, 130, 104, 48);
@@ -160,7 +167,7 @@ public class pantalla {
 		textField_3.setBounds(207, 145, 109, 20);
 		login.add(textField_3);
 
-		JLabel lblMail = new JLabel("Mail / C.I");
+		JLabel lblMail = new JLabel("C.I");
 		lblMail.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMail.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblMail.setBounds(93, 84, 104, 48);
@@ -171,12 +178,12 @@ public class pantalla {
 		textField_4.setBounds(207, 99, 109, 20);
 		login.add(textField_4);
 
-		JButton btnNewButton_2_1 = new JButton("Sign in");
+		JButton btnNewButton_2_1 = new JButton("Iniciar Sesion");
 		btnNewButton_2_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_2_1.setBounds(227, 193, 89, 23);
+		btnNewButton_2_1.setBounds(195, 193, 121, 23);
 		login.add(btnNewButton_2_1);
 
 		JLabel lblCodigo_3_4_2_1_2_1 = new JLabel("Iniciar sesi\u00F3n");
@@ -190,7 +197,7 @@ public class pantalla {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnNewButton_8.setBounds(128, 193, 89, 23);
+		btnNewButton_8.setBounds(93, 193, 89, 23);
 		login.add(btnNewButton_8);
 
 		JPanel darAltaUsuario = new JPanel();
@@ -232,7 +239,7 @@ public class pantalla {
 		darAltaMateria.setLayout(null);
 
 		textField = new JTextField();
-		textField.setBounds(105, 105, 86, 20);
+		textField.setBounds(92, 107, 86, 20);
 		darAltaMateria.add(textField);
 		textField.setColumns(10);
 
@@ -249,23 +256,19 @@ public class pantalla {
 		darAltaMateria.add(lblCodigo);
 
 		textField_1 = new JTextField();
-		textField_1.setBounds(105, 140, 86, 20);
+		textField_1.setBounds(92, 142, 86, 20);
 		textField_1.setColumns(10);
 		darAltaMateria.add(textField_1);
 
-		JLabel lblCodigo_1 = new JLabel("Nombre docente");
-		lblCodigo_1.setBounds(212, 131, 132, 41);
+		JLabel lblCodigo_1 = new JLabel("Generacion");
+		lblCodigo_1.setBounds(188, 131, 132, 41);
 		lblCodigo_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_1.setFont(new Font("Arial", Font.PLAIN, 15));
 		darAltaMateria.add(lblCodigo_1);
 
-		JButton btnNewButton_3 = new JButton("Guardar cambios");
+		JButton btnNewButton_3 = new JButton("Crear Materia");
 		btnNewButton_3.setBounds(137, 197, 160, 23);
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
 
-			}
-		});
 		darAltaMateria.add(btnNewButton_3);
 
 		JLabel lblCodigo_3_4_2_2 = new JLabel("Alta a una materia");
@@ -273,46 +276,79 @@ public class pantalla {
 		lblCodigo_3_4_2_2.setFont(new Font("Cambria", Font.PLAIN, 25));
 		lblCodigo_3_4_2_2.setBounds(0, 11, 442, 51);
 		darAltaMateria.add(lblCodigo_3_4_2_2);
-		
-		JLabel lblCodigo_3_7_5 = new JLabel("A\u00F1o dictado");
+
+		JLabel lblCodigo_3_7_5 = new JLabel("Orientacion");
 		lblCodigo_3_7_5.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_7_5.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_7_5.setBounds(212, 105, 85, 18);
+		lblCodigo_3_7_5.setBounds(188, 107, 85, 18);
 		darAltaMateria.add(lblCodigo_3_7_5);
-		
+
 		JComboBox comboBox_1_4 = new JComboBox();
-		comboBox_1_4.setModel(new DefaultComboBoxModel(new String[] {"Primero", "Segundo", "Tercero"}));
-		comboBox_1_4.setBounds(335, 105, 85, 20);
+		comboBox_1_4.setModel(new DefaultComboBoxModel(new String[] { "TIC", "ADM" }));
+		comboBox_1_4.setBounds(283, 107, 85, 20);
 		darAltaMateria.add(comboBox_1_4);
-		
-		textField_14 = new JTextField();
-		textField_14.setColumns(10);
-		textField_14.setBounds(334, 142, 86, 20);
-		darAltaMateria.add(textField_14);
+
+		JComboBox comboBox_5 = new JComboBox();
+		comboBox_5.setModel(new DefaultComboBoxModel(new String[] { "PRIMERO", "SEGUNDO", "TERCERO" }));
+		comboBox_5.setBounds(283, 141, 126, 22);
+		darAltaMateria.add(comboBox_5);
 
 		JPanel altaInasistencia = new JPanel();
 		panelMaster.add(altaInasistencia, "DISCHANGE_ABSENCE");
 		altaInasistencia.setLayout(null);
 
-		JLabel lblCodigo_3_7_2 = new JLabel("Grupo");
-		lblCodigo_3_7_2.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCodigo_3_7_2.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_7_2.setBounds(41, 89, 46, 18);
-		altaInasistencia.add(lblCodigo_3_7_2);
+		JLabel lblNewLabel = new JLabel("Crear Inasistencia");
+		lblNewLabel.setFont(new Font("Cambria", Font.PLAIN, 25));
+		lblNewLabel.setBounds(129, 23, 191, 50);
+		altaInasistencia.add(lblNewLabel);
 
-		JComboBox comboBox_1_1 = new JComboBox();
-		comboBox_1_1.setBounds(109, 88, 86, 20);
-		altaInasistencia.add(comboBox_1_1);
+		JLabel lblNewLabel_1 = new JLabel("Cantidad de Horas");
+		lblNewLabel_1.setBounds(10, 78, 89, 22);
+		altaInasistencia.add(lblNewLabel_1);
 
-		JLabel lblCodigo_3_7_3 = new JLabel("Materia");
-		lblCodigo_3_7_3.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCodigo_3_7_3.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_7_3.setBounds(241, 90, 58, 18);
-		altaInasistencia.add(lblCodigo_3_7_3);
+		textField_5 = new JTextField();
+		textField_5.setBounds(109, 79, 86, 20);
+		altaInasistencia.add(textField_5);
+		textField_5.setColumns(10);
 
-		JComboBox comboBox_1_2 = new JComboBox();
-		comboBox_1_2.setBounds(309, 89, 86, 20);
-		altaInasistencia.add(comboBox_1_2);
+		JDateChooser dateChooser_5 = new JDateChooser();
+		dateChooser_5.setBounds(109, 110, 100, 20);
+		altaInasistencia.add(dateChooser_5);
+
+		JLabel lblNewLabel_2 = new JLabel("Fecha");
+		lblNewLabel_2.setBounds(10, 110, 89, 20);
+		altaInasistencia.add(lblNewLabel_2);
+
+		JLabel lblNewLabel_3 = new JLabel("ID Materia");
+		lblNewLabel_3.setBounds(10, 141, 73, 14);
+		altaInasistencia.add(lblNewLabel_3);
+
+		JLabel lblNewLabel_4 = new JLabel("Tipo de Inasistencia");
+		lblNewLabel_4.setBounds(10, 170, 100, 14);
+		altaInasistencia.add(lblNewLabel_4);
+
+		JLabel lblNewLabel_5 = new JLabel("CI Estudiante");
+		lblNewLabel_5.setBounds(205, 81, 73, 17);
+		altaInasistencia.add(lblNewLabel_5);
+
+		JButton btnNewButton_2 = new JButton("Crear");
+		btnNewButton_2.setBounds(288, 166, 89, 23);
+		altaInasistencia.add(btnNewButton_2);
+
+		textField_14 = new JTextField();
+		textField_14.setBounds(109, 138, 86, 20);
+		altaInasistencia.add(textField_14);
+		textField_14.setColumns(10);
+
+		JComboBox comboBox_6 = new JComboBox();
+		comboBox_6.setModel(new DefaultComboBoxModel(new String[] { "JUSTIFICADA", "INJUSTIFICADA", "LLEGADA TARDE" }));
+		comboBox_6.setBounds(109, 166, 119, 22);
+		altaInasistencia.add(comboBox_6);
+
+		textField_16 = new JTextField();
+		textField_16.setBounds(288, 79, 86, 20);
+		altaInasistencia.add(textField_16);
+		textField_16.setColumns(10);
 
 		JPanel consultarUsuario = new JPanel();
 		panelMaster.add(consultarUsuario, "CONSULT_USER");
@@ -348,18 +384,18 @@ public class pantalla {
 		lblCodigo_3_4_2_3.setFont(new Font("Cambria", Font.PLAIN, 25));
 		lblCodigo_3_4_2_3.setBounds(0, 21, 442, 51);
 		consultarMateria.add(lblCodigo_3_4_2_3);
-		
+
 		JLabel lblCodigo_3_8_1_1_1 = new JLabel("Nombre o c\u00F3digo de materia");
 		lblCodigo_3_8_1_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_8_1_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblCodigo_3_8_1_1_1.setBounds(124, 98, 195, 18);
 		consultarMateria.add(lblCodigo_3_8_1_1_1);
-		
+
 		textField_32 = new JTextField();
 		textField_32.setColumns(10);
 		textField_32.setBounds(163, 127, 117, 20);
 		consultarMateria.add(textField_32);
-		
+
 		JButton btnNewButton_5_1 = new JButton("Consultar");
 		btnNewButton_5_1.setBounds(176, 176, 89, 23);
 		consultarMateria.add(btnNewButton_5_1);
@@ -394,21 +430,16 @@ public class pantalla {
 		dateChooser_4.setBounds(208, 69, 95, 20);
 		consultarInasistencia.add(dateChooser_4);
 
-		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(0, 102, 442, 153);
-		consultarInasistencia.add(scrollPane_3);
-
-		table_6 = new JTable();
-		table_6.setModel(new DefaultTableModel(
-				new Object[][] { { null, null, null, null, null }, { null, null, null, null, null },
-						{ null, null, null, null, null }, { null, null, null, null, null },
-						{ null, null, null, null, null }, },
-				new String[] { "Materia", "Estudiante", "Fecha", "Tipo inasistencia", "Cant. horas" }));
-		scrollPane_3.setViewportView(table_6);
-		
 		JButton btnNewButton_9 = new JButton("Consultar");
 		btnNewButton_9.setBounds(326, 69, 89, 20);
 		consultarInasistencia.add(btnNewButton_9);
+		
+		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.setBounds(27, 101, 390, 131);
+		consultarInasistencia.add(scrollPane_3);
+		
+		table_6 = new JTable();
+		scrollPane_3.setViewportView(table_6);
 
 		JPanel listarFuncionario = new JPanel();
 		panelMaster.add(listarFuncionario, "LIST_TEACHERS");
@@ -421,13 +452,10 @@ public class pantalla {
 		listarFuncionario.add(lblCodigo_3_4_2_6_1);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 69, 442, 176);
+		scrollPane_1.setBounds(10, 73, 422, 155);
 		listarFuncionario.add(scrollPane_1);
 
 		table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(
-				new Object[][] { { null, null, null }, { null, null, null }, { null, null, null }, },
-				new String[] { "New column", "New column", "New column" }));
 		scrollPane_1.setViewportView(table_1);
 
 		JPanel listarPendiente = new JPanel();
@@ -440,15 +468,12 @@ public class pantalla {
 		lblCodigo_3_4_2_6_2.setBounds(0, 11, 442, 51);
 		listarPendiente.add(lblCodigo_3_4_2_6_2);
 
-		JScrollPane scrollPane_1_1 = new JScrollPane();
-		scrollPane_1_1.setBounds(0, 86, 442, 176);
-		listarPendiente.add(scrollPane_1_1);
+		JScrollPane scrollPane_5 = new JScrollPane();
+		scrollPane_5.setBounds(10, 73, 422, 166);
+		listarPendiente.add(scrollPane_5);
 
 		table_3 = new JTable();
-		table_3.setModel(new DefaultTableModel(
-				new Object[][] { { null, null, null }, { null, null, null }, { null, null, null }, },
-				new String[] { "New column", "New column", "New column" }));
-		scrollPane_1_1.setViewportView(table_3);
+		scrollPane_5.setViewportView(table_3);
 
 		JPanel listarInasistencia = new JPanel();
 		panelMaster.add(listarInasistencia, "LIST_ABSENCES");
@@ -469,54 +494,6 @@ public class pantalla {
 		lblCodigo_3_4_2_1_2_3.setFont(new Font("Cambria", Font.PLAIN, 25));
 		lblCodigo_3_4_2_1_2_3.setBounds(0, 90, 442, 51);
 		random.add(lblCodigo_3_4_2_1_2_3);
-
-		JPanel Register = new JPanel();
-		panelMaster.add(Register, "panelLogin");
-		Register.setLayout(null);
-
-		JButton btnNewButton_2_1_1 = new JButton("Sign up");
-		btnNewButton_2_1_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_2_1_1.setBounds(227, 195, 89, 23);
-		Register.add(btnNewButton_2_1_1);
-
-		passwordField = new JPasswordField();
-		passwordField.setColumns(10);
-		passwordField.setBounds(207, 145, 109, 20);
-		Register.add(passwordField);
-
-		JLabel lblPasw_1 = new JLabel("Password");
-		lblPasw_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPasw_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblPasw_1.setBounds(93, 130, 104, 48);
-		Register.add(lblPasw_1);
-
-		JLabel lblMail_1 = new JLabel("Mail / C.I");
-		lblMail_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMail_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblMail_1.setBounds(93, 84, 104, 48);
-		Register.add(lblMail_1);
-
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(207, 99, 109, 20);
-		Register.add(textField_5);
-
-		JLabel lblCodigo_3_4_2_1_2_2 = new JLabel("Registro");
-		lblCodigo_3_4_2_1_2_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCodigo_3_4_2_1_2_2.setFont(new Font("Cambria", Font.PLAIN, 25));
-		lblCodigo_3_4_2_1_2_2.setBounds(0, 30, 442, 51);
-		Register.add(lblCodigo_3_4_2_1_2_2);
-
-		JButton btnNewButton_8_1 = new JButton("Atr\u00E1s");
-		btnNewButton_8_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnNewButton_8_1.setBounds(128, 195, 89, 23);
-		Register.add(btnNewButton_8_1);
 
 		JPanel altaEstudiante = new JPanel();
 		panelMaster.add(altaEstudiante, "altaUsuario");
@@ -590,22 +567,17 @@ public class pantalla {
 		altaEstudiante.add(lblCodigo_3_7);
 
 		JDateChooser dateChooser = new JDateChooser();
-		SimpleDateFormat sdft = new SimpleDateFormat("yyyy-MM-dd");
 		dateChooser.setBounds(97, 159, 108, 20);
 		altaEstudiante.add(dateChooser);
 
 		JButton btnNewButton_4 = new JButton("Guardar cambios");
 		btnNewButton_4.setForeground(Color.DARK_GRAY);
-		btnNewButton_4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(sdft.format(dateChooser.getDate()));
-			}
-		});
+
 		btnNewButton_4.setBounds(254, 200, 154, 23);
 		altaEstudiante.add(btnNewButton_4);
 
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Primero", "Segundo", "Tercero" }));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "PRIMERO", "SEGUNDO", "TERCERO" }));
 		comboBox.setBounds(97, 201, 86, 20);
 		altaEstudiante.add(comboBox);
 
@@ -625,6 +597,16 @@ public class pantalla {
 		lblCodigo_3_4_2.setFont(new Font("Cambria", Font.PLAIN, 25));
 		lblCodigo_3_4_2.setBounds(0, 0, 442, 51);
 		altaEstudiante.add(lblCodigo_3_4_2);
+
+		JLabel lblNewLabel_6 = new JLabel("Estado");
+		lblNewLabel_6.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblNewLabel_6.setBounds(254, 161, 58, 16);
+		altaEstudiante.add(lblNewLabel_6);
+
+		JComboBox comboBox_7 = new JComboBox();
+		comboBox_7.setModel(new DefaultComboBoxModel(new String[] { "ACTIVO", "EGRESADO", "DESVINCULADO" }));
+		comboBox_7.setBounds(322, 158, 86, 22);
+		altaEstudiante.add(comboBox_7);
 
 		JPanel altaDocente = new JPanel();
 		panelMaster.add(altaDocente, "Alta docente");
@@ -689,13 +671,14 @@ public class pantalla {
 		textField_15.setColumns(10);
 		altaDocente.add(textField_15);
 
-		JLabel lblCodigo_3_5_1 = new JLabel("Pssw");
-		lblCodigo_3_5_1.setBounds(253, 122, 76, 18);
+		JLabel lblCodigo_3_5_1 = new JLabel("Contrase\u00F1a");
+		lblCodigo_3_5_1.setBounds(235, 122, 76, 18);
 		lblCodigo_3_5_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_5_1.setFont(new Font("Arial", Font.PLAIN, 15));
 		altaDocente.add(lblCodigo_3_5_1);
 
 		JButton btnNewButton_4_1 = new JButton("Guardar cambios");
+
 		btnNewButton_4_1.setBounds(253, 186, 154, 23);
 		altaDocente.add(btnNewButton_4_1);
 
@@ -732,10 +715,6 @@ public class pantalla {
 		lblCodigo_3_3_1_1.setBounds(32, 139, 68, 18);
 		altaExamen.add(lblCodigo_3_3_1_1);
 
-		JDateChooser dateChooser_2_1 = new JDateChooser();
-		dateChooser_2_1.setBounds(100, 139, 106, 20);
-		altaExamen.add(dateChooser_2_1);
-
 		JLabel lblCodigo_3_2_1_1_1 = new JLabel("Nota");
 		lblCodigo_3_2_1_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_2_1_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -747,19 +726,26 @@ public class pantalla {
 		textField_18.setBounds(323, 102, 86, 20);
 		altaExamen.add(textField_18);
 
-		JLabel lblCodigo_3_7_4 = new JLabel("Materia");
+		JLabel lblCodigo_3_7_4 = new JLabel("Codigo Materia");
 		lblCodigo_3_7_4.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_7_4.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_7_4.setBounds(255, 140, 68, 18);
+		lblCodigo_3_7_4.setBounds(211, 139, 121, 18);
 		altaExamen.add(lblCodigo_3_7_4);
 
-		JComboBox comboBox_1_3 = new JComboBox();
-		comboBox_1_3.setBounds(323, 139, 86, 20);
-		altaExamen.add(comboBox_1_3);
+		JDateChooser dateChooser_1 = new JDateChooser();
 
 		JButton btnNewButton_4_1_1 = new JButton("Guardar cambios");
+
 		btnNewButton_4_1_1.setBounds(147, 194, 154, 23);
 		altaExamen.add(btnNewButton_4_1_1);
+
+		dateChooser_1.setBounds(80, 137, 121, 20);
+		altaExamen.add(dateChooser_1);
+
+		textField_22 = new JTextField();
+		textField_22.setBounds(323, 139, 86, 20);
+		altaExamen.add(textField_22);
+		textField_22.setColumns(10);
 
 		JPanel altaFuncionario = new JPanel();
 		panelMaster.add(altaFuncionario, "altaFuncionario");
@@ -815,6 +801,7 @@ public class pantalla {
 		altaFuncionario.add(lblCodigo_3_3_1_2);
 
 		JButton btnNewButton_4_1_2 = new JButton("Guardar cambios");
+		
 		btnNewButton_4_1_2.setBounds(253, 186, 154, 23);
 		altaFuncionario.add(btnNewButton_4_1_2);
 
@@ -823,10 +810,10 @@ public class pantalla {
 		textField_23.setBounds(321, 122, 86, 20);
 		altaFuncionario.add(textField_23);
 
-		JLabel lblCodigo_3_5_1_1 = new JLabel("Pssw");
+		JLabel lblCodigo_3_5_1_1 = new JLabel("Contraseña");
 		lblCodigo_3_5_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_5_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_5_1_1.setBounds(253, 122, 76, 18);
+		lblCodigo_3_5_1_1.setBounds(234, 122, 76, 18);
 		altaFuncionario.add(lblCodigo_3_5_1_1);
 
 		JLabel lblCodigo_3_4_1_1 = new JLabel("Apellido");
@@ -851,13 +838,10 @@ public class pantalla {
 		listarDocente.add(lblCodigo_3_4_2_6_3_1);
 
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(0, 73, 442, 176);
+		scrollPane_2.setBounds(10, 73, 422, 160);
 		listarDocente.add(scrollPane_2);
 
 		table_2 = new JTable();
-		table_2.setModel(
-				new DefaultTableModel(new Object[][] { { null, null, null }, { null, null, null }, { null, null, null },
-						{ null, null, null }, }, new String[] { "New column", "New column", "New column" }));
 		scrollPane_2.setViewportView(table_2);
 
 		JPanel listarMateria = new JPanel();
@@ -887,16 +871,12 @@ public class pantalla {
 		lblCodigo_3_4_2_6_3_1_1_1.setBounds(0, 11, 442, 51);
 		listarInasistencias.add(lblCodigo_3_4_2_6_3_1_1_1);
 
-		JScrollPane scrollPane_1_3 = new JScrollPane();
-		scrollPane_1_3.setBounds(0, 68, 442, 176);
-		listarInasistencias.add(scrollPane_1_3);
+		JScrollPane scrollPane_6 = new JScrollPane();
+		scrollPane_6.setBounds(10, 73, 422, 162);
+		listarInasistencias.add(scrollPane_6);
 
 		table_5 = new JTable();
-		table_5.setModel(new DefaultTableModel(
-				new Object[][] { { null, null, null, null, null }, { null, null, null, null, null },
-						{ null, null, null, null, null }, { null, null, null, null, null }, },
-				new String[] { "New column", "New column", "New column", "New column", "New column" }));
-		scrollPane_1_3.setViewportView(table_5);
+		scrollPane_6.setViewportView(table_5);
 
 		JPanel reporteEstadisticas = new JPanel();
 		panelMaster.add(reporteEstadisticas, "reporteEstadisticas");
@@ -919,13 +899,13 @@ public class pantalla {
 		JLabel lblCodigo_3_3_1_2_1 = new JLabel("Nac.");
 		lblCodigo_3_3_1_2_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_3_1_2_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_3_1_2_1.setBounds(56, 178, 68, 18);
+		lblCodigo_3_3_1_2_1.setBounds(46, 178, 68, 18);
 		consularUsuario1.add(lblCodigo_3_3_1_2_1);
 
 		JLabel lblCodigo_3_2_1_2_1 = new JLabel("Constrase\u00F1a");
 		lblCodigo_3_2_1_2_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_2_1_2_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_2_1_2_1.setBounds(56, 143, 68, 18);
+		lblCodigo_3_2_1_2_1.setBounds(23, 142, 101, 18);
 		consularUsuario1.add(lblCodigo_3_2_1_2_1);
 
 		JLabel lblCodigo_3_1_1_1_1 = new JLabel("C.I");
@@ -980,7 +960,7 @@ public class pantalla {
 		JButton btnNewButton_6 = new JButton("Modificar");
 		btnNewButton_6.setBounds(297, 175, 115, 23);
 		consularUsuario1.add(btnNewButton_6);
-		
+
 		JLabel lblCodigo_3_4_2_6_3_1_1_1_1_2 = new JLabel("Informaci\u00F3n del usuario");
 		lblCodigo_3_4_2_6_3_1_1_1_1_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_6_3_1_1_1_1_2.setFont(new Font("Cambria", Font.PLAIN, 25));
@@ -1013,7 +993,7 @@ public class pantalla {
 		consularUsuario2.add(lblCodigo_3_8_1_2_1_1_1);
 
 		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Ingles"}));
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] { "Ingles" }));
 		comboBox_2.setBounds(147, 139, 86, 22);
 		consularUsuario2.add(comboBox_2);
 
@@ -1022,12 +1002,13 @@ public class pantalla {
 		lblCodigo_3_8_1_2_1_1_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblCodigo_3_8_1_2_1_1_1_1.setBounds(91, 140, 58, 18);
 		consularUsuario2.add(lblCodigo_3_8_1_2_1_1_1_1);
-		
+
 		JComboBox comboBox_2_1 = new JComboBox();
-		comboBox_2_1.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
+		comboBox_2_1.setModel(new DefaultComboBoxModel(
+				new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 		comboBox_2_1.setBounds(304, 139, 51, 22);
 		consularUsuario2.add(comboBox_2_1);
-		
+
 		JLabel lblCodigo_3_4_2_6_3_1_1_1_1_2_1 = new JLabel("Estudiante");
 		lblCodigo_3_4_2_6_3_1_1_1_1_2_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_6_3_1_1_1_1_2_1.setFont(new Font("Cambria", Font.PLAIN, 25));
@@ -1047,18 +1028,6 @@ public class pantalla {
 		lblCodigo_3_4_2_6_3_1_1_1_1_1.setFont(new Font("Cambria", Font.PLAIN, 25));
 		lblCodigo_3_4_2_6_3_1_1_1_1_1.setBounds(10, 21, 223, 51);
 		listarEstudiantes.add(lblCodigo_3_4_2_6_3_1_1_1_1_1);
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 98, 442, 153);
-		listarEstudiantes.add(scrollPane);
-
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-				new Object[][] { { null, null, null, null, null }, { null, null, null, null, null },
-						{ null, null, null, null, null }, { null, null, null, null, null },
-						{ null, null, null, null, null }, },
-				new String[] { "New column", "New column", "New column", "New column", "New column" }));
-		scrollPane.setViewportView(table);
 
 		JLabel lblCodigo_3_7_1_1 = new JLabel("Gen.");
 		lblCodigo_3_7_1_1.setHorizontalAlignment(SwingConstants.LEFT);
@@ -1081,6 +1050,13 @@ public class pantalla {
 		comboBox_4.setModel(new DefaultComboBoxModel(new String[] { "TIC", "ADM" }));
 		comboBox_4.setBounds(321, 52, 86, 20);
 		listarEstudiantes.add(comboBox_4);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(31, 97, 376, 139);
+		listarEstudiantes.add(scrollPane);
+
+		table = new JTable();
+		scrollPane.setViewportView(table);
 
 		JMenuBar menuBar = new JMenuBar();
 		contentPane.setJMenuBar(menuBar);
@@ -1162,13 +1138,13 @@ public class pantalla {
 				String[] dato = new String[4];
 				try {
 					ControladorLogic controladorlogic = new ControladorLogic();
-					ResultSet result = controladorlogic.listarMaterias();
+					ResultSet result1 = controladorlogic.listarMaterias();
 
-					while (result.next()) {
-						dato[0] = result.getString(1);
-						dato[1] = result.getString(2);
-						dato[2] = result.getString(3);
-						dato[3] = result.getString(4);
+					while (result1.next()) {
+						dato[0] = result1.getString(1);
+						dato[1] = result1.getString(2);
+						dato[2] = result1.getString(3);
+						dato[3] = result1.getString(4);
 						model.addRow(dato);
 					}
 					table_4.setModel(model);
@@ -1186,6 +1162,43 @@ public class pantalla {
 		mntmInasistencias.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cardLayout.show(panelMaster, "listarInasistencias");
+
+				DefaultTableModel model = new DefaultTableModel() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+				};
+
+				model.addColumn("Cantidad de Horas");
+				model.addColumn("Fecha");
+				model.addColumn("ID de Materia");
+				model.addColumn("Tipo de Inasistencia");
+				model.addColumn("CI de Estudiante");
+
+				String[] dato = new String[5];
+				try {
+					ControladorLogic controladorlogic = new ControladorLogic();
+					ResultSet result6 = controladorlogic.listarInasistencias();
+
+					while (result6.next()) {
+						dato[0] = result6.getString(1);
+						dato[1] = result6.getString(2);
+						dato[2] = result6.getString(3);
+						dato[3] = result6.getString(4);
+						dato[4] = result6.getString(5);
+						model.addRow(dato);
+					}
+					table_5.setModel(model);
+				}
+
+				catch (Exception e3) {
+					e3.printStackTrace();
+				}
 			}
 		});
 		mnList.add(mntmInasistencias);
@@ -1211,24 +1224,152 @@ public class pantalla {
 		mntmUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(panelMaster, "listarEstudiantes");
+
+				DefaultTableModel model = new DefaultTableModel() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+				};
+
+				model.addColumn("Cedula De Identidad");
+				model.addColumn("Estado");
+				model.addColumn("Orientacion");
+				model.addColumn("Generacion");
+
+				String[] dato = new String[4];
+				try {
+					ControladorLogic controladorlogic = new ControladorLogic();
+					ResultSet result2 = controladorlogic.listarEstudiantes();
+
+					while (result2.next()) {
+						dato[0] = result2.getString(1);
+						dato[1] = result2.getString(2);
+						dato[2] = result2.getString(3);
+						dato[3] = result2.getString(4);
+						model.addRow(dato);
+					}
+					table.setModel(model);
+				}
+
+				catch (Exception e3) {
+					e3.printStackTrace();
+				}
 			}
 		});
 
 		mntmTeachers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(panelMaster, "LIST_TEACHERS");
+
+				DefaultTableModel model = new DefaultTableModel() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+				};
+
+				model.addColumn("Cedula De Identidad");
+
+				String[] dato = new String[1];
+				try {
+					ControladorLogic controladorlogic = new ControladorLogic();
+					ResultSet result3 = controladorlogic.listarFuncionarios();
+
+					while (result3.next()) {
+						dato[0] = result3.getString(1);
+						model.addRow(dato);
+					}
+					table_1.setModel(model);
+				}
+
+				catch (Exception e3) {
+					e3.printStackTrace();
+				}
 			}
 		});
 
 		mntmOfficials.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(panelMaster, "listarDocente");
+
+				DefaultTableModel model = new DefaultTableModel() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+				};
+
+				model.addColumn("Cedula De Identidad");
+
+				String[] dato = new String[1];
+				try {
+					ControladorLogic controladorlogic = new ControladorLogic();
+					ResultSet result4 = controladorlogic.listarDocentes();
+
+					while (result4.next()) {
+						dato[0] = result4.getString(1);
+						model.addRow(dato);
+					}
+					table_2.setModel(model);
+				}
+
+				catch (Exception e3) {
+					e3.printStackTrace();
+				}
 			}
 		});
 
 		mntmSubjects.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(panelMaster, "LIST_SUBJECTS");
+
+				DefaultTableModel model = new DefaultTableModel() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+				};
+
+				model.addColumn("Cedula del Estudiante");
+				model.addColumn("ID de Materia");
+				model.addColumn("Fecha");
+				model.addColumn("Nota");
+
+				String[] dato = new String[4];
+				try {
+					ControladorLogic controladorlogic = new ControladorLogic();
+					ResultSet result5 = controladorlogic.listarPendientes();
+
+					while (result5.next()) {
+						dato[0] = result5.getString(1);
+						dato[1] = result5.getString(2);
+						dato[2] = result5.getString(3);
+						dato[3] = result5.getString(4);
+						model.addRow(dato);
+					}
+					table_3.setModel(model);
+				}
+
+				catch (Exception e3) {
+					e3.printStackTrace();
+				}
 			}
 		});
 
@@ -1272,12 +1413,6 @@ public class pantalla {
 
 			}
 		});
-
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(panelMaster, "panelLogin");
-			}
-		});
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(panelMaster, "panelRegister");
@@ -1285,12 +1420,6 @@ public class pantalla {
 			}
 		});
 		btnNewButton_2_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(panelMaster, "random");
-				mnMenu.setVisible(true);
-			}
-		});
-		btnNewButton_2_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(panelMaster, "random");
 				mnMenu.setVisible(true);
@@ -1321,9 +1450,195 @@ public class pantalla {
 				cardLayout.show(panelMaster, "MENU");
 			}
 		});
-		btnNewButton_8_1.addActionListener(new ActionListener() {
+
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				String nombre = textField.getText();
+				String codigo = textField_1.getText();
+
+				if (comboBox_1_4.getSelectedItem() == "TIC" && comboBox_5.getSelectedItem() == "PRIMERO") {
+					Materia mat = new Materia(nombre, codigo, Orientacion.TIC, Generacion.PRIMERO);
+					try {
+						controladorlg.crearMateria(mat);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} else {
+					if (comboBox_1_4.getSelectedItem() == "TIC" && comboBox_5.getSelectedItem() == "SEGUNDO") {
+						Materia mat = new Materia(nombre, codigo, Orientacion.TIC, Generacion.SEGUNDO);
+						try {
+							controladorlg.crearMateria(mat);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} else {
+						if (comboBox_1_4.getSelectedItem() == "TIC" && comboBox_5.getSelectedItem() == "TERCERO") {
+							Materia mat = new Materia(nombre, codigo, Orientacion.TIC, Generacion.TERCERO);
+							try {
+								controladorlg.crearMateria(mat);
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+					}
+				}
+
+				if (comboBox_1_4.getSelectedItem() == "ADM" && comboBox_5.getSelectedItem() == "PRIEMRO") {
+					Materia mat = new Materia(nombre, codigo, Orientacion.ADM, Generacion.PRIMERO);
+					try {
+						controladorlg.crearMateria(mat);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} else {
+					if (comboBox_1_4.getSelectedItem() == "ADM" && comboBox_5.getSelectedItem() == "SEGUNDO") {
+						Materia mat = new Materia(nombre, codigo, Orientacion.ADM, Generacion.SEGUNDO);
+						try {
+							controladorlg.crearMateria(mat);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} else {
+						if (comboBox_1_4.getSelectedItem() == "ADM" && comboBox_5.getSelectedItem() == "TERCERO") {
+							Materia mat = new Materia(nombre, codigo, Orientacion.ADM, Generacion.TERCERO);
+							try {
+								controladorlg.crearMateria(mat);
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+					}
+
+				}
+			}
+
+		});
+
+		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cardLayout.show(panelMaster, "MENU");
+				Integer cantHoras = Integer.parseInt(textField_5.getText());
+				LocalDate date2 = LocalDate.parse(sdft.format(dateChooser_5.getDate()));
+				String idMateria = textField_14.getText();
+				String ciEstudiante = textField_16.getText();
+				if (comboBox_6.getSelectedItem() == "JUSTIFICADA") {
+					Inasistencia ina = new Inasistencia(ciEstudiante, idMateria, date2, cantHoras,
+							TipoInasistencia.JUSTIFICADA);
+					try {
+						controladorlg.crearInasistencia(ina);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				} else {
+					if (comboBox_6.getSelectedItem() == "INJUSTIFICADA") {
+						Inasistencia ina = new Inasistencia(ciEstudiante, idMateria, date2, cantHoras,
+								TipoInasistencia.INJUSTIFICADA);
+						try {
+							controladorlg.crearInasistencia(ina);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+					} else {
+						Inasistencia ina = new Inasistencia(ciEstudiante, idMateria, date2, cantHoras,
+								TipoInasistencia.LLEGADA_TARDE);
+						try {
+							controladorlg.crearInasistencia(ina);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+
+			}
+
+		});
+
+		btnNewButton_4_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				String ci = textField_17.getText();
+				String codM = textField_22.getText();
+				LocalDate date5 = LocalDate.parse(sdft.format(dateChooser_1.getDate()));
+				Integer nta = Integer.parseInt(textField_18.getText());
+				Examen exa = new Examen(ci, codM, date5, nta);
+				try {
+					controladorlg.crearExamen(exa);
+				} catch (Exception e3) {
+					e3.printStackTrace();
+				}
+
+			}
+		});
+
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String nameE = textField_6.getText();
+				String ciE = textField_7.getText();
+				String mailE = textField_8.getText();
+				LocalDate nacE = LocalDate.parse(sdft.format(dateChooser.getDate()));
+				String apeE = textField_12.getText();
+				String psswE = textField_13.getText();
+				String esE = comboBox_7.getSelectedItem().toString();
+				String oriE = comboBox_1.getSelectedItem().toString();
+				String genE = comboBox.getSelectedItem().toString();
+
+				Estudiante est = new Estudiante(ciE, Estado.valueOf(esE), Orientacion.valueOf(oriE),
+						Generacion.valueOf(genE), psswE, nameE, apeE, mailE, nacE);
+				try {
+					controladorlg.crearEstudiante(est);
+				} catch (Exception e6) {
+					e6.printStackTrace();
+				}
+
+			}
+		});
+
+		btnNewButton_4_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String nomD = textField_2.getText();
+				String ciD = textField_9.getText();
+				String mailD = textField_10.getText();
+				String apD = textField_11.getText();
+				String psswD = textField_15.getText();
+				LocalDate nacD = LocalDate.parse(sdft.format(dateChooser_2.getDate()));
+				
+				Docente doc = new Docente(ciD, psswD, nomD, apD, mailD, nacD);
+				
+				try {
+					controladorlg.crearDocente(doc);
+				}catch (Exception e7) {
+					e7.printStackTrace();
+				}
+			}
+		});
+		
+		btnNewButton_4_1_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String nomF = textField_19.getText();
+				String ciF = textField_20.getText();
+				String mailF = textField_21.getText();
+				String apF = textField_24.getText();
+				String psswF = textField_23.getText();
+				LocalDate nacF = LocalDate.parse(sdft.format(dateChooser_2_2.getDate()));
+				
+				Funcionario fun = new Funcionario(ciF, psswF, nomF, apF, mailF, nacF);
+				
+				try {
+					controladorlg.crearFuncionario(fun);
+				}catch (Exception e8){
+					e8.printStackTrace();
+				}
 			}
 		});
 
