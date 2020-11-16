@@ -39,8 +39,8 @@ public class ControladorLogic {
 
 	}
 
-	public void crearMateria(Materia materia) throws Exception {
-		controladorbd.crearMateria(materia);
+	public void crearMateria(Materia materia, String ciDoc) throws Exception {
+		controladorbd.crearMateria(materia, ciDoc);
 	}
 
 	public void crearExamen(Examen examen) throws Exception {

@@ -9,7 +9,7 @@ public class Examen {
 	private LocalDate fecha;
 	private int nota;
 
-	public Examen(String ci, String id, LocalDate fecha, int nota, String codigo) {
+	public Examen(String ci, String id, LocalDate fecha, int nota) {
 		super();
 		this.ci = ci;
 		this.id = id;

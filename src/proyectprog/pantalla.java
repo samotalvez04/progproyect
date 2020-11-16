@@ -17,7 +17,9 @@ import javax.swing.SwingConstants;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,10 +34,13 @@ import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+import javax.swing.RowFilter;
+
 import java.awt.GridLayout;
 import javax.swing.JRadioButton;
 import com.toedter.calendar.JDateChooser;
 
+import persistencia.Conn;
 import persistencia.ControladorBD;
 
 import javax.swing.JComboBox;
@@ -44,14 +49,22 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.JScrollPane;
 import javax.swing.JCheckBox;
 import java.awt.List;
 import java.awt.Checkbox;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class pantalla {
-	ControladorLogic controladorlg = new ControladorLogic();
 
+	ControladorLogic controladorlg = new ControladorLogic();
+	TableRowSorter trs;
+	Conn conn = new Conn();
+	Connection connection = conn.conectarMySQL();
 	private JFrame contentPane;
 	private CardLayout cardLayout;
 	private JTextField textField;
@@ -94,6 +107,7 @@ public class pantalla {
 	private JTextField textField_16;
 	private JTextField textField_22;
 	private JTable table_6;
+	private JTextField textField_33;
 
 	/**
 	 * Launch the application.
@@ -115,6 +129,7 @@ public class pantalla {
 	 * Create the application.
 	 */
 	public pantalla() {
+
 		initialize();
 	}
 
@@ -137,20 +152,29 @@ public class pantalla {
 		panelMaster.setLayout(new CardLayout(0, 0));
 		cardLayout = (CardLayout) panelMaster.getLayout();
 
-		JPanel crearUsuar = new JPanel();
-		panelMaster.add(crearUsuar, "MENU");
-		crearUsuar.setLayout(null);
+		JPanel inicio = new JPanel();
+		panelMaster.add(inicio, "MENU");
+		inicio.setLayout(null);
 
 		JButton btnNewButton_1 = new JButton("Ingresar");
 
 		btnNewButton_1.setBounds(166, 126, 104, 23);
-		crearUsuar.add(btnNewButton_1);
+		inicio.add(btnNewButton_1);
 
 		JLabel lblCodigo_3_4_2_1_2 = new JLabel("Bienvenido");
 		lblCodigo_3_4_2_1_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_1_2.setFont(new Font("Cambria", Font.PLAIN, 25));
 		lblCodigo_3_4_2_1_2.setBounds(0, 64, 442, 51);
-		crearUsuar.add(lblCodigo_3_4_2_1_2);
+		inicio.add(lblCodigo_3_4_2_1_2);
+
+		JButton btnNewButton_10 = new JButton("Salir");
+		btnNewButton_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		btnNewButton_10.setBounds(166, 159, 104, 23);
+		inicio.add(btnNewButton_10);
 
 		JPanel login = new JPanel();
 		panelMaster.add(login, "panelRegister");
@@ -239,29 +263,29 @@ public class pantalla {
 		darAltaMateria.setLayout(null);
 
 		textField = new JTextField();
-		textField.setBounds(92, 107, 86, 20);
+		textField.setBounds(92, 70, 86, 20);
 		darAltaMateria.add(textField);
 		textField.setColumns(10);
 
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(28, 92, 101, 48);
+		lblNombre.setBounds(28, 55, 101, 48);
 		lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNombre.setFont(new Font("Arial", Font.PLAIN, 15));
 		darAltaMateria.add(lblNombre);
 
 		JLabel lblCodigo = new JLabel("C\u00F3digo");
-		lblCodigo.setBounds(28, 131, 101, 41);
+		lblCodigo.setBounds(28, 101, 101, 41);
 		lblCodigo.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo.setFont(new Font("Arial", Font.PLAIN, 15));
 		darAltaMateria.add(lblCodigo);
 
 		textField_1 = new JTextField();
-		textField_1.setBounds(92, 142, 86, 20);
+		textField_1.setBounds(92, 112, 86, 20);
 		textField_1.setColumns(10);
 		darAltaMateria.add(textField_1);
 
 		JLabel lblCodigo_1 = new JLabel("Generacion");
-		lblCodigo_1.setBounds(188, 131, 132, 41);
+		lblCodigo_1.setBounds(188, 101, 132, 41);
 		lblCodigo_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_1.setFont(new Font("Arial", Font.PLAIN, 15));
 		darAltaMateria.add(lblCodigo_1);
@@ -277,21 +301,30 @@ public class pantalla {
 		lblCodigo_3_4_2_2.setBounds(0, 11, 442, 51);
 		darAltaMateria.add(lblCodigo_3_4_2_2);
 
-		JLabel lblCodigo_3_7_5 = new JLabel("Orientacion");
-		lblCodigo_3_7_5.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCodigo_3_7_5.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_7_5.setBounds(188, 107, 85, 18);
-		darAltaMateria.add(lblCodigo_3_7_5);
-
 		JComboBox comboBox_1_4 = new JComboBox();
 		comboBox_1_4.setModel(new DefaultComboBoxModel(new String[] { "TIC", "ADM" }));
-		comboBox_1_4.setBounds(283, 107, 85, 20);
+		comboBox_1_4.setBounds(283, 70, 85, 20);
 		darAltaMateria.add(comboBox_1_4);
 
 		JComboBox comboBox_5 = new JComboBox();
 		comboBox_5.setModel(new DefaultComboBoxModel(new String[] { "PRIMERO", "SEGUNDO", "TERCERO" }));
-		comboBox_5.setBounds(283, 141, 126, 22);
+		comboBox_5.setBounds(283, 111, 126, 22);
 		darAltaMateria.add(comboBox_5);
+
+		JLabel lblNewLabel_7 = new JLabel("Orientacion");
+		lblNewLabel_7.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblNewLabel_7.setBounds(188, 73, 86, 14);
+		darAltaMateria.add(lblNewLabel_7);
+
+		JLabel lblNewLabel_8 = new JLabel("CI del Docente que la Dicta");
+		lblNewLabel_8.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblNewLabel_8.setBounds(28, 153, 201, 14);
+		darAltaMateria.add(lblNewLabel_8);
+
+		textField_33 = new JTextField();
+		textField_33.setBounds(239, 151, 118, 20);
+		darAltaMateria.add(textField_33);
+		textField_33.setColumns(10);
 
 		JPanel altaInasistencia = new JPanel();
 		panelMaster.add(altaInasistencia, "DISCHANGE_ABSENCE");
@@ -433,11 +466,11 @@ public class pantalla {
 		JButton btnNewButton_9 = new JButton("Consultar");
 		btnNewButton_9.setBounds(326, 69, 89, 20);
 		consultarInasistencia.add(btnNewButton_9);
-		
+
 		JScrollPane scrollPane_3 = new JScrollPane();
 		scrollPane_3.setBounds(27, 101, 390, 131);
 		consultarInasistencia.add(scrollPane_3);
-		
+
 		table_6 = new JTable();
 		scrollPane_3.setViewportView(table_6);
 
@@ -462,7 +495,7 @@ public class pantalla {
 		panelMaster.add(listarPendiente, "LIST_SUBJECTS");
 		listarPendiente.setLayout(null);
 
-		JLabel lblCodigo_3_4_2_6_2 = new JLabel("Listar estudiante con pendiente");
+		JLabel lblCodigo_3_4_2_6_2 = new JLabel("Listar examenes");
 		lblCodigo_3_4_2_6_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_6_2.setFont(new Font("Cambria", Font.PLAIN, 25));
 		lblCodigo_3_4_2_6_2.setBounds(0, 11, 442, 51);
@@ -474,16 +507,6 @@ public class pantalla {
 
 		table_3 = new JTable();
 		scrollPane_5.setViewportView(table_3);
-
-		JPanel listarInasistencia = new JPanel();
-		panelMaster.add(listarInasistencia, "LIST_ABSENCES");
-		listarInasistencia.setLayout(null);
-
-		JLabel lblCodigo_3_4_2_6_3 = new JLabel("Listar inasistencia");
-		lblCodigo_3_4_2_6_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCodigo_3_4_2_6_3.setFont(new Font("Cambria", Font.PLAIN, 25));
-		lblCodigo_3_4_2_6_3.setBounds(0, 11, 442, 51);
-		listarInasistencia.add(lblCodigo_3_4_2_6_3);
 
 		JPanel random = new JPanel();
 		panelMaster.add(random, "random");
@@ -801,7 +824,7 @@ public class pantalla {
 		altaFuncionario.add(lblCodigo_3_3_1_2);
 
 		JButton btnNewButton_4_1_2 = new JButton("Guardar cambios");
-		
+
 		btnNewButton_4_1_2.setBounds(253, 186, 154, 23);
 		altaFuncionario.add(btnNewButton_4_1_2);
 
@@ -1032,24 +1055,14 @@ public class pantalla {
 		JLabel lblCodigo_3_7_1_1 = new JLabel("Gen.");
 		lblCodigo_3_7_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_7_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_7_1_1.setBounds(253, 27, 76, 18);
+		lblCodigo_3_7_1_1.setBounds(243, 11, 76, 18);
 		listarEstudiantes.add(lblCodigo_3_7_1_1);
-
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setModel(new DefaultComboBoxModel(new String[] { "Primero", "Segundo", "Tercero" }));
-		comboBox_3.setBounds(321, 27, 86, 20);
-		listarEstudiantes.add(comboBox_3);
 
 		JLabel lblCodigo_3_7_1_2 = new JLabel("Orient.");
 		lblCodigo_3_7_1_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_7_1_2.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCodigo_3_7_1_2.setBounds(253, 52, 76, 18);
+		lblCodigo_3_7_1_2.setBounds(243, 41, 76, 18);
 		listarEstudiantes.add(lblCodigo_3_7_1_2);
-
-		JComboBox comboBox_4 = new JComboBox();
-		comboBox_4.setModel(new DefaultComboBoxModel(new String[] { "TIC", "ADM" }));
-		comboBox_4.setBounds(321, 52, 86, 20);
-		listarEstudiantes.add(comboBox_4);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(31, 97, 376, 139);
@@ -1057,6 +1070,26 @@ public class pantalla {
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
+
+		JComboBox comboBox_3 = new JComboBox();
+
+		comboBox_3.setModel(new DefaultComboBoxModel(new String[] { " ", "TIC", "ADM" }));
+		comboBox_3.setBounds(311, 40, 84, 22);
+		listarEstudiantes.add(comboBox_3);
+
+		JComboBox comboBox_4 = new JComboBox();
+
+		comboBox_4.setModel(new DefaultComboBoxModel(new String[] { " ", "PRIMERO", "SEGUNDO", "TERCERO" }));
+		comboBox_4.setBounds(311, 10, 84, 22);
+		listarEstudiantes.add(comboBox_4);
+
+		JButton btnNewButton_11 = new JButton("Buscar");
+		btnNewButton_11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnNewButton_11.setBounds(311, 70, 84, 23);
+		listarEstudiantes.add(btnNewButton_11);
 
 		JMenuBar menuBar = new JMenuBar();
 		contentPane.setJMenuBar(menuBar);
@@ -1245,7 +1278,6 @@ public class pantalla {
 				try {
 					ControladorLogic controladorlogic = new ControladorLogic();
 					ResultSet result2 = controladorlogic.listarEstudiantes();
-
 					while (result2.next()) {
 						dato[0] = result2.getString(1);
 						dato[1] = result2.getString(2);
@@ -1456,67 +1488,18 @@ public class pantalla {
 
 				String nombre = textField.getText();
 				String codigo = textField_1.getText();
+				String ciDoc = textField_33.getText();
+				String oriM = comboBox_1_4.getSelectedItem().toString();
+				String genM = comboBox_5.getSelectedItem().toString();
 
-				if (comboBox_1_4.getSelectedItem() == "TIC" && comboBox_5.getSelectedItem() == "PRIMERO") {
-					Materia mat = new Materia(nombre, codigo, Orientacion.TIC, Generacion.PRIMERO);
-					try {
-						controladorlg.crearMateria(mat);
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				} else {
-					if (comboBox_1_4.getSelectedItem() == "TIC" && comboBox_5.getSelectedItem() == "SEGUNDO") {
-						Materia mat = new Materia(nombre, codigo, Orientacion.TIC, Generacion.SEGUNDO);
-						try {
-							controladorlg.crearMateria(mat);
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					} else {
-						if (comboBox_1_4.getSelectedItem() == "TIC" && comboBox_5.getSelectedItem() == "TERCERO") {
-							Materia mat = new Materia(nombre, codigo, Orientacion.TIC, Generacion.TERCERO);
-							try {
-								controladorlg.crearMateria(mat);
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
-					}
+				Materia mat = new Materia(nombre, codigo, Orientacion.valueOf(oriM), Generacion.valueOf(genM));
+
+				try {
+					controladorlg.crearMateria(mat, ciDoc);
+				} catch (Exception e1) {
+					e1.printStackTrace();
 				}
 
-				if (comboBox_1_4.getSelectedItem() == "ADM" && comboBox_5.getSelectedItem() == "PRIEMRO") {
-					Materia mat = new Materia(nombre, codigo, Orientacion.ADM, Generacion.PRIMERO);
-					try {
-						controladorlg.crearMateria(mat);
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				} else {
-					if (comboBox_1_4.getSelectedItem() == "ADM" && comboBox_5.getSelectedItem() == "SEGUNDO") {
-						Materia mat = new Materia(nombre, codigo, Orientacion.ADM, Generacion.SEGUNDO);
-						try {
-							controladorlg.crearMateria(mat);
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					} else {
-						if (comboBox_1_4.getSelectedItem() == "ADM" && comboBox_5.getSelectedItem() == "TERCERO") {
-							Materia mat = new Materia(nombre, codigo, Orientacion.ADM, Generacion.TERCERO);
-							try {
-								controladorlg.crearMateria(mat);
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
-					}
-
-				}
 			}
 
 		});
@@ -1527,37 +1510,15 @@ public class pantalla {
 				LocalDate date2 = LocalDate.parse(sdft.format(dateChooser_5.getDate()));
 				String idMateria = textField_14.getText();
 				String ciEstudiante = textField_16.getText();
-				if (comboBox_6.getSelectedItem() == "JUSTIFICADA") {
-					Inasistencia ina = new Inasistencia(ciEstudiante, idMateria, date2, cantHoras,
-							TipoInasistencia.JUSTIFICADA);
-					try {
-						controladorlg.crearInasistencia(ina);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				String tipoIna = comboBox_6.getSelectedItem().toString();
 
-				} else {
-					if (comboBox_6.getSelectedItem() == "INJUSTIFICADA") {
-						Inasistencia ina = new Inasistencia(ciEstudiante, idMateria, date2, cantHoras,
-								TipoInasistencia.INJUSTIFICADA);
-						try {
-							controladorlg.crearInasistencia(ina);
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-					} else {
-						Inasistencia ina = new Inasistencia(ciEstudiante, idMateria, date2, cantHoras,
-								TipoInasistencia.LLEGADA_TARDE);
-						try {
-							controladorlg.crearInasistencia(ina);
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
+				Inasistencia ina = new Inasistencia(ciEstudiante, idMateria, date2, cantHoras,
+						TipoInasistencia.valueOf(tipoIna));
+				try {
+					controladorlg.crearInasistencia(ina);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 
 			}
@@ -1577,7 +1538,6 @@ public class pantalla {
 				} catch (Exception e3) {
 					e3.printStackTrace();
 				}
-
 			}
 		});
 
@@ -1612,17 +1572,17 @@ public class pantalla {
 				String apD = textField_11.getText();
 				String psswD = textField_15.getText();
 				LocalDate nacD = LocalDate.parse(sdft.format(dateChooser_2.getDate()));
-				
+
 				Docente doc = new Docente(ciD, psswD, nomD, apD, mailD, nacD);
-				
+
 				try {
 					controladorlg.crearDocente(doc);
-				}catch (Exception e7) {
+				} catch (Exception e7) {
 					e7.printStackTrace();
 				}
 			}
 		});
-		
+
 		btnNewButton_4_1_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String nomF = textField_19.getText();
@@ -1631,16 +1591,249 @@ public class pantalla {
 				String apF = textField_24.getText();
 				String psswF = textField_23.getText();
 				LocalDate nacF = LocalDate.parse(sdft.format(dateChooser_2_2.getDate()));
-				
+
 				Funcionario fun = new Funcionario(ciF, psswF, nomF, apF, mailF, nacF);
-				
+
 				try {
 					controladorlg.crearFuncionario(fun);
-				}catch (Exception e8){
+				} catch (Exception e8) {
 					e8.printStackTrace();
 				}
 			}
 		});
 
+		btnNewButton_11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				String genCOM = comboBox_4.getSelectedItem().toString();
+				String oriCOM = comboBox_3.getSelectedItem().toString();
+
+				System.out.println(genCOM + "," + oriCOM);
+
+				if (oriCOM == "ADM" && genCOM == "PRIMERO") {
+					DefaultTableModel model = new DefaultTableModel() {
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+
+						public boolean isCellEditable(int row, int column) {
+							return false;
+						}
+					};
+
+					model.addColumn("Cedula De Identidad");
+					model.addColumn("Estado");
+					model.addColumn("Orientacion");
+					model.addColumn("Generacion");
+
+					String[] dato = new String[4];
+					try {
+						ResultSet rs2;
+						rs2 = connection.createStatement().executeQuery(
+								"SELECT * FROM estudiante WHERE generacion='PRIMERO' && orientacion ='ADM'");
+						while (rs2.next()) {
+							dato[0] = rs2.getString(1);
+							dato[1] = rs2.getString(2);
+							dato[2] = rs2.getString(3);
+							dato[3] = rs2.getString(4);
+							model.addRow(dato);
+						}
+						table.setModel(model);
+					}
+
+					catch (Exception e3) {
+						e3.printStackTrace();
+					}
+				} else {
+					if (oriCOM == "ADM" && genCOM == "SEGUNDO") {
+						DefaultTableModel model = new DefaultTableModel() {
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = 1L;
+
+							public boolean isCellEditable(int row, int column) {
+								return false;
+							}
+						};
+
+						model.addColumn("Cedula De Identidad");
+						model.addColumn("Estado");
+						model.addColumn("Orientacion");
+						model.addColumn("Generacion");
+
+						String[] dato = new String[4];
+						try {
+							ResultSet rs2;
+							rs2 = connection.createStatement().executeQuery(
+									"SELECT * FROM estudiante WHERE generacion='SEGUNDO' && orientacion ='ADM'");
+							while (rs2.next()) {
+								dato[0] = rs2.getString(1);
+								dato[1] = rs2.getString(2);
+								dato[2] = rs2.getString(3);
+								dato[3] = rs2.getString(4);
+								model.addRow(dato);
+							}
+							table.setModel(model);
+						}
+
+						catch (Exception e3) {
+							e3.printStackTrace();
+						}
+					} else {
+						if (oriCOM == "ADM" && genCOM == "TERCERO") {
+							DefaultTableModel model = new DefaultTableModel() {
+								/**
+								 * 
+								 */
+								private static final long serialVersionUID = 1L;
+
+								public boolean isCellEditable(int row, int column) {
+									return false;
+								}
+							};
+
+							model.addColumn("Cedula De Identidad");
+							model.addColumn("Estado");
+							model.addColumn("Orientacion");
+							model.addColumn("Generacion");
+
+							String[] dato = new String[4];
+							try {
+								ResultSet rs2;
+								rs2 = connection.createStatement().executeQuery(
+										"SELECT * FROM estudiante WHERE generacion='TERCERO' && orientacion ='ADM'");
+								while (rs2.next()) {
+									dato[0] = rs2.getString(1);
+									dato[1] = rs2.getString(2);
+									dato[2] = rs2.getString(3);
+									dato[3] = rs2.getString(4);
+									model.addRow(dato);
+								}
+								table.setModel(model);
+							}
+
+							catch (Exception e3) {
+								e3.printStackTrace();
+							}
+						}
+					}
+				}
+
+				if (oriCOM == "TIC" && genCOM == "PRIMERO") {
+					DefaultTableModel model = new DefaultTableModel() {
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+
+						public boolean isCellEditable(int row, int column) {
+							return false;
+						}
+					};
+
+					model.addColumn("Cedula De Identidad");
+					model.addColumn("Estado");
+					model.addColumn("Orientacion");
+					model.addColumn("Generacion");
+
+					String[] dato = new String[4];
+					try {
+						ResultSet rs2;
+						rs2 = connection.createStatement().executeQuery(
+								"SELECT * FROM estudiante WHERE generacion ='PRIMERO' && orientacion='TIC'");
+						while (rs2.next()) {
+							dato[0] = rs2.getString(1);
+							dato[1] = rs2.getString(2);
+							dato[2] = rs2.getString(3);
+							dato[3] = rs2.getString(4);
+							model.addRow(dato);
+						}
+						table.setModel(model);
+					}
+
+					catch (Exception e3) {
+						e3.printStackTrace();
+					}
+				} else {
+					if (oriCOM == "TIC" && genCOM == "SEGUNDO") {
+						DefaultTableModel model = new DefaultTableModel() {
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = 1L;
+
+							public boolean isCellEditable(int row, int column) {
+								return false;
+							}
+						};
+
+						model.addColumn("Cedula De Identidad");
+						model.addColumn("Estado");
+						model.addColumn("Orientacion");
+						model.addColumn("Generacion");
+
+						String[] dato = new String[4];
+						try {
+							ResultSet rs2;
+							rs2 = connection.createStatement().executeQuery(
+									"SELECT * FROM estudiante WHERE generacion ='SEGUNDO' && orientacion='TIC'");
+							while (rs2.next()) {
+								dato[0] = rs2.getString(1);
+								dato[1] = rs2.getString(2);
+								dato[2] = rs2.getString(3);
+								dato[3] = rs2.getString(4);
+								model.addRow(dato);
+							}
+							table.setModel(model);
+						}
+
+						catch (Exception e3) {
+							e3.printStackTrace();
+						}
+					} else {
+						if (oriCOM == "TIC" && genCOM == "TERCERO") {
+							DefaultTableModel model = new DefaultTableModel() {
+								/**
+								 * 
+								 */
+								private static final long serialVersionUID = 1L;
+
+								public boolean isCellEditable(int row, int column) {
+									return false;
+								}
+							};
+
+							model.addColumn("Cedula De Identidad");
+							model.addColumn("Estado");
+							model.addColumn("Orientacion");
+							model.addColumn("Generacion");
+
+							String[] dato = new String[4];
+							try {
+								ResultSet rs2;
+								rs2 = connection.createStatement().executeQuery(
+										"SELECT * FROM estudiante WHERE generacion ='TERCERO' && orientacion='TIC'");
+								while (rs2.next()) {
+									dato[0] = rs2.getString(1);
+									dato[1] = rs2.getString(2);
+									dato[2] = rs2.getString(3);
+									dato[3] = rs2.getString(4);
+									model.addRow(dato);
+								}
+								table.setModel(model);
+							}
+
+							catch (Exception e3) {
+								e3.printStackTrace();
+							}
+						}
+					}
+				}
+
+			}
+
+		});
 	}
 }

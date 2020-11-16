@@ -38,12 +38,22 @@ public class ControladorBD {
 
 	}
 
-	public void crearMateria(Materia materia) {
+	public void crearMateria(Materia materia, String ciDoc) {
 		try {
-			String valores = "'" + materia.getCodigo() + "', '" + materia.getNombre() + "', '"
+			String valores99 = "'" + materia.getCodigo() + "', '" + materia.getNombre() + "', '"
 					+ materia.getOrientacion() + "', '" + materia.getGeneracion() + "'";
-			Statement s = connection.createStatement();
-			s.executeUpdate("INSERT INTO materia(id, nombre, orientacion, generacion) VALUES ( " + valores + " );");
+			Statement s99 = connection.createStatement();
+			s99.executeUpdate("INSERT INTO materia(id, nombre, orientacion, generacion) VALUES ( " + valores99 + " );");
+
+			try {
+				String valore2 = "'" + ciDoc + "', '" + materia.getCodigo() + "'";
+				Statement s2 = connection.createStatement();
+				s2.executeUpdate("INSERT INTO dicta(ciDocente, codMateria) VALUES ( " + valore2 + " );");
+
+			} catch (SQLException e) {
+				System.out.println("Error!");
+				e.printStackTrace();
+			}
 		} catch (SQLException e) {
 			System.out.println("Error!");
 			e.printStackTrace();
@@ -175,17 +185,17 @@ public class ControladorBD {
 	public void crearFuncionario(Funcionario funcionario) {
 		try {
 
-			String valores4 = "'" + funcionario.getCi() + "', '" + funcionario.getMail() + "', '"
+			String valores5 = "'" + funcionario.getCi() + "', '" + funcionario.getMail() + "', '"
 					+ funcionario.getFechaDeNacimiento() + "', '" + funcionario.getNombre() + "', '"
 					+ funcionario.getApellido() + "', '" + funcionario.getPassword() + "'";
-			Statement s4 = connection.createStatement();
-			s4.executeUpdate("INSERT INTO usuario(ci, correo, fechaDeNacimiento, nombre, apellido, passwd) VALUES ( "
-					+ valores4 + " );");
+			Statement s5 = connection.createStatement();
+			s5.executeUpdate("INSERT INTO usuario(ci, correo, fechaDeNacimiento, nombre, apellido, passwd) VALUES ( "
+					+ valores5 + " );");
 
 			try {
-				Statement s5 = connection.createStatement();
-				String valores5 = "'" + funcionario.getCi() + "'";
-				s5.executeUpdate("INSERT INTO docente(ci) VALUES ( " + valores5 + " );");
+				Statement s6 = connection.createStatement();
+				String valores6 = "'" + funcionario.getCi() + "'";
+				s6.executeUpdate("INSERT INTO funcionario(ci) VALUES ( " + valores6 + " );");
 			} catch (SQLException e) {
 				System.out.println("Error!");
 				e.printStackTrace();
