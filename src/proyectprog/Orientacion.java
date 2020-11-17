@@ -1,6 +1,6 @@
 package proyectprog;
 
 public enum Orientacion {
-  TIC, ADM
+  TIC, ADM, TICYADM
 
 }
