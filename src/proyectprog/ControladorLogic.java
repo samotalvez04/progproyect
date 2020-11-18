@@ -94,10 +94,9 @@ public class ControladorLogic {
 	public void modificarDicta(String idmateria, String cidocente) {
 		controladorbd.modificarDicta(idmateria, cidocente);
 	}
-
-	public void eliminarInasistencia(String ciestudianteInasistencia, String idmateriaInasistencia,
-			LocalDate fechaInasistencia) {
-		controladorbd.eliminarInasistencia(ciestudianteInasistencia, idmateriaInasistencia, fechaInasistencia);
+	
+	public void eliminarInasistencia(String selected) {
+		controladorbd.eliminarInasistencia(selected);
 	}
 
 	public ResultSet login(String ciLogin, String psswdLogin) {
@@ -114,5 +113,9 @@ public class ControladorLogic {
 
 	public ResultSet materiasRepetidas() {
 		return controladorbd.materiasRepetidas();
+	}
+	
+	public ResultSet consultarSiEsDocente(String ciUsu) {
+		return controladorbd.consultarSiEsDocente(ciUsu);
 	}
 }

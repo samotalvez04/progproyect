@@ -288,6 +288,17 @@ public class ControladorBD {
 		return res77;
 	}
 
+	public ResultSet consultarSiEsDocente(String ciUsu) {
+		ResultSet res99 = null;
+		try {
+			Statement comando = connection.createStatement();
+			res99 = comando.executeQuery("SELECT ci FROM docente WHERE ci='" + ciUsu + "'");
+		} catch (Exception e67) {
+			e67.printStackTrace();
+		}
+		return res99;
+	}
+
 	public void modificarMateria(String idMat, String nombreMat, String oriMat, String geneMat) {
 		try {
 			Statement comando = connection.createStatement();
@@ -329,15 +340,12 @@ public class ControladorBD {
 
 	}
 
-	public void eliminarInasistencia(String ciestudianteInasistencia, String idmateriaInasistencia,
-			LocalDate fechaInasistencia) {
-
+	public void eliminarInasistencia(String selected) {
 		try {
 			Statement comando = connection.createStatement();
-			comando.executeUpdate("DELETE FROM inasistencia WHERE ciEstudiante='" + ciestudianteInasistencia
-					+ "' AND idMateria='" + idmateriaInasistencia + "' AND fecha='" + fechaInasistencia + "'");
-		} catch (SQLException e) {
-			e.printStackTrace();
+			comando.executeUpdate("DELETE FROM inasistencia WHERE cantHoras='" + selected + "'");
+		} catch (Exception e41) {
+			e41.printStackTrace();
 		}
 	}
 

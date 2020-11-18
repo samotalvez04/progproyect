@@ -122,8 +122,6 @@ public class pantalla {
 	private JTextField textField_45;
 	private JTextField textField_46;
 	private JTextField textField_47;
-	private JTextField textField_48;
-	private JTextField textField_49;
 	private JTextField textField_50;
 	private JTextField textField_51;
 	private JTextField textField_52;
@@ -325,7 +323,7 @@ public class pantalla {
 
 		JComboBox comboBox_1_4 = new JComboBox();
 		comboBox_1_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		comboBox_1_4.setModel(new DefaultComboBoxModel(new String[] {"TIC", "ADM", "TICYADM"}));
+		comboBox_1_4.setModel(new DefaultComboBoxModel(new String[] { "TIC", "ADM", "TICYADM" }));
 		comboBox_1_4.setBounds(264, 279, 162, 32);
 		darAltaMateria.add(comboBox_1_4);
 
@@ -766,15 +764,16 @@ public class pantalla {
 
 		JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"TIC", "ADM", "TICYADM"}));
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] { " ", "TIC", "ADM", "TICYADM" }));
 		comboBox_2.setBounds(385, 305, 218, 31);
 		consultarMateria.add(comboBox_2);
 		comboBox_2.setVisible(false);
 
 		JComboBox comboBox_8 = new JComboBox();
 		comboBox_8.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		comboBox_8.setModel(new DefaultComboBoxModel(new String[] { "PRIMERO", "SEGUNDO", "TERCERO" }));
-		comboBox_8.setBounds(385, 347, 218, 31);
+		comboBox_8.setModel(new DefaultComboBoxModel(new String[] { " ", "PRIMERO", "SEGUNDO", "TERCERO",
+				"PRIMERO_SEGUNDO_Y_TERCERO", "PRIMERO_Y_SEGUNDO", "PRIMERO_Y_TERCERO", "SEGUNDO_Y_TERCERO" }));
+		comboBox_8.setBounds(385, 347, 346, 31);
 		consultarMateria.add(comboBox_8);
 		comboBox_8.setVisible(false);
 
@@ -824,7 +823,7 @@ public class pantalla {
 		consultarInasistencia.add(btnNewButton_9);
 
 		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(97, 148, 587, 260);
+		scrollPane_3.setBounds(97, 148, 587, 332);
 		consultarInasistencia.add(scrollPane_3);
 
 		table_6 = new JTable();
@@ -833,40 +832,8 @@ public class pantalla {
 		JButton btnNewButton_7 = new JButton("Eliminar");
 
 		btnNewButton_7.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton_7.setBounds(552, 441, 135, 33);
+		btnNewButton_7.setBounds(552, 491, 135, 33);
 		consultarInasistencia.add(btnNewButton_7);
-
-		JLabel lblNewLabel_26 = new JLabel("Cedula del Estudiante el cual no asistio");
-		lblNewLabel_26.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_26.setBounds(97, 419, 256, 22);
-		consultarInasistencia.add(lblNewLabel_26);
-
-		textField_48 = new JTextField();
-		textField_48.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField_48.setText("");
-		textField_48.setBounds(350, 422, 174, 20);
-		consultarInasistencia.add(textField_48);
-		textField_48.setColumns(10);
-
-		JLabel lblNewLabel_27 = new JLabel("ID de la Materia a la cual no asistio");
-		lblNewLabel_27.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_27.setBounds(97, 452, 234, 14);
-		consultarInasistencia.add(lblNewLabel_27);
-
-		textField_49 = new JTextField();
-		textField_49.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField_49.setBounds(330, 451, 194, 20);
-		consultarInasistencia.add(textField_49);
-		textField_49.setColumns(10);
-
-		JLabel lblNewLabel_28 = new JLabel("Fecha del dia el cual no asistio");
-		lblNewLabel_28.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_28.setBounds(97, 477, 205, 14);
-		consultarInasistencia.add(lblNewLabel_28);
-
-		JDateChooser dateChooser_7 = new JDateChooser();
-		dateChooser_7.setBounds(300, 477, 224, 20);
-		consultarInasistencia.add(dateChooser_7);
 
 		JPanel listarFuncionario = new JPanel();
 		panelMaster.add(listarFuncionario, "LIST_TEACHERS");
@@ -1001,19 +968,21 @@ public class pantalla {
 
 		JComboBox comboBox = new JComboBox();
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "PRIMERO", "SEGUNDO", "TERCERO" }));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { " ", "PRIMERO", "SEGUNDO", "TERCERO" }));
 		comboBox.setBounds(229, 356, 137, 31);
 		altaEstudiante.add(comboBox);
+		comboBox.setVisible(false);
 
 		JLabel lblCodigo_3_7_1 = new JLabel("Generacion");
 		lblCodigo_3_7_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_7_1.setFont(new Font("Arial", Font.PLAIN, 25));
 		lblCodigo_3_7_1.setBounds(82, 356, 137, 35);
 		altaEstudiante.add(lblCodigo_3_7_1);
+		lblCodigo_3_7_1.setVisible(false);
 
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"TIC", "ADM"}));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { " ", "TIC", "ADM" }));
 		comboBox_1.setBounds(534, 267, 137, 31);
 		altaEstudiante.add(comboBox_1);
 
@@ -1029,8 +998,9 @@ public class pantalla {
 		altaEstudiante.add(lblNewLabel_6);
 
 		JComboBox comboBox_7 = new JComboBox();
+
 		comboBox_7.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		comboBox_7.setModel(new DefaultComboBoxModel(new String[] { "ACTIVO", "EGRESADO", "DESVINCULADO" }));
+		comboBox_7.setModel(new DefaultComboBoxModel(new String[] { " ", "ACTIVO", "EGRESADO", "DESVINCULADO" }));
 		comboBox_7.setBounds(487, 311, 137, 31);
 		altaEstudiante.add(comboBox_7);
 
@@ -1388,7 +1358,7 @@ public class pantalla {
 
 		JComboBox comboBox_3 = new JComboBox();
 
-		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {" ", "TIC", "ADM"}));
+		comboBox_3.setModel(new DefaultComboBoxModel(new String[] { " ", "TIC", "ADM", "TICYADM" }));
 		comboBox_3.setBounds(612, 67, 172, 37);
 		listarEstudiantes.add(comboBox_3);
 
@@ -1887,6 +1857,16 @@ public class pantalla {
 					e6.printStackTrace();
 				}
 
+				comboBox_1.setSelectedItem(0);
+				comboBox_7.setSelectedItem(0);
+				comboBox.setSelectedItem(0);
+				dateChooser.setDate(null);
+				textField_7.setText(null);
+				textField_8.setText(null);
+				textField_9.setText(null);
+				textField_12.setText(null);
+				textField_13.setText(null);
+
 			}
 		});
 
@@ -2157,6 +2137,299 @@ public class pantalla {
 						}
 					}
 				}
+				if (oriCOM == "TICYADM" && genCOM == "PRIMERO") {
+					DefaultTableModel model = new DefaultTableModel() {
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+
+						public boolean isCellEditable(int row, int column) {
+							return false;
+						}
+					};
+
+					model.addColumn("Cedula De Identidad");
+					model.addColumn("Estado");
+					model.addColumn("Orientacion");
+					model.addColumn("Generacion");
+
+					String[] dato = new String[4];
+					try {
+						ResultSet rs2;
+						rs2 = connection.createStatement().executeQuery(
+								"SELECT * FROM estudiante WHERE generacion='PRIMERO' && orientacion ='TICYADM'");
+						while (rs2.next()) {
+							dato[0] = rs2.getString(1);
+							dato[1] = rs2.getString(2);
+							dato[2] = rs2.getString(3);
+							dato[3] = rs2.getString(4);
+							model.addRow(dato);
+						}
+						table.setModel(model);
+					}
+
+					catch (Exception e3) {
+						e3.printStackTrace();
+					}
+				} else {
+					if (oriCOM == "TICYADM" && genCOM == "SEGUNDO") {
+						DefaultTableModel model = new DefaultTableModel() {
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = 1L;
+
+							public boolean isCellEditable(int row, int column) {
+								return false;
+							}
+						};
+
+						model.addColumn("Cedula De Identidad");
+						model.addColumn("Estado");
+						model.addColumn("Orientacion");
+						model.addColumn("Generacion");
+
+						String[] dato = new String[4];
+						try {
+							ResultSet rs2;
+							rs2 = connection.createStatement().executeQuery(
+									"SELECT * FROM estudiante WHERE generacion='SEGUNDO' && orientacion ='TICYADM'");
+							while (rs2.next()) {
+								dato[0] = rs2.getString(1);
+								dato[1] = rs2.getString(2);
+								dato[2] = rs2.getString(3);
+								dato[3] = rs2.getString(4);
+								model.addRow(dato);
+							}
+							table.setModel(model);
+						}
+
+						catch (Exception e3) {
+							e3.printStackTrace();
+						}
+					} else {
+						if (oriCOM == "TICYADM" && genCOM == "TERCERO") {
+							DefaultTableModel model = new DefaultTableModel() {
+								/**
+								 * 
+								 */
+								private static final long serialVersionUID = 1L;
+
+								public boolean isCellEditable(int row, int column) {
+									return false;
+								}
+							};
+
+							model.addColumn("Cedula De Identidad");
+							model.addColumn("Estado");
+							model.addColumn("Orientacion");
+							model.addColumn("Generacion");
+
+							String[] dato = new String[4];
+							try {
+								ResultSet rs2;
+								rs2 = connection.createStatement().executeQuery(
+										"SELECT * FROM estudiante WHERE generacion='TERCERO' && orientacion ='TICYADM'");
+								while (rs2.next()) {
+									dato[0] = rs2.getString(1);
+									dato[1] = rs2.getString(2);
+									dato[2] = rs2.getString(3);
+									dato[3] = rs2.getString(4);
+									model.addRow(dato);
+								}
+								table.setModel(model);
+							}
+
+							catch (Exception e3) {
+								e3.printStackTrace();
+							}
+						}
+					}
+				}
+
+				if (oriCOM == "TIC" && genCOM == " ") {
+					DefaultTableModel model = new DefaultTableModel() {
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+
+						public boolean isCellEditable(int row, int column) {
+							return false;
+						}
+					};
+
+					model.addColumn("Cedula De Identidad");
+					model.addColumn("Estado");
+					model.addColumn("Orientacion");
+					model.addColumn("Generacion");
+
+					String[] dato = new String[4];
+					try {
+						ResultSet rs2;
+						rs2 = connection.createStatement()
+								.executeQuery("SELECT * FROM estudiante WHERE orientacion ='TIC'");
+						while (rs2.next()) {
+							dato[0] = rs2.getString(1);
+							dato[1] = rs2.getString(2);
+							dato[2] = rs2.getString(3);
+							dato[3] = rs2.getString(4);
+							model.addRow(dato);
+						}
+						table.setModel(model);
+					}
+
+					catch (Exception e3) {
+						e3.printStackTrace();
+					}
+				}
+
+				if (oriCOM == "ADM" && genCOM == " ") {
+					DefaultTableModel model = new DefaultTableModel() {
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+
+						public boolean isCellEditable(int row, int column) {
+							return false;
+						}
+					};
+
+					model.addColumn("Cedula De Identidad");
+					model.addColumn("Estado");
+					model.addColumn("Orientacion");
+					model.addColumn("Generacion");
+
+					String[] dato = new String[4];
+					try {
+						ResultSet rs2;
+						rs2 = connection.createStatement()
+								.executeQuery("SELECT * FROM estudiante WHERE orientacion ='ADM'");
+						while (rs2.next()) {
+							dato[0] = rs2.getString(1);
+							dato[1] = rs2.getString(2);
+							dato[2] = rs2.getString(3);
+							dato[3] = rs2.getString(4);
+							model.addRow(dato);
+						}
+						table.setModel(model);
+					}
+
+					catch (Exception e3) {
+						e3.printStackTrace();
+					}
+				}
+				if (oriCOM == " " && genCOM == "PRIMERO") {
+					DefaultTableModel model = new DefaultTableModel() {
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+
+						public boolean isCellEditable(int row, int column) {
+							return false;
+						}
+					};
+
+					model.addColumn("Cedula De Identidad");
+					model.addColumn("Estado");
+					model.addColumn("Orientacion");
+					model.addColumn("Generacion");
+
+					String[] dato = new String[4];
+					try {
+						ResultSet rs2;
+						rs2 = connection.createStatement()
+								.executeQuery("SELECT * FROM estudiante WHERE generacion='PRIMERO'");
+						while (rs2.next()) {
+							dato[0] = rs2.getString(1);
+							dato[1] = rs2.getString(2);
+							dato[2] = rs2.getString(3);
+							dato[3] = rs2.getString(4);
+							model.addRow(dato);
+						}
+						table.setModel(model);
+					}
+
+					catch (Exception e3) {
+						e3.printStackTrace();
+					}
+				}
+
+				if (oriCOM == " " && genCOM == "SEGUNDO") {
+					DefaultTableModel model = new DefaultTableModel() {
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+
+						public boolean isCellEditable(int row, int column) {
+							return false;
+						}
+					};
+
+					model.addColumn("Cedula De Identidad");
+					model.addColumn("Estado");
+					model.addColumn("Orientacion");
+					model.addColumn("Generacion");
+
+					String[] dato = new String[4];
+					try {
+						ResultSet rs2;
+						rs2 = connection.createStatement()
+								.executeQuery("SELECT * FROM estudiante WHERE generacion='SEGUNDO'");
+						while (rs2.next()) {
+							dato[0] = rs2.getString(1);
+							dato[1] = rs2.getString(2);
+							dato[2] = rs2.getString(3);
+							dato[3] = rs2.getString(4);
+							model.addRow(dato);
+						}
+						table.setModel(model);
+					}
+
+					catch (Exception e3) {
+						e3.printStackTrace();
+					}
+				}
+				if (oriCOM == " " && genCOM == "TERCERO") {
+					DefaultTableModel model = new DefaultTableModel() {
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+
+						public boolean isCellEditable(int row, int column) {
+							return false;
+						}
+					};
+
+					model.addColumn("Cedula De Identidad");
+					model.addColumn("Estado");
+					model.addColumn("Orientacion");
+					model.addColumn("Generacion");
+
+					String[] dato = new String[4];
+					try {
+						ResultSet rs2;
+						rs2 = connection.createStatement()
+								.executeQuery("SELECT * FROM estudiante WHERE generacion='TERCERO'");
+						while (rs2.next()) {
+							dato[0] = rs2.getString(1);
+							dato[1] = rs2.getString(2);
+							dato[2] = rs2.getString(3);
+							dato[3] = rs2.getString(4);
+							model.addRow(dato);
+						}
+						table.setModel(model);
+					}
+
+					catch (Exception e3) {
+						e3.printStackTrace();
+					}
+				}
 
 			}
 
@@ -2176,7 +2449,6 @@ public class pantalla {
 
 				LocalDate dateInicio = LocalDate.parse(sdft.format(dateChooser_3.getDate()));
 				LocalDate dateFin = LocalDate.parse(sdft.format(dateChooser_4.getDate()));
-
 				DefaultTableModel model = new DefaultTableModel() {
 					/**
 					 * 
@@ -2211,6 +2483,7 @@ public class pantalla {
 				catch (Exception e3) {
 					e3.printStackTrace();
 				}
+
 				dateChooser_3.setDate(null);
 				dateChooser_4.setDate(null);
 
@@ -2237,6 +2510,7 @@ public class pantalla {
 				}
 				try {
 					ResultSet res77 = controladorlg.consultarSiEsEstudiante(textField_25.getText());
+					ResultSet res99 = controladorlg.consultarSiEsDocente(textField_25.getText());
 					if (res77.next() == true) {
 						textField_42.setText("ESTUDIANTE");
 						lblNewLabel_21.setVisible(true);
@@ -2250,17 +2524,21 @@ public class pantalla {
 						textField_47.setVisible(false);
 						btnNewButton_14.setVisible(false);
 					} else {
-						textField_42.setText("DOCENTE");
-						lblNewLabel_22.setVisible(true);
-						lblNewLabel_25.setVisible(true);
-						textField_47.setVisible(true);
-						btnNewButton_14.setVisible(true);
-						lblNewLabel_21.setVisible(false);
-						lblNewLabel_23.setVisible(false);
-						textField_45.setVisible(false);
-						lblNewLabel_24.setVisible(false);
-						textField_46.setVisible(false);
-						btnNewButton_13.setVisible(false);
+						if (res99.next() == true) {
+							textField_42.setText("DOCENTE");
+							lblNewLabel_22.setVisible(true);
+							lblNewLabel_25.setVisible(true);
+							textField_47.setVisible(true);
+							btnNewButton_14.setVisible(true);
+							lblNewLabel_21.setVisible(false);
+							lblNewLabel_23.setVisible(false);
+							textField_45.setVisible(false);
+							lblNewLabel_24.setVisible(false);
+							textField_46.setVisible(false);
+							btnNewButton_13.setVisible(false);
+						} else {
+							textField_42.setText("FUNCIONARIO");
+						}
 					}
 
 				} catch (Exception e45) {
@@ -2294,40 +2572,58 @@ public class pantalla {
 		btnNewButton_5_1.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
+				if (textField_32.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Error, ingrese un nombre o una id de materia");
+					lblNewLabel_15.setVisible(false);
+					lblNewLabel_16.setVisible(false);
+					lblNewLabel_17.setVisible(false);
+					lblNewLabel_18.setVisible(false);
+					lblNewLabel_19.setVisible(false);
+					textField_34.setVisible(false);
+					textField_35.setVisible(false);
+					textField_36.setVisible(false);
+					textField_37.setVisible(false);
+					textField_38.setVisible(false);
+					textField_41.setVisible(false);
+					comboBox_2.setVisible(false);
+					comboBox_8.setVisible(false);
+					btnNewButton_12.setVisible(false);
+				} else {
+					try {
+						ResultSet res15 = controladorlg.cantidadIns(textField_32.getText());
+						ResultSet res14 = controladorlg.consultarMateria(textField_32.getText());
+						if (res14.next()) {
+							textField_34.setText(res14.getString("nombre"));
+							textField_35.setText(res14.getString("id"));
+							textField_36.setText(res14.getString("orientacion"));
+							textField_37.setText(res14.getString("generacion"));
+							res15.next();
+							textField_38.setText(res15.getString(1));
 
-				try {
-					ResultSet res15 = controladorlg.cantidadIns(textField_32.getText());
-					ResultSet res14 = controladorlg.consultarMateria(textField_32.getText());
-					if (res14.next()) {
-						textField_34.setText(res14.getString("nombre"));
-						textField_35.setText(res14.getString("id"));
-						textField_36.setText(res14.getString("orientacion"));
-						textField_37.setText(res14.getString("generacion"));
-						res15.next();
-						textField_38.setText(res15.getString(1));
-
-					} else {
-						JOptionPane.showMessageDialog(null, "Error no existe esta Materia con este Nombre o esta ID");
+						} else {
+							JOptionPane.showMessageDialog(null,
+									"Error no existe esta Materia con este Nombre o esta ID");
+						}
+					} catch (Exception e4) {
+						e4.printStackTrace();
 					}
-				} catch (Exception e4) {
-					e4.printStackTrace();
+					lblNewLabel_15.setVisible(true);
+					lblNewLabel_16.setVisible(true);
+					lblNewLabel_17.setVisible(true);
+					lblNewLabel_18.setVisible(true);
+					lblNewLabel_19.setVisible(true);
+					textField_34.setVisible(true);
+					textField_35.setVisible(true);
+					textField_36.setVisible(true);
+					textField_37.setVisible(true);
+					textField_38.setVisible(true);
+					textField_41.setVisible(true);
+					comboBox_2.setVisible(true);
+					comboBox_8.setVisible(true);
+					btnNewButton_12.setVisible(true);
+					textField_32.setText(null);
 				}
 
-				lblNewLabel_15.setVisible(true);
-				lblNewLabel_16.setVisible(true);
-				lblNewLabel_17.setVisible(true);
-				lblNewLabel_18.setVisible(true);
-				lblNewLabel_19.setVisible(true);
-				textField_34.setVisible(true);
-				textField_35.setVisible(true);
-				textField_36.setVisible(true);
-				textField_37.setVisible(true);
-				textField_38.setVisible(true);
-				textField_41.setVisible(true);
-				comboBox_2.setVisible(true);
-				comboBox_8.setVisible(true);
-				btnNewButton_12.setVisible(true);
-				textField_32.setText(null);
 			}
 		});
 
@@ -2363,26 +2659,59 @@ public class pantalla {
 
 		btnNewButton_12.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
 				String nombreMat = textField_41.getText();
 				String oriMat = comboBox_2.getSelectedItem().toString();
 				String geneMat = comboBox_8.getSelectedItem().toString();
 				String idMat = textField_35.getText();
-				try {
-					controladorlg.modificarMateria(idMat, nombreMat, oriMat, geneMat);
-					JOptionPane.showMessageDialog(null, "Materia modificada exitosamente!");
-				} catch (Exception e88) {
-					e88.printStackTrace();
+				if (nombreMat.isEmpty() && comboBox_2.getSelectedItem() == " " && comboBox_8.getSelectedItem() == " ") {
+					JOptionPane.showMessageDialog(null, "Error, rellene bien todos los casilleros a modificar");
+				} else {
+					if (nombreMat.isEmpty() && comboBox_2.getSelectedItem() == " ") {
+						JOptionPane.showMessageDialog(null, "Error, rellene bien la seccion Nombre y Orientacion");
+					} else {
+						if (nombreMat.isEmpty() && comboBox_8.getSelectedItem() == " ") {
+							JOptionPane.showMessageDialog(null, "Error, rellene bien la seccion Nombre y Generacion");
+						} else {
+							if (comboBox_2.getSelectedItem() == " " && comboBox_8.getSelectedItem() == " ") {
+								JOptionPane.showMessageDialog(null,
+										"Error, rellene bien la seccion Orientacion y Generacion");
+							} else {
+								if (nombreMat.isEmpty()) {
+									JOptionPane.showMessageDialog(null, "Error, rellene bien la seccion Nombre");
+								} else {
+									if (comboBox_2.getSelectedItem() == " ") {
+										JOptionPane.showMessageDialog(null, "Error, rellene bien la seccion Orientacion");
+									} else {
+										if (comboBox_8.getSelectedItem() == " ") {
+											JOptionPane.showMessageDialog(null, "Error, rellene bien la seccion Generacion");
+										} else {
+											try {
+												controladorlg.modificarMateria(idMat, nombreMat, oriMat, geneMat);
+												System.out.println(
+														idMat + "," + nombreMat + "," + oriMat + "," + geneMat);
+												JOptionPane.showMessageDialog(null, "Materia modificada exitosamente!");
+											} catch (Exception e88) {
+												e88.printStackTrace();
+											}
+
+											textField_34.setText(null);
+											textField_35.setText(null);
+											textField_36.setText(null);
+											textField_37.setText(null);
+											textField_38.setText(null);
+											textField_41.setText(null);
+										}
+									}
+								}
+							}
+
+						}
+					}
+
 				}
 
-				textField_34.setText(null);
-				textField_35.setText(null);
-				textField_36.setText(null);
-				textField_37.setText(null);
-				textField_38.setText(null);
-				textField_41.setText(null);
-
 			}
+
 		});
 
 		btnNewButton_13.addActionListener(new ActionListener() {
@@ -2414,21 +2743,23 @@ public class pantalla {
 
 		btnNewButton_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String ciestudianteInasistencia = textField_48.getText();
-				String idmateriaInasistencia = textField_49.getText();
-				LocalDate fechaInasistencia = LocalDate.parse(sdft.format(dateChooser_7.getDate()));
-				try {
-					controladorlg.eliminarInasistencia(ciestudianteInasistencia, idmateriaInasistencia,
-							fechaInasistencia);
-					JOptionPane.showMessageDialog(null, "Inasistencia eliminada con exito!");
-				} catch (Exception e444) {
-					JOptionPane.showMessageDialog(null, "CI de Estudiante Erronea");
-					e444.printStackTrace();
-				}
-				textField_48.setText(null);
-				textField_49.setText(null);
-				dateChooser_7.setDate(null);
+				DefaultTableModel model = (DefaultTableModel) table_6.getModel();
+				int idFila = table_6.getSelectedRow();
 
+				if (idFila >= 0) {
+					String selected = model.getValueAt(idFila, 0).toString();
+					model.removeRow(idFila);
+					try {
+						controladorlg.eliminarInasistencia(selected);
+					} catch (Exception e54) {
+						e54.printStackTrace();
+					}
+				} else {
+					if (idFila < 0) {
+						JOptionPane.showMessageDialog(null, "Error, fila no seleccionada");
+					}
+
+				}
 			}
 		});
 
@@ -2506,6 +2837,29 @@ public class pantalla {
 				textField_52.setText(nombreMateriaRepetida);
 				textField_51.setText(materiasRepetidass);
 
+			}
+		});
+
+		comboBox_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (comboBox_7.getSelectedItem() == "ACTIVO") {
+					lblCodigo_3_7_1.setVisible(true);
+					comboBox.setVisible(true);
+				} else {
+					if (comboBox_7.getSelectedItem() == "EGRESADO") {
+						lblCodigo_3_7_1.setVisible(false);
+						comboBox.setVisible(false);
+
+					} else {
+						if (comboBox_7.getSelectedItem() == "DESVINCULADO") {
+							lblCodigo_3_7_1.setVisible(false);
+							comboBox.setVisible(false);
+						} else {
+							lblCodigo_3_7_1.setVisible(false);
+							comboBox.setVisible(false);
+						}
+					}
+				}
 			}
 		});
 
