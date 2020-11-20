@@ -4,6 +4,9 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.Date;
 
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 import persistencia.ControladorBD;
 
 public class ControladorLogic {
@@ -67,6 +70,10 @@ public class ControladorLogic {
 		return controladorbd.consultarUsuario(ciUsu);
 	}
 
+	public ResultSet datosLogin(String ciLogin) {
+		return controladorbd.datosLogin(ciLogin);
+	}
+
 	public ResultSet consultarMateria(String idOnameMat) throws Exception {
 		return controladorbd.consultarMateria(idOnameMat);
 	}
@@ -91,10 +98,15 @@ public class ControladorLogic {
 		controladorbd.crearCursa(ciestudiante, idMateria, notaMateria);
 	}
 
-	public void modificarDicta(String idmateria, String cidocente) {
-		controladorbd.modificarDicta(idmateria, cidocente);
+
+	public void crearDictaDoc(String ciD, String idmatt) {
+		controladorbd.crearDictaDoc(ciD, idmatt);
 	}
-	
+
+	public void crearDictaMat(String codigo, String ciDoc) {
+		controladorbd.crearDictaMat(codigo, ciDoc);
+	}
+
 	public void eliminarInasistencia(String selected) {
 		controladorbd.eliminarInasistencia(selected);
 	}
@@ -114,8 +126,9 @@ public class ControladorLogic {
 	public ResultSet materiasRepetidas() {
 		return controladorbd.materiasRepetidas();
 	}
-	
+
 	public ResultSet consultarSiEsDocente(String ciUsu) {
 		return controladorbd.consultarSiEsDocente(ciUsu);
 	}
+
 }

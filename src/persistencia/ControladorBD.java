@@ -42,6 +42,30 @@ public class ControladorBD {
 
 	}
 
+	public void crearDictaDoc(String ciD, String idmatt) {
+		try {
+			String valores99 = "'" + ciD + "', '" + idmatt + "'";
+			Statement s99 = connection.createStatement();
+			s99.executeUpdate("INSERT INTO dicta(ciDocente, codMateria) VALUES ( " + valores99 + " );");
+
+		} catch (SQLException e) {
+			System.out.println("Error!");
+			e.printStackTrace();
+		}
+	}
+
+	public void crearDictaMat(String codigo, String ciDoc) {
+		try {
+			String valores99 = "'" + ciDoc + "', '" + codigo + "'";
+			Statement s99 = connection.createStatement();
+			s99.executeUpdate("INSERT INTO dicta(ciDocente, codMateria) VALUES ( " + valores99 + " );");
+
+		} catch (SQLException e) {
+			System.out.println("Error!");
+			e.printStackTrace();
+		}
+	}
+
 	public void crearMateria(Materia materia, String ciDoc) {
 		try {
 			String valores99 = "'" + materia.getCodigo() + "', '" + materia.getNombre() + "', '"
@@ -226,17 +250,9 @@ public class ControladorBD {
 			s34.executeUpdate("INSERT INTO cursada(ciEstudiante, codMateria, nota) VALUES ('" + ciestudiante + "', '"
 					+ idMateria + "', '" + notaMateria + "');");
 		} catch (Exception e34) {
+			JOptionPane.showMessageDialog(null, "Este estudiante ya tiene una nota en esta materia", "Error",
+					JOptionPane.ERROR_MESSAGE);
 			e34.printStackTrace();
-		}
-	}
-
-	public void modificarDicta(String idmateria, String cidocente) {
-		try {
-			Statement comando = connection.createStatement();
-			comando.executeUpdate(
-					"UPDATE dicta SET codMateria='" + idmateria + "' WHERE ciDocente='" + cidocente + "'");
-		} catch (Exception e54) {
-			e54.printStackTrace();
 		}
 	}
 
@@ -264,6 +280,17 @@ public class ControladorBD {
 		}
 		return res13;
 
+	}
+
+	public ResultSet datosLogin(String ciLogin) {
+		ResultSet res13 = null;
+		try {
+			Statement comando = connection.createStatement();
+			res13 = comando.executeQuery("SELECT nombre, apellido FROM usuario WHERE ci=" + ciLogin);
+		} catch (Exception e3) {
+			e3.printStackTrace();
+		}
+		return res13;
 	}
 
 	public void modificarUsuario(String nom, String apell, String ci, LocalDate fech, String mail, String psswd) {

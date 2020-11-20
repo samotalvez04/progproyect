@@ -25,7 +25,9 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.ForkJoinPool;
 
 import javax.swing.Action;
 import java.awt.FlowLayout;
@@ -45,8 +47,11 @@ import persistencia.Conn;
 import persistencia.ControladorBD;
 
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
+
 import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.InputVerifier;
 import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -57,6 +62,7 @@ import java.awt.List;
 import java.awt.Checkbox;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
@@ -68,7 +74,7 @@ public class pantalla {
 	private JFrame contentPane;
 	private CardLayout cardLayout;
 	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtAs;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_6;
@@ -125,6 +131,8 @@ public class pantalla {
 	private JTextField textField_50;
 	private JTextField textField_51;
 	private JTextField textField_52;
+	private JTextField textField_1;
+	private JTextField textField_48;
 
 	/**
 	 * Launch the application.
@@ -153,6 +161,7 @@ public class pantalla {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+
 	private void initialize() {
 
 		SimpleDateFormat sdft = new SimpleDateFormat("yyyy-MM-dd");
@@ -206,19 +215,88 @@ public class pantalla {
 		login.add(lblPasw);
 
 		textField_3 = new JPasswordField();
+		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_3.setColumns(10);
 		textField_3.setBounds(243, 226, 442, 38);
 		login.add(textField_3);
+		textField_3.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (textField_3.getText().length() == 20)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		JLabel lblMail = new JLabel("C.I");
 		lblMail.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMail.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblMail.setBounds(57, 176, 187, 38);
+		lblMail.setBounds(57, 180, 187, 38);
 		login.add(lblMail);
 
 		textField_4 = new JTextField();
+		textField_4.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if (Character.isLetter(validar)) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Una cedula de identidad no contiene letras, solo numeros",
+							"Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_4.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null,
+							"No se admiten caracteres especiales en una cedula de identidad", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_4.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (textField_4.getText().length() == 8)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_4.setColumns(10);
-		textField_4.setBounds(243, 176, 442, 38);
+		textField_4.setBounds(243, 180, 442, 38);
 		login.add(textField_4);
 
 		JButton btnNewButton_2_1 = new JButton("Iniciar Sesion");
@@ -235,6 +313,8 @@ public class pantalla {
 		JButton btnNewButton_8 = new JButton("Atr\u00E1s");
 		btnNewButton_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				textField_3.setText(null);
+				textField_4.setText(null);
 			}
 		});
 		btnNewButton_8.setBounds(112, 275, 168, 33);
@@ -246,28 +326,19 @@ public class pantalla {
 
 		JButton btnNewButton = new JButton("Estudiante");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+
 		btnNewButton.setBounds(272, 245, 250, 43);
 		darAltaUsuario.add(btnNewButton);
 
 		JButton btnAltaDocente = new JButton("Docente");
 		btnAltaDocente.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnAltaDocente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+
 		btnAltaDocente.setBounds(272, 299, 250, 43);
 		darAltaUsuario.add(btnAltaDocente);
 
 		JButton btnAltaFuncionario = new JButton("Funcionario");
 		btnAltaFuncionario.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnAltaFuncionario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+
 		btnAltaFuncionario.setBounds(272, 353, 250, 43);
 		darAltaUsuario.add(btnAltaFuncionario);
 
@@ -298,10 +369,32 @@ public class pantalla {
 		lblCodigo.setFont(new Font("Arial", Font.PLAIN, 25));
 		darAltaMateria.add(lblCodigo);
 
-		textField_1 = new JTextField();
-		textField_1.setBounds(239, 227, 187, 41);
-		textField_1.setColumns(10);
-		darAltaMateria.add(textField_1);
+		txtAs = new JTextField();
+		txtAs.setBounds(239, 227, 187, 41);
+		txtAs.setColumns(10);
+		darAltaMateria.add(txtAs);
+		txtAs.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (txtAs.getText().length() == 9)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		JLabel lblCodigo_1 = new JLabel("Generacion");
 		lblCodigo_1.setBounds(109, 325, 156, 41);
@@ -323,13 +416,13 @@ public class pantalla {
 
 		JComboBox comboBox_1_4 = new JComboBox();
 		comboBox_1_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		comboBox_1_4.setModel(new DefaultComboBoxModel(new String[] { "TIC", "ADM", "TICYADM" }));
+		comboBox_1_4.setModel(new DefaultComboBoxModel(new String[] { " ", "TIC", "ADM", "TICYADM" }));
 		comboBox_1_4.setBounds(264, 279, 162, 32);
 		darAltaMateria.add(comboBox_1_4);
 
 		JComboBox comboBox_5 = new JComboBox();
 		comboBox_5.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		comboBox_5.setModel(new DefaultComboBoxModel(new String[] { "PRIMERO", "SEGUNDO", "TERCERO" }));
+		comboBox_5.setModel(new DefaultComboBoxModel(new String[] { " ", "PRIMERO", "SEGUNDO", "TERCERO" }));
 		comboBox_5.setBounds(264, 333, 156, 32);
 		darAltaMateria.add(comboBox_5);
 
@@ -345,6 +438,50 @@ public class pantalla {
 		darAltaMateria.add(lblNewLabel_8);
 
 		textField_33 = new JTextField();
+		textField_33.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if (Character.isLetter(validar)) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Solo ingresar Numeros", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+
+		});
+		textField_33.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se admiten caracteres especiales", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_33.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (textField_33.getText().length() == 8)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		textField_33.setBounds(439, 381, 187, 41);
 		darAltaMateria.add(textField_33);
 		textField_33.setColumns(10);
@@ -365,6 +502,50 @@ public class pantalla {
 		altaInasistencia.add(lblNewLabel_1);
 
 		textField_5 = new JTextField();
+		textField_5.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if (Character.isLetter(validar)) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Solo ingresar Numeros", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_5.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se admiten caracteres especiales", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_5.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (textField_5.getText().length() == 2)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		textField_5.setBounds(337, 204, 187, 28);
 		altaInasistencia.add(textField_5);
 		textField_5.setColumns(10);
@@ -405,11 +586,55 @@ public class pantalla {
 
 		JComboBox comboBox_6 = new JComboBox();
 		comboBox_6.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		comboBox_6.setModel(new DefaultComboBoxModel(new String[] { "JUSTIFICADA", "INJUSTIFICADA", "LLEGADA_TARDE" }));
+		comboBox_6.setModel(
+				new DefaultComboBoxModel(new String[] { " ", "JUSTIFICADA", "INJUSTIFICADA", "LLEGADA_TARDE" }));
 		comboBox_6.setBounds(337, 308, 151, 28);
 		altaInasistencia.add(comboBox_6);
 
 		textField_16 = new JTextField();
+		textField_16.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if (Character.isLetter(validar)) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Solo ingresar Numeros", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_16.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (textField_16.getText().length() == 8)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		textField_16.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se admiten caracteres especiales", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		textField_16.setBounds(275, 165, 187, 28);
 		altaInasistencia.add(textField_16);
 		textField_16.setColumns(10);
@@ -431,6 +656,50 @@ public class pantalla {
 		consultarUsuario.add(lblCodigo_3_8_1_1);
 
 		textField_25 = new JTextField();
+		textField_25.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if (Character.isLetter(validar)) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Solo ingresar Numeros", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_25.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (textField_25.getText().length() == 8)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		textField_25.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se admiten caracteres especiales", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		textField_25.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_25.setColumns(10);
 		textField_25.setBounds(245, 85, 176, 32);
@@ -608,6 +877,40 @@ public class pantalla {
 		textField_45.setBounds(215, 392, 86, 20);
 		consultarUsuario.add(textField_45);
 		textField_45.setColumns(10);
+		textField_45.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (textField_45.getText().length() == 8)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		textField_45.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se admiten caracteres especiales", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 
 		JLabel lblNewLabel_23 = new JLabel("ID de Materia");
 		lblNewLabel_23.setVisible(false);
@@ -616,6 +919,49 @@ public class pantalla {
 		consultarUsuario.add(lblNewLabel_23);
 
 		textField_46 = new JTextField();
+		textField_46.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if (Character.isLetter(validar)) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Solo ingresar Numeros", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_46.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (textField_46.getText().length() == 2)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		textField_46.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se admiten caracteres especiales", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		textField_46.setVisible(false);
 		textField_46.setBounds(215, 420, 86, 20);
 		consultarUsuario.add(textField_46);
@@ -633,23 +979,57 @@ public class pantalla {
 		btnNewButton_13.setBounds(162, 451, 89, 23);
 		consultarUsuario.add(btnNewButton_13);
 
-		JLabel lblNewLabel_25 = new JLabel("ID Materia");
+		JLabel lblNewLabel_25 = new JLabel("ID Materia a la que esta dictando el docente");
 		lblNewLabel_25.setVisible(false);
 		lblNewLabel_25.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_25.setBounds(412, 391, 81, 19);
+		lblNewLabel_25.setBounds(358, 392, 300, 19);
 		consultarUsuario.add(lblNewLabel_25);
 
 		textField_47 = new JTextField();
 		textField_47.setVisible(false);
-		textField_47.setBounds(490, 392, 86, 20);
+		textField_47.setBounds(657, 392, 86, 20);
 		consultarUsuario.add(textField_47);
 		textField_47.setColumns(10);
+		textField_46.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (textField_46.getText().length() == 9)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		JButton btnNewButton_14 = new JButton("Modificar");
 
 		btnNewButton_14.setVisible(false);
 		btnNewButton_14.setBounds(456, 451, 89, 23);
 		consultarUsuario.add(btnNewButton_14);
+
+		JLabel lblNewLabel_26 = new JLabel("ID Materia a la cual quieres que dicte");
+		lblNewLabel_26.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_26.setBounds(358, 422, 249, 18);
+		consultarUsuario.add(lblNewLabel_26);
+		lblNewLabel_26.setVisible(false);
+
+		textField_1 = new JTextField();
+		textField_1.setBounds(604, 420, 86, 20);
+		consultarUsuario.add(textField_1);
+		textField_1.setColumns(10);
+		textField_1.setVisible(false);
 		textField_42.setVisible(false);
 
 		dateChooser_6.setVisible(false);
@@ -675,6 +1055,18 @@ public class pantalla {
 		textField_32.setColumns(10);
 		textField_32.setBounds(355, 132, 218, 38);
 		consultarMateria.add(textField_32);
+		textField_32.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se admiten caracteres especiales", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 
 		JButton btnNewButton_5_1 = new JButton("Consultar");
 		btnNewButton_5_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -771,8 +1163,7 @@ public class pantalla {
 
 		JComboBox comboBox_8 = new JComboBox();
 		comboBox_8.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		comboBox_8.setModel(new DefaultComboBoxModel(new String[] { " ", "PRIMERO", "SEGUNDO", "TERCERO",
-				"PRIMERO_SEGUNDO_Y_TERCERO", "PRIMERO_Y_SEGUNDO", "PRIMERO_Y_TERCERO", "SEGUNDO_Y_TERCERO" }));
+		comboBox_8.setModel(new DefaultComboBoxModel(new String[] {" ", "PRIMERO", "SEGUNDO", "TERCERO"}));
 		comboBox_8.setBounds(385, 347, 346, 31);
 		consultarMateria.add(comboBox_8);
 		comboBox_8.setVisible(false);
@@ -902,6 +1293,51 @@ public class pantalla {
 		altaEstudiante.add(lblCodigo_3_1);
 
 		textField_7 = new JTextField();
+
+		textField_7.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if (Character.isLetter(validar)) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Solo ingresar Numeros", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_7.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null,
+							"No se admiten caracteres especiales en una cedula de identidad", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_7.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (textField_7.getText().length() == 8)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		textField_7.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_7.setColumns(10);
 		textField_7.setBounds(138, 220, 137, 31);
@@ -914,9 +1350,21 @@ public class pantalla {
 		altaEstudiante.add(lblCodigo_3_2);
 
 		textField_8 = new JTextField();
+		textField_8.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se admiten caracteres especiales", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		textField_8.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_8.setColumns(10);
-		textField_8.setBounds(138, 265, 137, 31);
+		textField_8.setBounds(138, 266, 137, 30);
 		altaEstudiante.add(textField_8);
 
 		JLabel lblCodigo_3_3 = new JLabel("Nacimiento");
@@ -952,7 +1400,7 @@ public class pantalla {
 		JLabel lblCodigo_3_7 = new JLabel("Orientacion");
 		lblCodigo_3_7.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_7.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_7.setBounds(391, 266, 137, 31);
+		lblCodigo_3_7.setBounds(444, 267, 137, 31);
 		altaEstudiante.add(lblCodigo_3_7);
 
 		JDateChooser dateChooser = new JDateChooser();
@@ -983,7 +1431,7 @@ public class pantalla {
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { " ", "TIC", "ADM" }));
-		comboBox_1.setBounds(534, 267, 137, 31);
+		comboBox_1.setBounds(588, 267, 137, 31);
 		altaEstudiante.add(comboBox_1);
 
 		JLabel lblCodigo_3_4_2 = new JLabel("Alta a un estudiante");
@@ -1004,6 +1452,12 @@ public class pantalla {
 		comboBox_7.setBounds(487, 311, 137, 31);
 		altaEstudiante.add(comboBox_7);
 
+		JComboBox comboBox_9 = new JComboBox();
+		comboBox_9.setModel(new DefaultComboBoxModel(
+				new String[] { " ", "@anima.edu.uy", "@gmail.com", "@hotmail.com", "@outlook.com", "@yahoo.com" }));
+		comboBox_9.setBounds(285, 266, 137, 30);
+		altaEstudiante.add(comboBox_9);
+
 		JPanel altaDocente = new JPanel();
 		panelMaster.add(altaDocente, "Alta docente");
 		altaDocente.setLayout(null);
@@ -1020,6 +1474,51 @@ public class pantalla {
 		altaDocente.add(textField_2);
 
 		textField_9 = new JTextField();
+		textField_9.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if (Character.isLetter(validar)) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Solo ingresar Numeros", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_9.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null,
+							"No se admiten caracteres especiales en una cedula de identidad", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_9.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (textField_9.getText().length() == 8)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
 		textField_9.setBounds(248, 232, 167, 33);
 		textField_9.setColumns(10);
 		altaDocente.add(textField_9);
@@ -1037,9 +1536,21 @@ public class pantalla {
 		altaDocente.add(lblCodigo_3_2_1);
 
 		textField_10 = new JTextField();
-		textField_10.setBounds(248, 276, 167, 33);
+		textField_10.setBounds(248, 276, 86, 33);
 		textField_10.setColumns(10);
 		altaDocente.add(textField_10);
+		textField_10.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se admiten caracteres especiales", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 
 		JDateChooser dateChooser_2 = new JDateChooser();
 		dateChooser_2.setBounds(400, 330, 167, 33);
@@ -1076,7 +1587,7 @@ public class pantalla {
 		JButton btnNewButton_4_1 = new JButton("Guardar cambios");
 		btnNewButton_4_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
-		btnNewButton_4_1.setBounds(478, 414, 234, 38);
+		btnNewButton_4_1.setBounds(485, 467, 234, 38);
 		altaDocente.add(btnNewButton_4_1);
 
 		JLabel lblCodigo_3_4_2_1 = new JLabel("Alta a un docente");
@@ -1084,6 +1595,56 @@ public class pantalla {
 		lblCodigo_3_4_2_1.setFont(new Font("Cambria", Font.PLAIN, 60));
 		lblCodigo_3_4_2_1.setBounds(0, 0, 794, 127);
 		altaDocente.add(lblCodigo_3_4_2_1);
+
+		JComboBox comboBox_10 = new JComboBox();
+		comboBox_10.setModel(new DefaultComboBoxModel(
+				new String[] { " ", "@anima.edu.uy", "@gmail.com", "@hotmail.com", "@outlook.com", "@yahoo.com" }));
+		comboBox_10.setBounds(344, 276, 121, 33);
+		altaDocente.add(comboBox_10);
+
+		JLabel lblNewLabel_27 = new JLabel("ID Materia la cual Dicta");
+		lblNewLabel_27.setFont(new Font("Arial", Font.PLAIN, 25));
+		lblNewLabel_27.setBounds(132, 423, 269, 22);
+		altaDocente.add(lblNewLabel_27);
+
+		textField_48 = new JTextField();
+		textField_48.setBounds(411, 418, 167, 30);
+		altaDocente.add(textField_48);
+		textField_48.setColumns(10);
+		textField_48.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se admiten caracteres especiales", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_48.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (textField_48.getText().length() == 9)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		JPanel altaExamen = new JPanel();
 		panelMaster.add(altaExamen, "altaExamen");
@@ -1102,6 +1663,50 @@ public class pantalla {
 		altaExamen.add(lblCodigo_3_2_1_1);
 
 		textField_17 = new JTextField();
+		textField_17.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if (Character.isLetter(validar)) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Solo ingresar Numeros", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_17.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se admiten caracteres especiales", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_17.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (textField_17.getText().length() == 8)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
 		textField_17.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_17.setColumns(10);
 		textField_17.setBounds(310, 163, 168, 29);
@@ -1120,6 +1725,49 @@ public class pantalla {
 		altaExamen.add(lblCodigo_3_2_1_1_1);
 
 		textField_18 = new JTextField();
+		textField_18.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if (Character.isLetter(validar)) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Solo ingresar Numeros", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_18.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se admiten caracteres especiales", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_18.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (textField_18.getText().length() == 2)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		textField_18.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_18.setColumns(10);
 		textField_18.setBounds(200, 239, 168, 29);
@@ -1147,6 +1795,40 @@ public class pantalla {
 		textField_22.setBounds(310, 279, 168, 29);
 		altaExamen.add(textField_22);
 		textField_22.setColumns(10);
+		textField_22.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se admiten caracteres especiales", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_22.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (textField_22.getText().length() == 9)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		JPanel altaFuncionario = new JPanel();
 		panelMaster.add(altaFuncionario, "altaFuncionario");
@@ -1175,6 +1857,49 @@ public class pantalla {
 		textField_20.setColumns(10);
 		textField_20.setBounds(183, 260, 181, 31);
 		altaFuncionario.add(textField_20);
+		textField_20.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char validar = e.getKeyChar();
+				if (Character.isLetter(validar)) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Solo ingresar Numeros", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_20.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se admiten caracteres especiales", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		textField_20.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e4) {
+				if (textField_20.getText().length() == 8)
+
+					e4.consume();
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		JLabel lblCodigo_3_1_1_1 = new JLabel("C.I");
 		lblCodigo_3_1_1_1.setHorizontalAlignment(SwingConstants.LEFT);
@@ -1191,8 +1916,20 @@ public class pantalla {
 		textField_21 = new JTextField();
 		textField_21.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_21.setColumns(10);
-		textField_21.setBounds(183, 302, 181, 31);
+		textField_21.setBounds(183, 302, 96, 31);
 		altaFuncionario.add(textField_21);
+		textField_21.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
+						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se admiten caracteres especiales", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 
 		JDateChooser dateChooser_2_2 = new JDateChooser();
 		dateChooser_2_2.setBounds(369, 344, 154, 31);
@@ -1233,6 +1970,12 @@ public class pantalla {
 		textField_24.setColumns(10);
 		textField_24.setBounds(229, 216, 135, 31);
 		altaFuncionario.add(textField_24);
+
+		JComboBox comboBox_11 = new JComboBox();
+		comboBox_11.setModel(new DefaultComboBoxModel(
+				new String[] { " ", "@anima.edu.uy", "@gmail.com", "@hotmail.com", "@outlook.com", "@yahoo.com" }));
+		comboBox_11.setBounds(289, 302, 109, 31);
+		altaFuncionario.add(comboBox_11);
 
 		JPanel listarDocente = new JPanel();
 		panelMaster.add(listarDocente, "listarDocente");
@@ -1407,10 +2150,7 @@ public class pantalla {
 
 		JMenuItem mntmExamen = new JMenuItem("Examen");
 		mntmExamen.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mntmExamen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+
 		mnDischange.add(mntmExamen);
 
 		JMenu mnConsult = new JMenu("Consultar");
@@ -1713,14 +2453,11 @@ public class pantalla {
 		mntmSubject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(panelMaster, "DISCHANGE_SUBJECT");
-
-			}
-		});
-
-		mntmAbsence.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(panelMaster, "DISCHANGE_ABSENCE");
-
+				textField.setText(null);
+				txtAs.setText(null);
+				textField_33.setText(null);
+				comboBox_5.setSelectedItem(null);
+				comboBox_1_4.setSelectedItem(null);
 			}
 		});
 
@@ -1773,137 +2510,287 @@ public class pantalla {
 
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (textField.getText().isEmpty() || txtAs.getText().isEmpty() || textField_33.getText().isEmpty()
+						|| comboBox_1_4.getSelectedItem() == " " || comboBox_5.getSelectedItem() == " "
+						|| comboBox_1_4.getSelectedItem() == null || comboBox_5.getSelectedItem() == null) {
+					JOptionPane.showMessageDialog(null, "Alguna casilla esta vacia, revise bien", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
 
-				String nombre = textField.getText();
-				String codigo = textField_1.getText();
-				String ciDoc = textField_33.getText();
-				String oriM = comboBox_1_4.getSelectedItem().toString();
-				String genM = comboBox_5.getSelectedItem().toString();
+					String nombre = textField.getText();
+					String codigo = txtAs.getText();
+					String ciDoc = textField_33.getText();
+					String oriM = comboBox_1_4.getSelectedItem().toString();
+					String genM = comboBox_5.getSelectedItem().toString();
 
-				Materia mat = new Materia(nombre, codigo, Orientacion.valueOf(oriM), Generacion.valueOf(genM));
+					Materia mat = new Materia(nombre, codigo, Orientacion.valueOf(oriM), Generacion.valueOf(genM));
 
-				try {
-					controladorlg.crearMateria(mat, ciDoc);
-				} catch (Exception e1) {
-					e1.printStackTrace();
+					try {
+						controladorlg.crearMateria(mat, ciDoc);
+						controladorlg.crearDictaMat(codigo, ciDoc);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					textField.setText(null);
+					txtAs.setText(null);
+					textField_33.setText(null);
+					comboBox_5.setSelectedItem(null);
+					comboBox_1_4.setSelectedItem(null);
+
 				}
-				textField.setText(null);
-				textField_1.setText(null);
-				textField_33.setText(null);
-
 			}
 
 		});
 
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Integer cantHoras = Integer.parseInt(textField_5.getText());
-				LocalDate date2 = LocalDate.parse(sdft.format(dateChooser_5.getDate()));
-				String idMateria = textField_14.getText();
-				String ciEstudiante = textField_16.getText();
-				String tipoIna = comboBox_6.getSelectedItem().toString();
+				Date datee = dateChooser_5.getDate();
 
-				Inasistencia ina = new Inasistencia(ciEstudiante, idMateria, date2, cantHoras,
-						TipoInasistencia.valueOf(tipoIna));
-				try {
-					controladorlg.crearInasistencia(ina);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if (textField_5.getText().isEmpty() || datee == null || textField_14.getText().isEmpty()
+						|| textField_16.getText().isEmpty() || comboBox_6.getSelectedItem() == " "
+						|| comboBox_6.getSelectedItem() == null) {
+					JOptionPane.showMessageDialog(null, "Alguna casilla esta vacia, revise", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					int cantHorass = Integer.parseInt(textField_5.getText());
+					if (cantHorass == 0 || cantHorass > 24) {
+						JOptionPane.showMessageDialog(null, "El dia tiene 24hs", "Error", JOptionPane.ERROR_MESSAGE);
+					} else {
+						Integer cantHoras = Integer.parseInt(textField_5.getText());
+						LocalDate date2 = LocalDate.parse(sdft.format(dateChooser_5.getDate()));
+						String idMateria = textField_14.getText();
+						String ciEstudiante = textField_16.getText();
+						String tipoIna = comboBox_6.getSelectedItem().toString();
+
+						Inasistencia ina = new Inasistencia(ciEstudiante, idMateria, date2, cantHoras,
+								TipoInasistencia.valueOf(tipoIna));
+						try {
+							controladorlg.crearInasistencia(ina);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+						textField_16.setText(null);
+						textField_5.setText(null);
+						dateChooser_5.setDate(null);
+						textField_14.setText(null);
+						comboBox_6.setSelectedItem(null);
+
+					}
 				}
-
-				textField_16.setText(null);
-				textField_5.setText(null);
-				dateChooser_5.setDate(null);
-				textField_14.setText(null);
-
 			}
-
 		});
 
 		btnNewButton_4_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				String ci = textField_17.getText();
-				String codM = textField_22.getText();
-				LocalDate date5 = LocalDate.parse(sdft.format(dateChooser_1.getDate()));
-				Integer nta = Integer.parseInt(textField_18.getText());
-				Examen exa = new Examen(ci, codM, date5, nta);
-				try {
-					controladorlg.crearExamen(exa);
-				} catch (Exception e3) {
-					e3.printStackTrace();
+				Date daate = dateChooser_1.getDate();
+				if (textField_17.getText().isEmpty() || textField_22.getText().isEmpty() || daate == null
+						|| textField_18.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Alguna casilla esta vacia, revise", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					int nota = Integer.parseInt(textField_18.getText());
+					if (nota > 12 || nota < 1) {
+						JOptionPane.showMessageDialog(null, "La nota es del 1 al 12", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					} else {
+						String ci = textField_17.getText();
+						String codM = textField_22.getText();
+						LocalDate date5 = LocalDate.parse(sdft.format(dateChooser_1.getDate()));
+						Integer nta = Integer.parseInt(textField_18.getText());
+						Examen exa = new Examen(ci, codM, date5, nta);
+						try {
+							controladorlg.crearExamen(exa);
+						} catch (Exception e3) {
+							e3.printStackTrace();
+						}
+						textField_17.setText(null);
+						textField_22.setText(null);
+						dateChooser_1.setDate(null);
+						textField_18.setText(null);
+					}
 				}
 			}
 		});
 
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String nameE = textField_6.getText();
-				String ciE = textField_7.getText();
-				String mailE = textField_8.getText();
-				LocalDate nacE = LocalDate.parse(sdft.format(dateChooser.getDate()));
-				String apeE = textField_12.getText();
-				String psswE = textField_13.getText();
-				String esE = comboBox_7.getSelectedItem().toString();
-				String oriE = comboBox_1.getSelectedItem().toString();
-				String genE = comboBox.getSelectedItem().toString();
+				Date date = dateChooser.getDate();
+				if (comboBox_7.getSelectedItem() == null || comboBox_7.getSelectedItem() == "EGRESADO"
+						|| comboBox_7.getSelectedItem() == "DESVINCULADO") {
+					comboBox.setEnabled(false);
+					if (textField_6.getText().isEmpty() || textField_7.getText().isEmpty()
+							|| textField_8.getText().isEmpty() || date == null || textField_12.getText().isEmpty()
+							|| textField_13.getText().isEmpty() || comboBox_7.getSelectedItem() == null
+							|| comboBox_1.getSelectedItem() == null || comboBox_9.getSelectedItem() == null) {
+						JOptionPane.showMessageDialog(null, "Alguna casilla esta vacia, revise", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					} else {
 
-				Estudiante est = new Estudiante(ciE, Estado.valueOf(esE), Orientacion.valueOf(oriE),
-						Generacion.valueOf(genE), psswE, nameE, apeE, mailE, nacE);
-				try {
-					controladorlg.crearEstudiante(est);
-				} catch (Exception e6) {
-					e6.printStackTrace();
+						String nameE = textField_6.getText();
+						String ciE = textField_7.getText();
+						String mailE = textField_8.getText() + comboBox_9.getSelectedItem();
+						System.out.println(mailE);
+						LocalDate nacE = LocalDate.parse(sdft.format(dateChooser.getDate()));
+						String apeE = textField_12.getText();
+						String psswE = textField_13.getText();
+						String esE = comboBox_7.getSelectedItem().toString();
+						String oriE = comboBox_1.getSelectedItem().toString();
+						String genE = "NO_TIENE";
+
+						Estudiante est = new Estudiante(ciE, Estado.valueOf(esE), Orientacion.valueOf(oriE),
+								Generacion.valueOf(genE), psswE, nameE, apeE, mailE, nacE);
+						try {
+							controladorlg.crearEstudiante(est);
+						} catch (Exception e6) {
+							e6.printStackTrace();
+						}
+						comboBox_1.setSelectedItem(null);
+						comboBox_7.setSelectedItem(null);
+						comboBox.setSelectedItem(null);
+						comboBox_9.setSelectedItem(null);
+						dateChooser.setDate(null);
+						textField_6.setText(null);
+						textField_7.setText(null);
+						textField_8.setText(null);
+						textField_9.setText(null);
+						textField_12.setText(null);
+						textField_13.setText(null);
+					}
 				}
+				if (comboBox_7.getSelectedItem() == "ACTIVO") {
+					comboBox.setEnabled(true);
+					if (textField_6.getText().isEmpty() || textField_7.getText().isEmpty()
+							|| textField_8.getText().isEmpty() || date == null || textField_12.getText().isEmpty()
+							|| textField_13.getText().isEmpty() || comboBox_7.getSelectedItem() == null
+							|| comboBox_1.getSelectedItem() == null || comboBox.getSelectedItem() == null
+							|| comboBox_9.getSelectedItem() == null) {
+						JOptionPane.showMessageDialog(null, "Alguna casilla esta vacia, revise", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					} else {
 
-				comboBox_1.setSelectedItem(0);
-				comboBox_7.setSelectedItem(0);
-				comboBox.setSelectedItem(0);
-				dateChooser.setDate(null);
-				textField_7.setText(null);
-				textField_8.setText(null);
-				textField_9.setText(null);
-				textField_12.setText(null);
-				textField_13.setText(null);
+						String nameE = textField_6.getText();
+						String ciE = textField_7.getText();
+						String mailE = textField_8.getText() + comboBox_9.getSelectedItem();
+						System.out.println(mailE);
+						LocalDate nacE = LocalDate.parse(sdft.format(dateChooser.getDate()));
+						String apeE = textField_12.getText();
+						String psswE = textField_13.getText();
+						String esE = comboBox_7.getSelectedItem().toString();
+						String oriE = comboBox_1.getSelectedItem().toString();
+						String genE = comboBox.getSelectedItem().toString();
 
+						Estudiante est = new Estudiante(ciE, Estado.valueOf(esE), Orientacion.valueOf(oriE),
+								Generacion.valueOf(genE), psswE, nameE, apeE, mailE, nacE);
+						try {
+
+							controladorlg.crearEstudiante(est);
+						} catch (Exception e6) {
+							e6.printStackTrace();
+						}
+						comboBox_1.setSelectedItem(null);
+						comboBox_7.setSelectedItem(null);
+						comboBox.setSelectedItem(null);
+						comboBox_9.setSelectedItem(null);
+						dateChooser.setDate(null);
+						textField_6.setText(null);
+						textField_7.setText(null);
+						textField_8.setText(null);
+						textField_9.setText(null);
+						textField_12.setText(null);
+						textField_13.setText(null);
+
+					}
+				}
+				if (comboBox_7.getSelectedItem() == " ") {
+					if (textField_6.getText().isEmpty() || textField_7.getText().isEmpty()
+							|| textField_8.getText().isEmpty() || date == null || textField_12.getText().isEmpty()
+							|| textField_13.getText().isEmpty() || comboBox_7.getSelectedItem() == null
+							|| comboBox_1.getSelectedItem() == null || comboBox.getSelectedItem() == null
+							|| comboBox_9.getSelectedItem() == null) {
+						JOptionPane.showMessageDialog(null, "Alguna casilla esta vacia, revise", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
 			}
+
 		});
 
 		btnNewButton_4_1.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent arg0) {
-				String nomD = textField_2.getText();
-				String ciD = textField_9.getText();
-				String mailD = textField_10.getText();
-				String apD = textField_11.getText();
-				String psswD = textField_15.getText();
-				LocalDate nacD = LocalDate.parse(sdft.format(dateChooser_2.getDate()));
+				Date ddate = dateChooser_2.getDate();
+				if (textField_2.getText().isEmpty() || textField_9.getText().isEmpty()
+						|| textField_10.getText().isEmpty() || textField_11.getText().isEmpty()
+						|| textField_15.getText().isEmpty() || ddate == null || comboBox_10.getSelectedItem() == null
+						|| comboBox_10.getSelectedItem() == " " || textField_48.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Alguna casilla esta vacia, revise", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					String nomD = textField_2.getText();
+					String ciD = textField_9.getText();
+					String mailD = textField_10.getText() + comboBox_10.getSelectedItem();
+					String apD = textField_11.getText();
+					String psswD = textField_15.getText();
+					LocalDate nacD = LocalDate.parse(sdft.format(dateChooser_2.getDate()));
+					String idmatt = textField_48.getText();
 
-				Docente doc = new Docente(ciD, psswD, nomD, apD, mailD, nacD);
+					Docente doc = new Docente(ciD, psswD, nomD, apD, mailD, nacD);
 
-				try {
-					controladorlg.crearDocente(doc);
-				} catch (Exception e7) {
-					e7.printStackTrace();
+					try {
+						controladorlg.crearDocente(doc);
+						try {
+							controladorlg.crearDictaDoc(ciD, idmatt);
+						} catch (Exception e76) {
+							e76.printStackTrace();
+						}
+					} catch (Exception e7) {
+						e7.printStackTrace();
+					}
+					textField_2.setText(null);
+					textField_9.setText(null);
+					textField_10.setText(null);
+					textField_11.setText(null);
+					textField_15.setText(null);
+					dateChooser_2.setDate(null);
+					comboBox_10.setSelectedItem(null);
+					textField_48.setText(null);
+
 				}
 			}
 		});
 
 		btnNewButton_4_1_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String nomF = textField_19.getText();
-				String ciF = textField_20.getText();
-				String mailF = textField_21.getText();
-				String apF = textField_24.getText();
-				String psswF = textField_23.getText();
-				LocalDate nacF = LocalDate.parse(sdft.format(dateChooser_2_2.getDate()));
+				Date datte = dateChooser_2_2.getDate();
+				if (textField_19.getText().isEmpty() || textField_20.getText().isEmpty()
+						|| textField_21.getText().isEmpty() || textField_24.getText().isEmpty()
+						|| textField_23.getText().isEmpty() || datte == null || comboBox_11.getSelectedItem() == null) {
+					JOptionPane.showMessageDialog(null, "Alguna casilla sin rellenar, revise", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					String nomF = textField_19.getText();
+					String ciF = textField_20.getText();
+					String mailF = textField_21.getText() + comboBox_11.getSelectedItem();
+					String apF = textField_24.getText();
+					String psswF = textField_23.getText();
+					LocalDate nacF = LocalDate.parse(sdft.format(dateChooser_2_2.getDate()));
 
-				Funcionario fun = new Funcionario(ciF, psswF, nomF, apF, mailF, nacF);
+					Funcionario fun = new Funcionario(ciF, psswF, nomF, apF, mailF, nacF);
 
-				try {
-					controladorlg.crearFuncionario(fun);
-				} catch (Exception e8) {
-					e8.printStackTrace();
+					try {
+						controladorlg.crearFuncionario(fun);
+					} catch (Exception e8) {
+						e8.printStackTrace();
+					}
+					textField_19.setText(null);
+					textField_20.setText(null);
+					textField_21.setText(null);
+					textField_24.setText(null);
+					textField_23.setText(null);
+					dateChooser_2_2.setDate(null);
+					comboBox_11.setSelectedItem(null);
 				}
 			}
 		});
@@ -2492,80 +3379,100 @@ public class pantalla {
 
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					ResultSet res13 = controladorlg.consultarUsuario(textField_25.getText());
-					if (res13.next() == true) {
-						textField_26.setText(res13.getString("nombre"));
-						textField_27.setText(res13.getString("apellido"));
-						textField_28.setText(res13.getString("ci"));
-						textField_29.setText(res13.getString("fechaDeNacimiento"));
-						textField_30.setText(res13.getString("correo"));
-						textField_31.setText(res13.getString("passwd"));
+				if (textField_25.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Ingrese algo en la casilla 'CI del usuario'", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					try {
+						ResultSet res13 = controladorlg.consultarUsuario(textField_25.getText());
+						if (res13.next() == true) {
+							textField_26.setText(res13.getString("nombre"));
+							textField_27.setText(res13.getString("apellido"));
+							textField_28.setText(res13.getString("ci"));
+							textField_29.setText(res13.getString("fechaDeNacimiento"));
+							textField_30.setText(res13.getString("correo"));
+							textField_31.setText(res13.getString("passwd"));
 
-					} else {
-						JOptionPane.showMessageDialog(null, "Error no existe este Usuario con esta CI");
-					}
-				} catch (Exception e4) {
-					e4.printStackTrace();
-				}
-				try {
-					ResultSet res77 = controladorlg.consultarSiEsEstudiante(textField_25.getText());
-					ResultSet res99 = controladorlg.consultarSiEsDocente(textField_25.getText());
-					if (res77.next() == true) {
-						textField_42.setText("ESTUDIANTE");
-						lblNewLabel_21.setVisible(true);
-						lblNewLabel_23.setVisible(true);
-						textField_45.setVisible(true);
-						lblNewLabel_24.setVisible(true);
-						textField_46.setVisible(true);
-						btnNewButton_13.setVisible(true);
-						lblNewLabel_22.setVisible(false);
-						lblNewLabel_25.setVisible(false);
-						textField_47.setVisible(false);
-						btnNewButton_14.setVisible(false);
-					} else {
-						if (res99.next() == true) {
-							textField_42.setText("DOCENTE");
-							lblNewLabel_22.setVisible(true);
-							lblNewLabel_25.setVisible(true);
-							textField_47.setVisible(true);
-							btnNewButton_14.setVisible(true);
-							lblNewLabel_21.setVisible(false);
-							lblNewLabel_23.setVisible(false);
-							textField_45.setVisible(false);
-							lblNewLabel_24.setVisible(false);
-							textField_46.setVisible(false);
-							btnNewButton_13.setVisible(false);
 						} else {
-							textField_42.setText("FUNCIONARIO");
+							JOptionPane.showMessageDialog(null, "Error no existe este Usuario con esta CI");
 						}
+					} catch (Exception e4) {
+						e4.printStackTrace();
 					}
+					try {
+						ResultSet res77 = controladorlg.consultarSiEsEstudiante(textField_25.getText());
+						ResultSet res99 = controladorlg.consultarSiEsDocente(textField_25.getText());
+						if (res77.next() == true) {
+							textField_42.setText("ESTUDIANTE");
+							lblNewLabel_21.setVisible(true);
+							lblNewLabel_23.setVisible(true);
+							textField_45.setVisible(true);
+							lblNewLabel_24.setVisible(true);
+							textField_46.setVisible(true);
+							btnNewButton_13.setVisible(true);
+							lblNewLabel_22.setVisible(false);
+							lblNewLabel_25.setVisible(false);
+							textField_47.setVisible(false);
+							btnNewButton_14.setVisible(false);
+						} else {
+							if (res99.next() == true) {
+								textField_42.setText("DOCENTE");
+								lblNewLabel_22.setVisible(true);
+								lblNewLabel_25.setVisible(true);
+								textField_47.setVisible(true);
+								btnNewButton_14.setVisible(true);
+								lblNewLabel_25.setVisible(true);
+								textField_47.setVisible(true);
+								lblNewLabel_26.setVisible(true);
+								textField_1.setVisible(true);
+								lblNewLabel_21.setVisible(false);
+								lblNewLabel_23.setVisible(false);
+								textField_45.setVisible(false);
+								lblNewLabel_24.setVisible(false);
+								textField_46.setVisible(false);
+								btnNewButton_13.setVisible(false);
 
-				} catch (Exception e45) {
-					e45.printStackTrace();
+							} else {
+								textField_42.setText("FUNCIONARIO");
+								lblNewLabel_21.setVisible(false);
+								lblNewLabel_23.setVisible(false);
+								textField_45.setVisible(false);
+								lblNewLabel_24.setVisible(false);
+								textField_46.setVisible(false);
+								btnNewButton_13.setVisible(false);
+								lblNewLabel_22.setVisible(false);
+								lblNewLabel_25.setVisible(false);
+								textField_47.setVisible(false);
+								btnNewButton_14.setVisible(false);
+							}
+						}
+
+					} catch (Exception e45) {
+						e45.printStackTrace();
+					}
+					lblNewLabel_9.setVisible(true);
+					lblNewLabel_10.setVisible(true);
+					lblNewLabel_11.setVisible(true);
+					lblNewLabel_12.setVisible(true);
+					lblNewLabel_13.setVisible(true);
+					lblNewLabel_14.setVisible(true);
+					textField_26.setVisible(true);
+					textField_27.setVisible(true);
+					textField_28.setVisible(true);
+					textField_29.setVisible(true);
+					textField_30.setVisible(true);
+					textField_31.setVisible(true);
+					textField_39.setVisible(true);
+					textField_40.setVisible(true);
+					dateChooser_6.setVisible(true);
+					textField_43.setVisible(true);
+					textField_44.setVisible(true);
+					btnNewButton_6.setVisible(true);
+					textField_25.setText(null);
+					textField_42.setVisible(true);
+					lblNewLabel_20.setVisible(true);
+
 				}
-				lblNewLabel_9.setVisible(true);
-				lblNewLabel_10.setVisible(true);
-				lblNewLabel_11.setVisible(true);
-				lblNewLabel_12.setVisible(true);
-				lblNewLabel_13.setVisible(true);
-				lblNewLabel_14.setVisible(true);
-				textField_26.setVisible(true);
-				textField_27.setVisible(true);
-				textField_28.setVisible(true);
-				textField_29.setVisible(true);
-				textField_30.setVisible(true);
-				textField_31.setVisible(true);
-				textField_39.setVisible(true);
-				textField_40.setVisible(true);
-				dateChooser_6.setVisible(true);
-				textField_43.setVisible(true);
-				textField_44.setVisible(true);
-				btnNewButton_6.setVisible(true);
-				textField_25.setText(null);
-				textField_42.setVisible(true);
-				lblNewLabel_20.setVisible(true);
-
 			}
 		});
 
@@ -2629,31 +3536,38 @@ public class pantalla {
 
 		btnNewButton_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String nom = textField_39.getText();
-				String apell = textField_40.getText();
-				String ci = textField_28.getText();
-				LocalDate fech = LocalDate.parse(sdft.format(dateChooser_6.getDate()));
-				String mail = textField_43.getText();
-				String psswd = textField_44.getText();
-				try {
-					controladorlg.modificarUsuario(nom, apell, ci, fech, mail, psswd);
-					JOptionPane.showMessageDialog(null, "Usuario modificado exitosamente");
+				Date feh = dateChooser_6.getDate();
+				if (textField_39.getText().isEmpty() || textField_40.getText().isEmpty()
+						|| textField_28.getText().isEmpty() || feh == null || textField_43.getText().isEmpty()
+						|| textField_44.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Casillas vacias, revise", "Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+					String nom = textField_39.getText();
+					String apell = textField_40.getText();
+					String ci = textField_28.getText();
+					LocalDate fech = LocalDate.parse(sdft.format(dateChooser_6.getDate()));
+					String mail = textField_43.getText();
+					String psswd = textField_44.getText();
+					try {
+						controladorlg.modificarUsuario(nom, apell, ci, fech, mail, psswd);
+						JOptionPane.showMessageDialog(null, "Usuario modificado exitosamente");
 
-				} catch (Exception e99) {
-					e99.printStackTrace();
+					} catch (Exception e99) {
+						e99.printStackTrace();
+					}
+					textField_26.setText(null);
+					textField_27.setText(null);
+					textField_28.setText(null);
+					textField_29.setText(null);
+					textField_30.setText(null);
+					textField_31.setText(null);
+					textField_39.setText(null);
+					textField_40.setText(null);
+					dateChooser_6.setDate(null);
+					textField_43.setText(null);
+					textField_44.setText(null);
+
 				}
-				textField_26.setText(null);
-				textField_27.setText(null);
-				textField_28.setText(null);
-				textField_29.setText(null);
-				textField_30.setText(null);
-				textField_31.setText(null);
-				textField_39.setText(null);
-				textField_40.setText(null);
-				dateChooser_6.setDate(null);
-				textField_43.setText(null);
-				textField_44.setText(null);
-
 			}
 		});
 
@@ -2680,10 +3594,12 @@ public class pantalla {
 									JOptionPane.showMessageDialog(null, "Error, rellene bien la seccion Nombre");
 								} else {
 									if (comboBox_2.getSelectedItem() == " ") {
-										JOptionPane.showMessageDialog(null, "Error, rellene bien la seccion Orientacion");
+										JOptionPane.showMessageDialog(null,
+												"Error, rellene bien la seccion Orientacion");
 									} else {
 										if (comboBox_8.getSelectedItem() == " ") {
-											JOptionPane.showMessageDialog(null, "Error, rellene bien la seccion Generacion");
+											JOptionPane.showMessageDialog(null,
+													"Error, rellene bien la seccion Generacion");
 										} else {
 											try {
 												controladorlg.modificarMateria(idMat, nombreMat, oriMat, geneMat);
@@ -2716,27 +3632,31 @@ public class pantalla {
 
 		btnNewButton_13.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String ciestudiante = textField_28.getText();
-				String idMateria = textField_45.getText();
-				String notaMateria = textField_46.getText();
-				try {
-					controladorlg.crearCursa(ciestudiante, idMateria, notaMateria);
-				} catch (Exception e43) {
-					e43.printStackTrace();
+				if (textField_45.getText().isEmpty() || textField_46.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Revise si las casillas estan vacias", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					int notamat = Integer.parseInt(textField_46.getText());
+					if (notamat > 12 || notamat < 1) {
+						JOptionPane.showMessageDialog(null, "Nota tiene que ser del 1 al 12", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					} else {
+						String ciestudiante = textField_28.getText();
+						String idMateria = textField_45.getText();
+						String notaMateria = textField_46.getText();
+						try {
+							controladorlg.crearCursa(ciestudiante, idMateria, notaMateria);
+						} catch (Exception e43) {
+
+							e43.printStackTrace();
+						}
+					}
 				}
 			}
 		});
 
 		btnNewButton_14.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				String idmateria = textField_47.getText();
-				String cidocente = textField_28.getText();
-				try {
-					controladorlg.modificarDicta(idmateria, cidocente);
-				} catch (Exception e54) {
-					e54.printStackTrace();
-				}
 
 			}
 		});
@@ -2756,7 +3676,7 @@ public class pantalla {
 					}
 				} else {
 					if (idFila < 0) {
-						JOptionPane.showMessageDialog(null, "Error, fila no seleccionada");
+						JOptionPane.showMessageDialog(null, "Fila no seleccionada", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 
 				}
@@ -2765,24 +3685,42 @@ public class pantalla {
 
 		btnNewButton_2_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				String ciLogin = textField_4.getText();
-				String psswdLogin = textField_3.getText();
-
-				try {
-					ResultSet res344 = controladorlg.login(ciLogin, psswdLogin);
-					if (res344.next() == true) {
-						cardLayout.show(panelMaster, "random");
-						mnMenu.setVisible(true);
+				String ciDos = textField_4.getText();
+				String psswdDos = textField_3.getText();
+				if (textField_4.getText().length() < 8) {
+					JOptionPane.showMessageDialog(null, "Una CI lleva 8 caracteres", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					if (textField_4.getText().isEmpty() || textField_3.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Alguna de las dos casillas esta vacia, revise", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						textField_4.setText(ciDos);
+						textField_3.setText(psswdDos);
 					} else {
-						JOptionPane.showMessageDialog(null, "Error Usuario no registrado");
-					}
-				} catch (Exception e393) {
-					e393.printStackTrace();
-				}
-				textField_3.setText(null);
-				textField_4.setText(null);
+						String ciLogin = textField_4.getText();
+						String psswdLogin = textField_3.getText();
 
+						try {
+							ResultSet res344 = controladorlg.login(ciLogin, psswdLogin);
+							if (res344.next() == true) {
+								ResultSet res34 = controladorlg.datosLogin(ciLogin);
+								cardLayout.show(panelMaster, "random");
+								mnMenu.setVisible(true);
+								if (res34.next() == true) {
+									JOptionPane.showMessageDialog(null, "Logeado con Exito! Bienvenido: "
+											+ res34.getString("nombre") + " " + res34.getString("apellido"));
+								}
+							} else {
+								JOptionPane.showMessageDialog(null, "Error Usuario no registrado");
+							}
+						} catch (Exception e393) {
+							e393.printStackTrace();
+						}
+						textField_3.setText(null);
+						textField_4.setText(null);
+
+					}
+				}
 			}
 		});
 
@@ -2860,6 +3798,60 @@ public class pantalla {
 						}
 					}
 				}
+			}
+		});
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				comboBox_1.setSelectedItem(null);
+				comboBox_7.setSelectedItem(null);
+				comboBox.setSelectedItem(null);
+				comboBox_9.setSelectedItem(null);
+				dateChooser.setDate(null);
+				textField_6.setText(null);
+				textField_7.setText(null);
+				textField_8.setText(null);
+				textField_9.setText(null);
+				textField_12.setText(null);
+				textField_13.setText(null);
+
+			}
+		});
+		btnAltaDocente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textField_2.setText(null);
+				textField_9.setText(null);
+				textField_10.setText(null);
+				textField_11.setText(null);
+				textField_15.setText(null);
+				dateChooser_2.setDate(null);
+			}
+		});
+		btnAltaFuncionario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textField_19.setText(null);
+				textField_20.setText(null);
+				textField_21.setText(null);
+				textField_24.setText(null);
+				textField_23.setText(null);
+				dateChooser_2_2.setDate(null);
+			}
+		});
+		mntmAbsence.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(panelMaster, "DISCHANGE_ABSENCE");
+				textField_16.setText(null);
+				textField_5.setText(null);
+				dateChooser_5.setDate(null);
+				textField_14.setText(null);
+				comboBox_6.setSelectedItem(null);
+			}
+		});
+		mntmExamen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textField_17.setText(null);
+				textField_22.setText(null);
+				dateChooser_1.setDate(null);
+				textField_18.setText(null);
 			}
 		});
 
