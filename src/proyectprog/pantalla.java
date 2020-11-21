@@ -181,6 +181,7 @@ public class pantalla {
 		JPanel inicio = new JPanel();
 		panelMaster.add(inicio, "MENU");
 		inicio.setLayout(null);
+		controladorlg.actualizarDeAño();
 
 		JButton btnNewButton_1 = new JButton("Ingresar");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -1163,7 +1164,7 @@ public class pantalla {
 
 		JComboBox comboBox_8 = new JComboBox();
 		comboBox_8.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		comboBox_8.setModel(new DefaultComboBoxModel(new String[] {" ", "PRIMERO", "SEGUNDO", "TERCERO"}));
+		comboBox_8.setModel(new DefaultComboBoxModel(new String[] { " ", "PRIMERO", "SEGUNDO", "TERCERO" }));
 		comboBox_8.setBounds(385, 347, 346, 31);
 		consultarMateria.add(comboBox_8);
 		comboBox_8.setVisible(false);
@@ -1237,7 +1238,7 @@ public class pantalla {
 		listarFuncionario.add(lblCodigo_3_4_2_6_1);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 162, 784, 376);
+		scrollPane_1.setBounds(10, 162, 774, 361);
 		listarFuncionario.add(scrollPane_1);
 
 		table_1 = new JTable();
@@ -1247,14 +1248,14 @@ public class pantalla {
 		panelMaster.add(listarExamenes, "LIST_SUBJECTS");
 		listarExamenes.setLayout(null);
 
-		JLabel lblCodigo_3_4_2_6_2 = new JLabel("Listar examenes");
+		JLabel lblCodigo_3_4_2_6_2 = new JLabel("Estudiantes con pendientes");
 		lblCodigo_3_4_2_6_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_6_2.setFont(new Font("Cambria", Font.PLAIN, 60));
 		lblCodigo_3_4_2_6_2.setBounds(0, 0, 794, 166);
 		listarExamenes.add(lblCodigo_3_4_2_6_2);
 
 		JScrollPane scrollPane_5 = new JScrollPane();
-		scrollPane_5.setBounds(0, 177, 784, 361);
+		scrollPane_5.setBounds(10, 177, 774, 346);
 		listarExamenes.add(scrollPane_5);
 
 		table_3 = new JTable();
@@ -1352,8 +1353,8 @@ public class pantalla {
 		textField_8 = new JTextField();
 		textField_8.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
-				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
-						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 45 || e.getKeyChar() == 47
+						|| e.getKeyChar() >= 58 && e.getKeyChar() <= 64 || e.getKeyChar() >= 91 && e.getKeyChar() <= 96
 						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
 						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
 					e.consume();
@@ -1541,8 +1542,8 @@ public class pantalla {
 		altaDocente.add(textField_10);
 		textField_10.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
-				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
-						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 45 || e.getKeyChar() == 47
+						|| e.getKeyChar() >= 58 && e.getKeyChar() <= 64 || e.getKeyChar() >= 91 && e.getKeyChar() <= 96
 						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
 						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
 					e.consume();
@@ -1920,8 +1921,8 @@ public class pantalla {
 		altaFuncionario.add(textField_21);
 		textField_21.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
-				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
-						|| e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+				if (e.getKeyChar() >= 32 && e.getKeyChar() <= 45 || e.getKeyChar() == 47
+						|| e.getKeyChar() >= 58 && e.getKeyChar() <= 64 || e.getKeyChar() >= 91 && e.getKeyChar() <= 96
 						|| e.getKeyChar() >= 123 && e.getKeyChar() <= 126
 						|| e.getKeyChar() >= 161 && e.getKeyChar() <= 255) {
 					e.consume();
@@ -1988,7 +1989,7 @@ public class pantalla {
 		listarDocente.add(lblCodigo_3_4_2_6_3_1);
 
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(0, 177, 784, 361);
+		scrollPane_2.setBounds(10, 177, 774, 348);
 		listarDocente.add(scrollPane_2);
 
 		table_2 = new JTable();
@@ -2005,7 +2006,7 @@ public class pantalla {
 		listarMateria.add(lblCodigo_3_4_2_6_3_1_1);
 
 		JScrollPane scrollPane_4 = new JScrollPane();
-		scrollPane_4.setBounds(0, 188, 784, 350);
+		scrollPane_4.setBounds(10, 188, 774, 332);
 		listarMateria.add(scrollPane_4);
 
 		table_4 = new JTable();
@@ -2022,7 +2023,7 @@ public class pantalla {
 		listarInasistencias.add(lblCodigo_3_4_2_6_3_1_1_1);
 
 		JScrollPane scrollPane_6 = new JScrollPane();
-		scrollPane_6.setBounds(0, 173, 784, 365);
+		scrollPane_6.setBounds(10, 173, 774, 347);
 		listarInasistencias.add(scrollPane_6);
 
 		table_5 = new JTable();
@@ -2093,7 +2094,7 @@ public class pantalla {
 		listarEstudiantes.add(lblCodigo_3_7_1_2);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 163, 774, 375);
+		scrollPane.setBounds(10, 163, 774, 362);
 		listarEstudiantes.add(scrollPane);
 
 		table = new JTable();
@@ -2112,6 +2113,7 @@ public class pantalla {
 		listarEstudiantes.add(comboBox_4);
 
 		JButton btnNewButton_11 = new JButton("Buscar");
+		btnNewButton_11.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -2185,7 +2187,7 @@ public class pantalla {
 		mntmOfficials.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mnList.add(mntmOfficials);
 
-		JMenuItem mntmSubjects = new JMenuItem("Examenes");
+		JMenuItem mntmSubjects = new JMenuItem("Estudiantes con pendientes");
 		mntmSubjects.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mnList.add(mntmSubjects);
 
@@ -3317,63 +3319,162 @@ public class pantalla {
 						e3.printStackTrace();
 					}
 				}
+				if (oriCOM == " " && genCOM == " ") {
+					JOptionPane.showMessageDialog(null, "No deje ambas casillas vacias, almenos seleccione 1", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
 
 			}
 
-		});
-
-		mntmAbsence_1.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(panelMaster, "CONSULT_ABSENCE");
-
-			}
 		});
 
 		btnNewButton_9.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
+				Date dateI = dateChooser_3.getDate();
+				Date dateF = dateChooser_4.getDate();
 
-				LocalDate dateInicio = LocalDate.parse(sdft.format(dateChooser_3.getDate()));
-				LocalDate dateFin = LocalDate.parse(sdft.format(dateChooser_4.getDate()));
-				DefaultTableModel model = new DefaultTableModel() {
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = 1L;
+				if (dateI == null || dateF == null) {
+					JOptionPane.showMessageDialog(null, "Revise las casillas de fecha inicio o fecha fin", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					LocalDate dateInicio = LocalDate.parse(sdft.format(dateChooser_3.getDate()));
+					LocalDate dateFin = LocalDate.parse(sdft.format(dateChooser_4.getDate()));
+					if (dateInicio.isBefore(dateFin)) {
 
-					public boolean isCellEditable(int row, int column) {
-						return false;
+						DefaultTableModel model = new DefaultTableModel() {
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = 1L;
+
+							public boolean isCellEditable(int row, int column) {
+								return false;
+							}
+						};
+						model.addColumn("Cantidad de Horas");
+						model.addColumn("Fecha");
+						model.addColumn("Codigo de la Materia");
+						model.addColumn("Tipo de inasistencia");
+						model.addColumn("Cedula del Estudiante");
+
+						String[] dato = new String[5];
+						try {
+							ResultSet result9 = controladorlg.consultarInasistenciaIF(dateInicio, dateFin);
+							while (result9.next()) {
+								dato[0] = result9.getString(1);
+								dato[1] = result9.getString(2);
+								dato[2] = result9.getString(3);
+								dato[3] = result9.getString(4);
+								dato[4] = result9.getString(5);
+								model.addRow(dato);
+							}
+
+							table_6.setModel(model);
+						}
+
+						catch (Exception e3) {
+							e3.printStackTrace();
+						}
+
+						dateChooser_3.setDate(null);
+						dateChooser_4.setDate(null);
+					} else {
+						if (dateInicio.isAfter(dateFin)) {
+							DefaultTableModel model = new DefaultTableModel() {
+								/**
+								 * 
+								 */
+								private static final long serialVersionUID = 1L;
+
+								public boolean isCellEditable(int row, int column) {
+									return false;
+								}
+							};
+							model.addColumn("Cantidad de Horas");
+							model.addColumn("Fecha");
+							model.addColumn("Codigo de la Materia");
+							model.addColumn("Tipo de inasistencia");
+							model.addColumn("Cedula del Estudiante");
+
+							String[] dato = new String[5];
+							try {
+								ResultSet result9 = controladorlg.consultarInasistenciaFI(dateInicio, dateFin);
+								while (result9.next()) {
+									dato[0] = result9.getString(1);
+									dato[1] = result9.getString(2);
+									dato[2] = result9.getString(3);
+									dato[3] = result9.getString(4);
+									dato[4] = result9.getString(5);
+									model.addRow(dato);
+								}
+
+								table_6.setModel(model);
+							}
+
+							catch (Exception e3) {
+								e3.printStackTrace();
+							}
+
+							dateChooser_3.setDate(null);
+							dateChooser_4.setDate(null);
+						} else {
+							if (dateInicio.equals(dateFin)) {
+								DefaultTableModel model = new DefaultTableModel() {
+									/**
+									 * 
+									 */
+									private static final long serialVersionUID = 1L;
+
+									public boolean isCellEditable(int row, int column) {
+										return false;
+									}
+								};
+								model.addColumn("Cantidad de Horas");
+								model.addColumn("Fecha");
+								model.addColumn("Codigo de la Materia");
+								model.addColumn("Tipo de inasistencia");
+								model.addColumn("Cedula del Estudiante");
+
+								String[] dato = new String[5];
+								try {
+									ResultSet result9 = controladorlg.consultarInasistenciaIequalsF(dateInicio,
+											dateFin);
+									while (result9.next()) {
+										dato[0] = result9.getString(1);
+										dato[1] = result9.getString(2);
+										dato[2] = result9.getString(3);
+										dato[3] = result9.getString(4);
+										dato[4] = result9.getString(5);
+										model.addRow(dato);
+									}
+
+									table_6.setModel(model);
+								}
+
+								catch (Exception e3) {
+									e3.printStackTrace();
+								}
+
+								dateChooser_3.setDate(null);
+								dateChooser_4.setDate(null);
+							}
+
+						}
 					}
-				};
-				model.addColumn("Cantidad de Horas");
-				model.addColumn("Fecha");
-				model.addColumn("Codigo de la Materia");
-				model.addColumn("Tipo de inasistencia");
-				model.addColumn("Cedula del Estudiante");
-
-				String[] dato = new String[5];
-				try {
-					ResultSet result9 = controladorlg.consultarInasistencia(dateInicio, dateFin);
-					while (result9.next()) {
-						dato[0] = result9.getString(1);
-						dato[1] = result9.getString(2);
-						dato[2] = result9.getString(3);
-						dato[3] = result9.getString(4);
-						dato[4] = result9.getString(5);
-						model.addRow(dato);
-					}
-
-					table_6.setModel(model);
 				}
 
-				catch (Exception e3) {
-					e3.printStackTrace();
+			}
+		});
+		mntmAbsence_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(panelMaster, "CONSULT_ABSENCE");
+				DefaultTableModel myTableModel = (DefaultTableModel) table_6.getModel();
+				if (myTableModel.getRowCount() > 0) {
+					for (int i = myTableModel.getRowCount() - 1; i > -1; i--) {
+						myTableModel.removeRow(i);
+					}
 				}
-
-				dateChooser_3.setDate(null);
-				dateChooser_4.setDate(null);
-
 			}
 		});
 
@@ -3657,6 +3758,28 @@ public class pantalla {
 
 		btnNewButton_14.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				String idMateriaa = textField_47.getText();
+				String idMateriaModificar = textField_1.getText();
+				String ciDocente = textField_28.getText();
+
+				try {
+					ResultSet res65 = controladorlg.consultarSiDicta(idMateriaa, ciDocente);
+					if (res65.next() == false) {
+						JOptionPane.showMessageDialog(null, "Este docente no dicta la materia ingresada", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					} else {
+						try {
+							controladorlg.modificarDicta(idMateriaa, idMateriaModificar, ciDocente);
+							JOptionPane.showMessageDialog(null, "Dicta modificada con exito!");
+						} catch (Exception e56) {
+							e56.printStackTrace();
+						}
+					}
+				} catch (Exception e45) {
+					e45.printStackTrace();
+				}
+				textField_47.setText(null);
+				textField_1.setText(null);
 
 			}
 		});
@@ -3667,10 +3790,12 @@ public class pantalla {
 				int idFila = table_6.getSelectedRow();
 
 				if (idFila >= 0) {
-					String selected = model.getValueAt(idFila, 0).toString();
+					String fecha = model.getValueAt(idFila, 1).toString();
+					String materia = model.getValueAt(idFila, 2).toString();
+					String ciEstudiante = model.getValueAt(idFila, 4).toString();
 					model.removeRow(idFila);
 					try {
-						controladorlg.eliminarInasistencia(selected);
+						controladorlg.eliminarInasistencia(fecha, materia, ciEstudiante);
 					} catch (Exception e54) {
 						e54.printStackTrace();
 					}

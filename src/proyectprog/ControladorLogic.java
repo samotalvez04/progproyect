@@ -98,6 +98,25 @@ public class ControladorLogic {
 		controladorbd.crearCursa(ciestudiante, idMateria, notaMateria);
 	}
 
+	public ResultSet consultarSiDicta(String idMateriaa, String ciDocente) {
+		return controladorbd.consultarSiDicta(idMateriaa, ciDocente);
+	}
+
+	public ResultSet consultarInasistenciaIF(LocalDate dateInicio, LocalDate dateFin) throws Exception {
+		return controladorbd.consultarInasistenciaIF(dateInicio, dateFin);
+	}
+
+	public ResultSet consultarInasistenciaFI(LocalDate dateInicio, LocalDate dateFin) throws Exception {
+		return controladorbd.consultarInasistenciaFI(dateInicio, dateFin);
+	}
+
+	public ResultSet consultarInasistenciaIequalsF(LocalDate dateInicio, LocalDate dateFin) throws Exception {
+		return controladorbd.consultarInasistenciaIequalsF(dateInicio, dateFin);
+	}
+
+	public void modificarDicta(String idMateriaa, String idMateriaModificar, String ciDocente) {
+		controladorbd.modificarDicta(idMateriaa, idMateriaModificar, ciDocente);
+	}
 
 	public void crearDictaDoc(String ciD, String idmatt) {
 		controladorbd.crearDictaDoc(ciD, idmatt);
@@ -107,8 +126,8 @@ public class ControladorLogic {
 		controladorbd.crearDictaMat(codigo, ciDoc);
 	}
 
-	public void eliminarInasistencia(String selected) {
-		controladorbd.eliminarInasistencia(selected);
+	public void eliminarInasistencia(String fecha, String materia, String ciEstudiante) {
+		controladorbd.eliminarInasistencia(fecha, materia, ciEstudiante);
 	}
 
 	public ResultSet login(String ciLogin, String psswdLogin) {
@@ -130,5 +149,8 @@ public class ControladorLogic {
 	public ResultSet consultarSiEsDocente(String ciUsu) {
 		return controladorbd.consultarSiEsDocente(ciUsu);
 	}
-
+	
+	public void actualizarDeAño() {
+		controladorbd.actualizarDeAño();
+	}
 }

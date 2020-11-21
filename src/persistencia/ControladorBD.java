@@ -7,7 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -130,7 +133,7 @@ public class ControladorBD {
 		Connection connection5 = conn.connectToMySQL();
 		Statement st5;
 		st5 = connection5.createStatement();
-		res5 = st5.executeQuery("SELECT * FROM examen");
+		res5 = st5.executeQuery("SELECT * FROM examen WHERE nota < 8");
 		return res5;
 	}
 
@@ -256,7 +259,7 @@ public class ControladorBD {
 		}
 	}
 
-	public ResultSet consultarInasistencia(String dateInicio, String dateFin) throws Exception {
+	public ResultSet consultarInasistenciaIF(LocalDate dateInicio, LocalDate dateFin) throws Exception {
 		ResultSet res666 = null;
 		try {
 			Statement comando = connection.createStatement();
@@ -267,6 +270,55 @@ public class ControladorBD {
 		}
 		return res666;
 
+	}
+
+	public ResultSet consultarInasistenciaFI(LocalDate dateInicio, LocalDate dateFin) throws Exception {
+		ResultSet res666 = null;
+		try {
+			Statement comando = connection.createStatement();
+			res666 = comando.executeQuery(
+					"SELECT * FROM inasistencia WHERE fecha BETWEEN '" + dateFin + "' AND '" + dateInicio + "'");
+		} catch (Exception e666) {
+			e666.printStackTrace();
+		}
+		return res666;
+
+	}
+
+	public ResultSet consultarInasistenciaIequalsF(LocalDate dateInicio, LocalDate dateFin) throws Exception {
+		ResultSet res666 = null;
+		try {
+			Statement comando = connection.createStatement();
+			res666 = comando
+					.executeQuery("SELECT * FROM inasistencia WHERE fecha='" + dateInicio + "' AND '" + dateFin + "'");
+		} catch (Exception e666) {
+			e666.printStackTrace();
+		}
+		return res666;
+
+	}
+
+	public ResultSet consultarSiDicta(String idMateriaa, String ciDocente) {
+		ResultSet res666 = null;
+		try {
+			Statement comando = connection.createStatement();
+			res666 = comando.executeQuery(
+					"SELECT * FROM dicta WHERE ciDocente='" + ciDocente + "' AND codMateria='" + idMateriaa + "'");
+		} catch (Exception e666) {
+			e666.printStackTrace();
+		}
+		return res666;
+	}
+
+	public void modificarDicta(String idMateriaa, String idMateriaModificar, String ciDocente) {
+		try {
+
+			Statement comando = connection.createStatement();
+			comando.executeUpdate("UPDATE dicta SET codMateria='" + idMateriaModificar + "' WHERE ciDocente='"
+					+ ciDocente + "' AND codMateria='" + idMateriaa + "'");
+		} catch (Exception e3) {
+			e3.printStackTrace();
+		}
 	}
 
 	public ResultSet consultarUsuario(String ciUsu) throws Exception {
@@ -367,10 +419,11 @@ public class ControladorBD {
 
 	}
 
-	public void eliminarInasistencia(String selected) {
+	public void eliminarInasistencia(String fecha, String materia, String ciEstudiante) {
 		try {
 			Statement comando = connection.createStatement();
-			comando.executeUpdate("DELETE FROM inasistencia WHERE cantHoras='" + selected + "'");
+			comando.executeUpdate("DELETE FROM inasistencia WHERE fecha='" + fecha + "' AND idMateria='" + materia
+					+ "' AND ciEstudiante='" + ciEstudiante + "'");
 		} catch (Exception e41) {
 			e41.printStackTrace();
 		}
@@ -421,6 +474,97 @@ public class ControladorBD {
 			e67.printStackTrace();
 		}
 		return res67;
+	}
+
+	public void actualizarDeAño() {
+		LocalDate localDate = LocalDate.now();
+		LocalDate primerodeEnero = LocalDate.of(localDate.getYear(), 01, 01);
+
+		if (localDate.isEqual(primerodeEnero)) {
+			try {
+				Statement comand = connection.createStatement();
+				ResultSet res = comand.executeQuery("SELECT ci FROM estudiante");
+				while (res.next()) {
+					int a = 0;
+					a++;
+					String ciEst = res.getString(a);
+					try {
+						Statement comando = connection.createStatement();
+						ResultSet ress = comando.executeQuery(
+								"SELECT COUNT(nota) FROM cursada WHERE nota <= 7 AND ciEstudiante='" + ciEst + "'");
+						if (ress.next()) {
+							int notasMenorASiete = ress.getInt(1);
+							if (notasMenorASiete <= 3 && notasMenorASiete >= 0) {
+								try {
+									Statement comandoo = connection.createStatement();
+									ResultSet resss = comandoo
+											.executeQuery("SELECT generacion FROM estudiante WHERE ci='" + ciEst + "'");
+									if (resss.next()) {
+										String gene = resss.getString(1);
+										if (gene.equals("PRIMERO")) {
+											try {
+												Statement coma = connection.createStatement();
+												coma.executeUpdate(
+														"UPDATE estudiante SET generacion='SEGUNDO' WHERE generacion='PRIMERO' AND ci='"
+																+ ciEst + "'");
+												JOptionPane.showMessageDialog(null,
+														"Estudiantes promovidos a Segundo de liceo: " + ciEst,
+														"Actualizaciones de primero de enero",
+														JOptionPane.INFORMATION_MESSAGE);
+											} catch (Exception e3) {
+												e3.printStackTrace();
+											}
+										} else {
+											if (gene.equals("SEGUNDO")) {
+												try {
+													Statement comaa = connection.createStatement();
+													comaa.executeUpdate(
+															"UPDATE estudiante SET generacion='TERCERO' WHERE generacion='SEGUNDO' AND ci='"
+																	+ ciEst + "'");
+													JOptionPane.showMessageDialog(null,
+															"Estudiantes promovidos a Tercero de liceo: " + ciEst,
+															"Actualizaciones de primero de enero",
+															JOptionPane.INFORMATION_MESSAGE);
+												} catch (Exception e3) {
+													e3.printStackTrace();
+												}
+											} else {
+												if (gene.equals("TERCERO")) {
+													try {
+														Statement coma = connection.createStatement();
+														coma.executeUpdate(
+																"UPDATE estudiante SET estado='EGRESADO' WHERE generacion='TERCERO' AND ci='"
+																		+ ciEst + "'");
+														Statement comaaaaaaaa = connection.createStatement();
+														comaaaaaaaa.executeUpdate(
+																"UPDATE estudiante SET generacion='NO_TIENE' WHERE ci='"
+																		+ ciEst + "'");
+														JOptionPane.showMessageDialog(null,
+																"Estudiantes egresados del liceo: " + ciEst,
+																"Actualizaciones de primero de enero",
+																JOptionPane.INFORMATION_MESSAGE);
+													} catch (Exception e3) {
+														e3.printStackTrace();
+													}
+												}
+											}
+										}
+									}
+								} catch (Exception e4) {
+									e4.printStackTrace();
+								}
+							}
+						}
+
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			} catch (Exception e33) {
+				e33.printStackTrace();
+			}
+		}
+
 	}
 
 }
