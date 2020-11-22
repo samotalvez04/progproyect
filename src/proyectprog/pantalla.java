@@ -63,10 +63,16 @@ import java.awt.Checkbox;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.Dimension;
 import java.awt.Cursor;
+import java.awt.ComponentOrientation;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
 
 public class pantalla {
 
@@ -75,6 +81,8 @@ public class pantalla {
 	Connection connection = conn.connectToMySQL();
 	private JFrame contentPane;
 	private CardLayout cardLayout;
+	private CardLayout cardLayoutt;
+	private CardLayout cardLayouttt;
 	private JTextField textField;
 	private JTextField txtAs;
 	private JTextField textField_3;
@@ -174,42 +182,16 @@ public class pantalla {
 		contentPane.getContentPane().setBackground(Color.WHITE);
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setResizable(false);
-		contentPane.setBounds(289, 96, 795, 582);
+		contentPane.setBounds(289, 96, 800, 600);
 		contentPane.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane.getContentPane().setLayout(null);
 
 		JPanel panelMaster = new JPanel();
-		panelMaster.setBounds(0, 0, 794, 597);
+		panelMaster.setBounds(180, 44, 620, 556);
 		contentPane.getContentPane().add(panelMaster);
 		panelMaster.setLayout(new CardLayout(0, 0));
 		cardLayout = (CardLayout) panelMaster.getLayout();
-
-		JPanel inicio = new JPanel();
-		panelMaster.add(inicio, "MENU");
-		inicio.setLayout(null);
 		controladorlg.actualizarDeAño();
-
-		JButton btnNewButton_1 = new JButton("Ingresar");
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
-
-		btnNewButton_1.setBounds(294, 205, 206, 58);
-		inicio.add(btnNewButton_1);
-
-		JLabel lblCodigo_3_4_2_1_2 = new JLabel("Bienvenido");
-		lblCodigo_3_4_2_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCodigo_3_4_2_1_2.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_1_2.setBounds(10, 24, 774, 170);
-		inicio.add(lblCodigo_3_4_2_1_2);
-
-		JButton btnNewButton_10 = new JButton("Salir");
-		btnNewButton_10.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnNewButton_10.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
-			}
-		});
-		btnNewButton_10.setBounds(294, 274, 206, 58);
-		inicio.add(btnNewButton_10);
 
 		JPanel login = new JPanel();
 		panelMaster.add(login, "panelRegister");
@@ -224,7 +206,7 @@ public class pantalla {
 		textField_3 = new JPasswordField();
 		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_3.setColumns(10);
-		textField_3.setBounds(243, 226, 442, 38);
+		textField_3.setBounds(243, 226, 273, 38);
 		login.add(textField_3);
 		textField_3.addKeyListener(new KeyListener() {
 
@@ -303,29 +285,19 @@ public class pantalla {
 		});
 		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_4.setColumns(10);
-		textField_4.setBounds(243, 180, 442, 38);
+		textField_4.setBounds(243, 180, 273, 38);
 		login.add(textField_4);
 
 		JButton btnNewButton_2_1 = new JButton("Iniciar Sesion");
 
-		btnNewButton_2_1.setBounds(517, 275, 168, 33);
+		btnNewButton_2_1.setBounds(226, 275, 168, 33);
 		login.add(btnNewButton_2_1);
 
 		JLabel lblCodigo_3_4_2_1_2_1 = new JLabel("Iniciar sesi\u00F3n");
 		lblCodigo_3_4_2_1_2_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_1_2_1.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_1_2_1.setBounds(10, 74, 774, 91);
+		lblCodigo_3_4_2_1_2_1.setBounds(10, 74, 600, 91);
 		login.add(lblCodigo_3_4_2_1_2_1);
-
-		JButton btnNewButton_8 = new JButton("Atr\u00E1s");
-		btnNewButton_8.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				textField_3.setText(null);
-				textField_4.setText(null);
-			}
-		});
-		btnNewButton_8.setBounds(112, 275, 168, 33);
-		login.add(btnNewButton_8);
 
 		JPanel darAltaUsuario = new JPanel();
 		panelMaster.add(darAltaUsuario, "DISCHANGE_USER");
@@ -334,25 +306,25 @@ public class pantalla {
 		JButton btnNewButton = new JButton("Estudiante");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 30));
 
-		btnNewButton.setBounds(272, 245, 250, 43);
+		btnNewButton.setBounds(185, 245, 250, 43);
 		darAltaUsuario.add(btnNewButton);
 
 		JButton btnAltaDocente = new JButton("Docente");
 		btnAltaDocente.setFont(new Font("Tahoma", Font.PLAIN, 30));
 
-		btnAltaDocente.setBounds(272, 299, 250, 43);
+		btnAltaDocente.setBounds(185, 299, 250, 43);
 		darAltaUsuario.add(btnAltaDocente);
 
 		JButton btnAltaFuncionario = new JButton("Funcionario");
 		btnAltaFuncionario.setFont(new Font("Tahoma", Font.PLAIN, 30));
 
-		btnAltaFuncionario.setBounds(272, 353, 250, 43);
+		btnAltaFuncionario.setBounds(185, 353, 250, 43);
 		darAltaUsuario.add(btnAltaFuncionario);
 
 		JLabel lblCodigo_3_4_2_1_1 = new JLabel("Seleccione tipo de usuario");
 		lblCodigo_3_4_2_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCodigo_3_4_2_1_1.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_1_1.setBounds(10, 93, 774, 141);
+		lblCodigo_3_4_2_1_1.setFont(new Font("Cambria", Font.PLAIN, 50));
+		lblCodigo_3_4_2_1_1.setBounds(10, 93, 600, 141);
 		darAltaUsuario.add(lblCodigo_3_4_2_1_1);
 
 		JPanel darAltaMateria = new JPanel();
@@ -360,24 +332,24 @@ public class pantalla {
 		darAltaMateria.setLayout(null);
 
 		textField = new JTextField();
-		textField.setBounds(239, 175, 187, 41);
+		textField.setBounds(140, 174, 187, 41);
 		darAltaMateria.add(textField);
 		textField.setColumns(10);
 
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(109, 175, 126, 41);
-		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombre.setBounds(10, 174, 126, 41);
+		lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNombre.setFont(new Font("Arial", Font.PLAIN, 25));
 		darAltaMateria.add(lblNombre);
 
 		JLabel lblCodigo = new JLabel("C\u00F3digo");
-		lblCodigo.setBounds(109, 221, 126, 41);
-		lblCodigo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCodigo.setBounds(10, 220, 126, 41);
+		lblCodigo.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo.setFont(new Font("Arial", Font.PLAIN, 25));
 		darAltaMateria.add(lblCodigo);
 
 		txtAs = new JTextField();
-		txtAs.setBounds(239, 227, 187, 41);
+		txtAs.setBounds(140, 226, 187, 41);
 		txtAs.setColumns(10);
 		darAltaMateria.add(txtAs);
 		txtAs.addKeyListener(new KeyListener() {
@@ -404,44 +376,44 @@ public class pantalla {
 		});
 
 		JLabel lblCodigo_1 = new JLabel("Generacion");
-		lblCodigo_1.setBounds(109, 325, 156, 41);
-		lblCodigo_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCodigo_1.setBounds(10, 324, 156, 41);
+		lblCodigo_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_1.setFont(new Font("Arial", Font.PLAIN, 25));
 		darAltaMateria.add(lblCodigo_1);
 
 		JButton btnNewButton_3 = new JButton("Crear Materia");
 		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton_3.setBounds(284, 448, 226, 41);
+		btnNewButton_3.setBounds(384, 432, 226, 41);
 
 		darAltaMateria.add(btnNewButton_3);
 
 		JLabel lblCodigo_3_4_2_2 = new JLabel("Alta a una materia");
 		lblCodigo_3_4_2_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_2.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_2.setBounds(19, 44, 755, 120);
+		lblCodigo_3_4_2_2.setBounds(10, 44, 600, 120);
 		darAltaMateria.add(lblCodigo_3_4_2_2);
 
 		JComboBox comboBox_1_4 = new JComboBox();
 		comboBox_1_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBox_1_4.setModel(new DefaultComboBoxModel(new String[] { " ", "TIC", "ADM", "TICYADM" }));
-		comboBox_1_4.setBounds(264, 279, 162, 32);
+		comboBox_1_4.setBounds(165, 278, 162, 32);
 		darAltaMateria.add(comboBox_1_4);
 
 		JComboBox comboBox_5 = new JComboBox();
 		comboBox_5.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBox_5.setModel(new DefaultComboBoxModel(new String[] { " ", "PRIMERO", "SEGUNDO", "TERCERO" }));
-		comboBox_5.setBounds(264, 333, 156, 32);
+		comboBox_5.setBounds(165, 332, 156, 32);
 		darAltaMateria.add(comboBox_5);
 
 		JLabel lblNewLabel_7 = new JLabel("Orientacion");
-		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_7.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_7.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblNewLabel_7.setBounds(109, 273, 156, 41);
+		lblNewLabel_7.setBounds(10, 272, 156, 41);
 		darAltaMateria.add(lblNewLabel_7);
 
 		JLabel lblNewLabel_8 = new JLabel("CI del Docente que la Dicta");
 		lblNewLabel_8.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblNewLabel_8.setBounds(109, 377, 320, 41);
+		lblNewLabel_8.setBounds(10, 376, 320, 41);
 		darAltaMateria.add(lblNewLabel_8);
 
 		textField_33 = new JTextField();
@@ -489,7 +461,7 @@ public class pantalla {
 
 			}
 		});
-		textField_33.setBounds(439, 381, 187, 41);
+		textField_33.setBounds(329, 376, 187, 41);
 		darAltaMateria.add(textField_33);
 		textField_33.setColumns(10);
 
@@ -500,12 +472,12 @@ public class pantalla {
 		JLabel lblNewLabel = new JLabel("Crear Inasistencia");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblNewLabel.setBounds(10, 23, 774, 131);
+		lblNewLabel.setBounds(10, 23, 600, 131);
 		altaInasistencia.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Cantidad de Horas");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblNewLabel_1.setBounds(109, 204, 218, 22);
+		lblNewLabel_1.setBounds(10, 204, 218, 22);
 		altaInasistencia.add(lblNewLabel_1);
 
 		textField_5 = new JTextField();
@@ -553,41 +525,41 @@ public class pantalla {
 
 			}
 		});
-		textField_5.setBounds(337, 204, 187, 28);
+		textField_5.setBounds(238, 204, 187, 28);
 		altaInasistencia.add(textField_5);
 		textField_5.setColumns(10);
 
 		JDateChooser dateChooser_5 = new JDateChooser();
-		dateChooser_5.setBounds(185, 237, 148, 28);
+		dateChooser_5.setBounds(86, 237, 148, 28);
 		altaInasistencia.add(dateChooser_5);
 
 		JLabel lblNewLabel_2 = new JLabel("Fecha");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblNewLabel_2.setBounds(109, 237, 84, 20);
+		lblNewLabel_2.setBounds(10, 237, 84, 20);
 		altaInasistencia.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("ID Materia");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblNewLabel_3.setBounds(109, 276, 124, 22);
+		lblNewLabel_3.setBounds(10, 276, 124, 22);
 		altaInasistencia.add(lblNewLabel_3);
 
 		JLabel lblNewLabel_4 = new JLabel("Tipo de Inasistencia");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblNewLabel_4.setBounds(109, 309, 236, 22);
+		lblNewLabel_4.setBounds(10, 309, 236, 22);
 		altaInasistencia.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel("CI Estudiante");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblNewLabel_5.setBounds(109, 165, 156, 28);
+		lblNewLabel_5.setBounds(10, 165, 156, 28);
 		altaInasistencia.add(lblNewLabel_5);
 
 		JButton btnNewButton_2 = new JButton("Crear");
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		btnNewButton_2.setBounds(308, 375, 177, 33);
+		btnNewButton_2.setBounds(433, 304, 177, 33);
 		altaInasistencia.add(btnNewButton_2);
 
 		textField_14 = new JTextField();
-		textField_14.setBounds(233, 276, 148, 28);
+		textField_14.setBounds(134, 276, 148, 28);
 		altaInasistencia.add(textField_14);
 		textField_14.setColumns(10);
 
@@ -595,7 +567,7 @@ public class pantalla {
 		comboBox_6.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBox_6.setModel(
 				new DefaultComboBoxModel(new String[] { " ", "JUSTIFICADA", "INJUSTIFICADA", "LLEGADA_TARDE" }));
-		comboBox_6.setBounds(337, 308, 151, 28);
+		comboBox_6.setBounds(238, 308, 151, 28);
 		altaInasistencia.add(comboBox_6);
 
 		textField_16 = new JTextField();
@@ -642,7 +614,7 @@ public class pantalla {
 				}
 			}
 		});
-		textField_16.setBounds(275, 165, 187, 28);
+		textField_16.setBounds(176, 165, 187, 28);
 		altaInasistencia.add(textField_16);
 		textField_16.setColumns(10);
 
@@ -653,13 +625,13 @@ public class pantalla {
 		JLabel lblCodigo_3_4_2_5 = new JLabel("Consultar usuario");
 		lblCodigo_3_4_2_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_5.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_5.setBounds(0, 0, 794, 71);
+		lblCodigo_3_4_2_5.setBounds(0, 0, 620, 71);
 		consultarUsuario.add(lblCodigo_3_4_2_5);
 
 		JLabel lblCodigo_3_8_1_1 = new JLabel("C.I del usuario");
 		lblCodigo_3_8_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_8_1_1.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_8_1_1.setBounds(75, 82, 176, 37);
+		lblCodigo_3_8_1_1.setBounds(10, 82, 176, 37);
 		consultarUsuario.add(lblCodigo_3_8_1_1);
 
 		textField_25 = new JTextField();
@@ -709,61 +681,61 @@ public class pantalla {
 		});
 		textField_25.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_25.setColumns(10);
-		textField_25.setBounds(245, 85, 176, 32);
+		textField_25.setBounds(180, 85, 176, 32);
 		consultarUsuario.add(textField_25);
 
 		JButton btnNewButton_5 = new JButton("Consultar");
 
 		btnNewButton_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNewButton_5.setBounds(431, 85, 176, 34);
+		btnNewButton_5.setBounds(366, 85, 176, 34);
 		consultarUsuario.add(btnNewButton_5);
 
 		JLabel lblNewLabel_9 = new JLabel("Nombre");
 		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_9.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_9.setBounds(75, 130, 59, 19);
+		lblNewLabel_9.setBounds(10, 130, 59, 19);
 		consultarUsuario.add(lblNewLabel_9);
 		lblNewLabel_9.setVisible(false);
 
 		JLabel lblNewLabel_10 = new JLabel("Apellido");
 		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_10.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_10.setBounds(75, 157, 59, 19);
+		lblNewLabel_10.setBounds(10, 157, 59, 19);
 		consultarUsuario.add(lblNewLabel_10);
 		lblNewLabel_10.setVisible(false);
 
 		JLabel lblNewLabel_11 = new JLabel("Cedula de Identidad");
 		lblNewLabel_11.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_11.setBounds(75, 192, 130, 19);
+		lblNewLabel_11.setBounds(10, 192, 130, 19);
 		consultarUsuario.add(lblNewLabel_11);
 		lblNewLabel_11.setVisible(false);
 
 		JLabel lblNewLabel_12 = new JLabel("Fecha de Nacimiento");
 		lblNewLabel_12.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_12.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_12.setBounds(75, 222, 139, 19);
+		lblNewLabel_12.setBounds(10, 222, 139, 19);
 		consultarUsuario.add(lblNewLabel_12);
 		lblNewLabel_12.setVisible(false);
 
 		JLabel lblNewLabel_13 = new JLabel("Contrase\u00F1a");
 		lblNewLabel_13.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_13.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_13.setBounds(75, 282, 81, 19);
+		lblNewLabel_13.setBounds(10, 282, 81, 19);
 		consultarUsuario.add(lblNewLabel_13);
 		lblNewLabel_13.setVisible(false);
 
 		JLabel lblNewLabel_14 = new JLabel("Correo");
 		lblNewLabel_14.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_14.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_14.setBounds(75, 252, 53, 19);
+		lblNewLabel_14.setBounds(10, 252, 53, 19);
 		consultarUsuario.add(lblNewLabel_14);
 		lblNewLabel_14.setVisible(false);
 
 		textField_26 = new JTextField();
 		textField_26.setHorizontalAlignment(SwingConstants.LEFT);
 		textField_26.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_26.setBounds(140, 124, 221, 26);
+		textField_26.setBounds(75, 124, 221, 26);
 		consultarUsuario.add(textField_26);
 		textField_26.setColumns(10);
 		textField_26.setVisible(false);
@@ -772,7 +744,7 @@ public class pantalla {
 		textField_27 = new JTextField();
 		textField_27.setHorizontalAlignment(SwingConstants.LEFT);
 		textField_27.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_27.setBounds(140, 155, 219, 26);
+		textField_27.setBounds(75, 155, 219, 26);
 		consultarUsuario.add(textField_27);
 		textField_27.setColumns(10);
 		textField_27.setVisible(false);
@@ -781,7 +753,7 @@ public class pantalla {
 		textField_28 = new JTextField();
 		textField_28.setHorizontalAlignment(SwingConstants.LEFT);
 		textField_28.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_28.setBounds(215, 186, 177, 26);
+		textField_28.setBounds(150, 186, 177, 26);
 		consultarUsuario.add(textField_28);
 		textField_28.setColumns(10);
 		textField_28.setVisible(false);
@@ -790,7 +762,7 @@ public class pantalla {
 		textField_29 = new JTextField();
 		textField_29.setHorizontalAlignment(SwingConstants.LEFT);
 		textField_29.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_29.setBounds(215, 216, 177, 26);
+		textField_29.setBounds(150, 216, 177, 26);
 		consultarUsuario.add(textField_29);
 		textField_29.setColumns(10);
 		textField_29.setVisible(false);
@@ -799,7 +771,7 @@ public class pantalla {
 		textField_30 = new JTextField();
 		textField_30.setHorizontalAlignment(SwingConstants.LEFT);
 		textField_30.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_30.setBounds(138, 248, 210, 26);
+		textField_30.setBounds(73, 248, 210, 26);
 		consultarUsuario.add(textField_30);
 		textField_30.setColumns(10);
 		textField_30.setVisible(false);
@@ -808,7 +780,7 @@ public class pantalla {
 		textField_31 = new JPasswordField();
 		textField_31.setHorizontalAlignment(SwingConstants.LEFT);
 		textField_31.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_31.setBounds(166, 279, 221, 26);
+		textField_31.setBounds(101, 279, 221, 26);
 		consultarUsuario.add(textField_31);
 		textField_31.setColumns(10);
 		textField_31.setVisible(false);
@@ -818,49 +790,49 @@ public class pantalla {
 		btnNewButton_6.setVisible(false);
 
 		btnNewButton_6.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNewButton_6.setBounds(586, 278, 176, 26);
+		btnNewButton_6.setBounds(434, 312, 176, 26);
 		consultarUsuario.add(btnNewButton_6);
 
 		textField_39 = new JTextField();
 		textField_39.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_39.setBounds(369, 124, 176, 26);
+		textField_39.setBounds(304, 124, 176, 26);
 		consultarUsuario.add(textField_39);
 		textField_39.setColumns(10);
 		textField_39.setVisible(false);
 
 		textField_40 = new JTextField();
 		textField_40.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_40.setBounds(369, 155, 176, 26);
+		textField_40.setBounds(304, 155, 176, 26);
 		consultarUsuario.add(textField_40);
 		textField_40.setColumns(10);
 		textField_40.setVisible(false);
 
 		textField_43 = new JTextField();
 		textField_43.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_43.setBounds(358, 247, 176, 24);
+		textField_43.setBounds(293, 247, 176, 24);
 		consultarUsuario.add(textField_43);
 		textField_43.setColumns(10);
 		textField_43.setVisible(false);
 
 		textField_44 = new JPasswordField();
 		textField_44.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_44.setBounds(400, 277, 176, 24);
+		textField_44.setBounds(335, 277, 176, 24);
 		consultarUsuario.add(textField_44);
 		textField_44.setColumns(10);
 		textField_44.setVisible(false);
 
 		JDateChooser dateChooser_6 = new JDateChooser();
-		dateChooser_6.setBounds(402, 216, 176, 24);
+		dateChooser_6.setBounds(337, 216, 176, 24);
 		consultarUsuario.add(dateChooser_6);
 
 		JLabel lblNewLabel_20 = new JLabel("Tipo de Usuario");
 		lblNewLabel_20.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_20.setBounds(75, 312, 110, 26);
+		lblNewLabel_20.setBounds(10, 312, 110, 26);
 		consultarUsuario.add(lblNewLabel_20);
 		lblNewLabel_20.setVisible(false);
 
 		textField_42 = new JTextField();
-		textField_42.setBounds(195, 312, 130, 26);
+		textField_42.setBounds(130, 312, 130, 26);
 		consultarUsuario.add(textField_42);
 		textField_42.setColumns(10);
 		textField_42.setEditable(false);
@@ -869,19 +841,19 @@ public class pantalla {
 		lblNewLabel_21.setVisible(false);
 		lblNewLabel_21.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_21.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_21.setBounds(85, 349, 289, 32);
+		lblNewLabel_21.setBounds(10, 349, 289, 32);
 		consultarUsuario.add(lblNewLabel_21);
 
 		JLabel lblNewLabel_22 = new JLabel("Modificar materias que dicta Docente");
 		lblNewLabel_22.setVisible(false);
 		lblNewLabel_22.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_22.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_22.setBounds(384, 349, 289, 32);
+		lblNewLabel_22.setBounds(269, 349, 289, 32);
 		consultarUsuario.add(lblNewLabel_22);
 
 		textField_45 = new JTextField();
 		textField_45.setVisible(false);
-		textField_45.setBounds(215, 392, 86, 20);
+		textField_45.setBounds(140, 392, 86, 20);
 		consultarUsuario.add(textField_45);
 		textField_45.setColumns(10);
 		textField_45.addKeyListener(new KeyListener() {
@@ -922,7 +894,7 @@ public class pantalla {
 		JLabel lblNewLabel_23 = new JLabel("ID de Materia");
 		lblNewLabel_23.setVisible(false);
 		lblNewLabel_23.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_23.setBounds(119, 393, 97, 14);
+		lblNewLabel_23.setBounds(44, 393, 97, 14);
 		consultarUsuario.add(lblNewLabel_23);
 
 		textField_46 = new JTextField();
@@ -970,31 +942,31 @@ public class pantalla {
 			}
 		});
 		textField_46.setVisible(false);
-		textField_46.setBounds(215, 420, 86, 20);
+		textField_46.setBounds(140, 420, 86, 20);
 		consultarUsuario.add(textField_46);
 		textField_46.setColumns(10);
 
 		JLabel lblNewLabel_24 = new JLabel("Nota");
 		lblNewLabel_24.setVisible(false);
 		lblNewLabel_24.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_24.setBounds(119, 418, 86, 19);
+		lblNewLabel_24.setBounds(44, 418, 86, 19);
 		consultarUsuario.add(lblNewLabel_24);
 
 		JButton btnNewButton_13 = new JButton("Agregar");
 
 		btnNewButton_13.setVisible(false);
-		btnNewButton_13.setBounds(162, 451, 89, 23);
+		btnNewButton_13.setBounds(87, 451, 89, 23);
 		consultarUsuario.add(btnNewButton_13);
 
 		JLabel lblNewLabel_25 = new JLabel("ID Materia a la que esta dictando el docente");
 		lblNewLabel_25.setVisible(false);
 		lblNewLabel_25.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_25.setBounds(358, 392, 300, 19);
+		lblNewLabel_25.setBounds(242, 391, 300, 19);
 		consultarUsuario.add(lblNewLabel_25);
 
 		textField_47 = new JTextField();
 		textField_47.setVisible(false);
-		textField_47.setBounds(657, 392, 86, 20);
+		textField_47.setBounds(540, 392, 70, 20);
 		consultarUsuario.add(textField_47);
 		textField_47.setColumns(10);
 		textField_46.addKeyListener(new KeyListener() {
@@ -1023,17 +995,17 @@ public class pantalla {
 		JButton btnNewButton_14 = new JButton("Modificar");
 
 		btnNewButton_14.setVisible(false);
-		btnNewButton_14.setBounds(456, 451, 89, 23);
+		btnNewButton_14.setBounds(381, 451, 89, 23);
 		consultarUsuario.add(btnNewButton_14);
 
 		JLabel lblNewLabel_26 = new JLabel("ID Materia a la cual quieres que dicte");
 		lblNewLabel_26.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_26.setBounds(358, 422, 249, 18);
+		lblNewLabel_26.setBounds(283, 422, 249, 18);
 		consultarUsuario.add(lblNewLabel_26);
 		lblNewLabel_26.setVisible(false);
 
 		textField_1 = new JTextField();
-		textField_1.setBounds(604, 420, 86, 20);
+		textField_1.setBounds(529, 420, 86, 20);
 		consultarUsuario.add(textField_1);
 		textField_1.setColumns(10);
 		textField_1.setVisible(false);
@@ -1048,19 +1020,19 @@ public class pantalla {
 		JLabel lblCodigo_3_4_2_3 = new JLabel("Consultar materia");
 		lblCodigo_3_4_2_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_3.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_3.setBounds(0, 0, 794, 121);
+		lblCodigo_3_4_2_3.setBounds(0, 0, 620, 121);
 		consultarMateria.add(lblCodigo_3_4_2_3);
 
 		JLabel lblCodigo_3_8_1_1_1 = new JLabel("Nombre o c\u00F3digo de materia");
 		lblCodigo_3_8_1_1_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCodigo_3_8_1_1_1.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_8_1_1_1.setBounds(25, 132, 320, 49);
+		lblCodigo_3_8_1_1_1.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblCodigo_3_8_1_1_1.setBounds(10, 126, 205, 49);
 		consultarMateria.add(lblCodigo_3_8_1_1_1);
 
 		textField_32 = new JTextField();
 		textField_32.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_32.setColumns(10);
-		textField_32.setBounds(355, 132, 218, 38);
+		textField_32.setBounds(195, 132, 218, 38);
 		consultarMateria.add(textField_32);
 		textField_32.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
@@ -1078,46 +1050,46 @@ public class pantalla {
 		JButton btnNewButton_5_1 = new JButton("Consultar");
 		btnNewButton_5_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
-		btnNewButton_5_1.setBounds(583, 132, 148, 38);
+		btnNewButton_5_1.setBounds(423, 132, 148, 38);
 		consultarMateria.add(btnNewButton_5_1);
 
 		JLabel lblNewLabel_15 = new JLabel("Nombre");
 		lblNewLabel_15.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_15.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblNewLabel_15.setBounds(44, 216, 109, 38);
+		lblNewLabel_15.setBounds(10, 190, 109, 38);
 		consultarMateria.add(lblNewLabel_15);
 		lblNewLabel_15.setVisible(false);
 
 		JLabel lblNewLabel_16 = new JLabel("Codigo");
 		lblNewLabel_16.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_16.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblNewLabel_16.setBounds(44, 263, 97, 31);
+		lblNewLabel_16.setBounds(10, 237, 97, 31);
 		consultarMateria.add(lblNewLabel_16);
 		lblNewLabel_16.setVisible(false);
 
 		JLabel lblNewLabel_17 = new JLabel("Orientacion");
 		lblNewLabel_17.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_17.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblNewLabel_17.setBounds(44, 305, 141, 31);
+		lblNewLabel_17.setBounds(10, 279, 141, 31);
 		consultarMateria.add(lblNewLabel_17);
 		lblNewLabel_17.setVisible(false);
 
 		JLabel lblNewLabel_18 = new JLabel("Generacion");
 		lblNewLabel_18.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_18.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblNewLabel_18.setBounds(44, 347, 141, 31);
+		lblNewLabel_18.setBounds(10, 321, 141, 31);
 		consultarMateria.add(lblNewLabel_18);
 		lblNewLabel_18.setVisible(false);
 
 		JLabel lblNewLabel_19 = new JLabel("Cantidad de Inscriptos");
 		lblNewLabel_19.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_19.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblNewLabel_19.setBounds(44, 389, 264, 31);
+		lblNewLabel_19.setBounds(10, 363, 264, 31);
 		consultarMateria.add(lblNewLabel_19);
 
 		textField_34 = new JTextField();
 		textField_34.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_34.setBounds(157, 216, 218, 35);
+		textField_34.setBounds(123, 190, 218, 35);
 		consultarMateria.add(textField_34);
 		textField_34.setColumns(10);
 		textField_34.setVisible(false);
@@ -1125,7 +1097,7 @@ public class pantalla {
 
 		textField_35 = new JTextField();
 		textField_35.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_35.setBounds(151, 265, 224, 29);
+		textField_35.setBounds(117, 239, 224, 29);
 		consultarMateria.add(textField_35);
 		textField_35.setColumns(10);
 		textField_35.setVisible(false);
@@ -1133,7 +1105,7 @@ public class pantalla {
 
 		textField_36 = new JTextField();
 		textField_36.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_36.setBounds(195, 305, 180, 31);
+		textField_36.setBounds(161, 279, 180, 31);
 		consultarMateria.add(textField_36);
 		textField_36.setColumns(10);
 		textField_36.setVisible(false);
@@ -1141,7 +1113,7 @@ public class pantalla {
 
 		textField_37 = new JTextField();
 		textField_37.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_37.setBounds(195, 347, 180, 31);
+		textField_37.setBounds(161, 321, 180, 31);
 		consultarMateria.add(textField_37);
 		textField_37.setColumns(10);
 		textField_37.setVisible(false);
@@ -1149,14 +1121,14 @@ public class pantalla {
 
 		textField_38 = new JTextField();
 		textField_38.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_38.setBounds(306, 389, 68, 31);
+		textField_38.setBounds(272, 363, 68, 31);
 		consultarMateria.add(textField_38);
 		textField_38.setColumns(10);
 		textField_38.setEditable(false);
 
 		textField_41 = new JTextField();
 		textField_41.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_41.setBounds(385, 216, 218, 35);
+		textField_41.setBounds(351, 190, 218, 35);
 		consultarMateria.add(textField_41);
 		textField_41.setColumns(10);
 		textField_41.setVisible(false);
@@ -1164,20 +1136,20 @@ public class pantalla {
 		JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBox_2.setModel(new DefaultComboBoxModel(new String[] { " ", "TIC", "ADM", "TICYADM" }));
-		comboBox_2.setBounds(385, 305, 218, 31);
+		comboBox_2.setBounds(351, 279, 218, 31);
 		consultarMateria.add(comboBox_2);
 		comboBox_2.setVisible(false);
 
 		JComboBox comboBox_8 = new JComboBox();
 		comboBox_8.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBox_8.setModel(new DefaultComboBoxModel(new String[] { " ", "PRIMERO", "SEGUNDO", "TERCERO" }));
-		comboBox_8.setBounds(385, 347, 346, 31);
+		comboBox_8.setBounds(351, 321, 220, 31);
 		consultarMateria.add(comboBox_8);
 		comboBox_8.setVisible(false);
 
 		JButton btnNewButton_12 = new JButton("Modificar");
 		btnNewButton_12.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton_12.setBounds(583, 446, 148, 38);
+		btnNewButton_12.setBounds(423, 407, 148, 38);
 		consultarMateria.add(btnNewButton_12);
 		btnNewButton_12.setVisible(false);
 
@@ -1191,37 +1163,37 @@ public class pantalla {
 		JLabel lblCodigo_3_4_2_4 = new JLabel("Consultar inasistencia");
 		lblCodigo_3_4_2_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_4.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_4.setBounds(10, 0, 774, 97);
+		lblCodigo_3_4_2_4.setBounds(10, 0, 600, 97);
 		consultarInasistencia.add(lblCodigo_3_4_2_4);
 
 		JLabel lblCodigo_3_3_2 = new JLabel("Inicio");
 		lblCodigo_3_3_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_3_2.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_3_2.setBounds(97, 108, 82, 33);
+		lblCodigo_3_3_2.setBounds(20, 108, 82, 33);
 		consultarInasistencia.add(lblCodigo_3_3_2);
 
 		JDateChooser dateChooser_3 = new JDateChooser();
-		dateChooser_3.setBounds(172, 108, 148, 33);
+		dateChooser_3.setBounds(95, 108, 148, 33);
 		consultarInasistencia.add(dateChooser_3);
 
 		JLabel lblCodigo_3_3_3 = new JLabel("Fin");
 		lblCodigo_3_3_3.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_3_3.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_3_3.setBounds(330, 108, 52, 33);
+		lblCodigo_3_3_3.setBounds(253, 108, 52, 33);
 		consultarInasistencia.add(lblCodigo_3_3_3);
 
 		JDateChooser dateChooser_4 = new JDateChooser();
-		dateChooser_4.setBounds(376, 108, 148, 33);
+		dateChooser_4.setBounds(299, 108, 148, 33);
 		consultarInasistencia.add(dateChooser_4);
 
 		JButton btnNewButton_9 = new JButton("Consultar");
 		btnNewButton_9.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
-		btnNewButton_9.setBounds(539, 108, 148, 33);
+		btnNewButton_9.setBounds(462, 108, 148, 33);
 		consultarInasistencia.add(btnNewButton_9);
 
 		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(10, 148, 774, 332);
+		scrollPane_3.setBounds(10, 148, 600, 332);
 		consultarInasistencia.add(scrollPane_3);
 
 		table_6 = new JTable();
@@ -1230,7 +1202,7 @@ public class pantalla {
 		JButton btnNewButton_7 = new JButton("Eliminar");
 
 		btnNewButton_7.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton_7.setBounds(552, 491, 135, 33);
+		btnNewButton_7.setBounds(475, 492, 135, 33);
 		consultarInasistencia.add(btnNewButton_7);
 
 		JPanel listarFuncionario = new JPanel();
@@ -1240,11 +1212,11 @@ public class pantalla {
 		JLabel lblCodigo_3_4_2_6_1 = new JLabel("Listar funcionario");
 		lblCodigo_3_4_2_6_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_6_1.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_6_1.setBounds(0, 11, 794, 140);
+		lblCodigo_3_4_2_6_1.setBounds(0, 11, 610, 140);
 		listarFuncionario.add(lblCodigo_3_4_2_6_1);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(10, 162, 774, 361);
+		scrollPane_1.setBounds(10, 162, 600, 361);
 		listarFuncionario.add(scrollPane_1);
 
 		table_1 = new JTable();
@@ -1256,12 +1228,12 @@ public class pantalla {
 
 		JLabel lblCodigo_3_4_2_6_2 = new JLabel("Estudiantes con pendientes");
 		lblCodigo_3_4_2_6_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCodigo_3_4_2_6_2.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_6_2.setBounds(0, 0, 794, 166);
+		lblCodigo_3_4_2_6_2.setFont(new Font("Cambria", Font.PLAIN, 50));
+		lblCodigo_3_4_2_6_2.setBounds(0, 0, 610, 166);
 		listarExamenes.add(lblCodigo_3_4_2_6_2);
 
 		JScrollPane scrollPane_5 = new JScrollPane();
-		scrollPane_5.setBounds(10, 177, 774, 346);
+		scrollPane_5.setBounds(10, 177, 600, 346);
 		listarExamenes.add(scrollPane_5);
 
 		table_3 = new JTable();
@@ -1273,8 +1245,8 @@ public class pantalla {
 
 		JLabel lblCodigo_3_4_2_1_2_3 = new JLabel("Seleccione opci\u00F3n en el men\u00FA");
 		lblCodigo_3_4_2_1_2_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCodigo_3_4_2_1_2_3.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_1_2_3.setBounds(10, 181, 774, 187);
+		lblCodigo_3_4_2_1_2_3.setFont(new Font("Cambria", Font.PLAIN, 45));
+		lblCodigo_3_4_2_1_2_3.setBounds(10, 184, 600, 187);
 		random.add(lblCodigo_3_4_2_1_2_3);
 
 		JPanel altaEstudiante = new JPanel();
@@ -1284,19 +1256,19 @@ public class pantalla {
 		JLabel lblCodigo_3 = new JLabel("Nombre");
 		lblCodigo_3.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3.setBounds(82, 174, 103, 35);
+		lblCodigo_3.setBounds(10, 134, 103, 35);
 		altaEstudiante.add(lblCodigo_3);
 
 		textField_6 = new JTextField();
 		textField_6.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_6.setColumns(10);
-		textField_6.setBounds(195, 174, 137, 31);
+		textField_6.setBounds(123, 134, 137, 31);
 		altaEstudiante.add(textField_6);
 
 		JLabel lblCodigo_3_1 = new JLabel("CI");
 		lblCodigo_3_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_1.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_1.setBounds(82, 220, 46, 35);
+		lblCodigo_3_1.setBounds(10, 218, 46, 35);
 		altaEstudiante.add(lblCodigo_3_1);
 
 		textField_7 = new JTextField();
@@ -1347,13 +1319,13 @@ public class pantalla {
 		});
 		textField_7.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_7.setColumns(10);
-		textField_7.setBounds(138, 220, 137, 31);
+		textField_7.setBounds(66, 218, 137, 31);
 		altaEstudiante.add(textField_7);
 
 		JLabel lblCodigo_3_2 = new JLabel("Mail");
 		lblCodigo_3_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_2.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_2.setBounds(82, 266, 68, 33);
+		lblCodigo_3_2.setBounds(10, 264, 68, 33);
 		altaEstudiante.add(lblCodigo_3_2);
 
 		textField_8 = new JTextField();
@@ -1371,98 +1343,98 @@ public class pantalla {
 		});
 		textField_8.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_8.setColumns(10);
-		textField_8.setBounds(138, 266, 137, 30);
+		textField_8.setBounds(66, 264, 137, 30);
 		altaEstudiante.add(textField_8);
 
 		JLabel lblCodigo_3_3 = new JLabel("Nacimiento");
 		lblCodigo_3_3.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_3.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_3.setBounds(82, 310, 137, 35);
+		lblCodigo_3_3.setBounds(10, 308, 137, 35);
 		altaEstudiante.add(lblCodigo_3_3);
 
 		textField_12 = new JTextField();
 		textField_12.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_12.setColumns(10);
-		textField_12.setBounds(501, 174, 137, 31);
+		textField_12.setBounds(112, 176, 137, 31);
 		altaEstudiante.add(textField_12);
 
 		JLabel lblCodigo_3_4 = new JLabel("Apellido");
 		lblCodigo_3_4.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_4.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_4.setBounds(391, 174, 103, 29);
+		lblCodigo_3_4.setBounds(10, 177, 103, 29);
 		altaEstudiante.add(lblCodigo_3_4);
 
 		textField_13 = new JPasswordField();
 		textField_13.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_13.setColumns(10);
-		textField_13.setBounds(534, 214, 137, 31);
+		textField_13.setBounds(157, 354, 137, 31);
 		altaEstudiante.add(textField_13);
 
 		JLabel lblCodigo_3_5 = new JLabel("Contrase\u00F1a");
 		lblCodigo_3_5.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_5.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_5.setBounds(391, 220, 137, 29);
+		lblCodigo_3_5.setBounds(10, 355, 137, 29);
 		altaEstudiante.add(lblCodigo_3_5);
 
 		JLabel lblCodigo_3_7 = new JLabel("Orientacion");
 		lblCodigo_3_7.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_7.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_7.setBounds(444, 267, 137, 31);
+		lblCodigo_3_7.setBounds(10, 396, 137, 31);
 		altaEstudiante.add(lblCodigo_3_7);
 
 		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(229, 310, 137, 35);
+		dateChooser.setBounds(157, 308, 137, 35);
 		altaEstudiante.add(dateChooser);
 
 		JButton btnNewButton_4 = new JButton("Crear Estudiante");
 		btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton_4.setForeground(Color.DARK_GRAY);
 
-		btnNewButton_4.setBounds(385, 356, 196, 33);
+		btnNewButton_4.setBounds(414, 478, 196, 33);
 		altaEstudiante.add(btnNewButton_4);
 
 		JComboBox comboBox = new JComboBox();
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { " ", "PRIMERO", "SEGUNDO", "TERCERO" }));
-		comboBox.setBounds(229, 356, 137, 31);
+		comboBox.setBounds(157, 478, 137, 31);
 		altaEstudiante.add(comboBox);
 		comboBox.setVisible(false);
 
 		JLabel lblCodigo_3_7_1 = new JLabel("Generacion");
 		lblCodigo_3_7_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_7_1.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_7_1.setBounds(82, 356, 137, 35);
+		lblCodigo_3_7_1.setBounds(10, 478, 137, 35);
 		altaEstudiante.add(lblCodigo_3_7_1);
 		lblCodigo_3_7_1.setVisible(false);
 
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { " ", "TIC", "ADM" }));
-		comboBox_1.setBounds(588, 267, 137, 31);
+		comboBox_1.setBounds(154, 396, 137, 31);
 		altaEstudiante.add(comboBox_1);
 
 		JLabel lblCodigo_3_4_2 = new JLabel("Alta a un estudiante");
 		lblCodigo_3_4_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2.setBounds(0, 0, 794, 163);
+		lblCodigo_3_4_2.setBounds(0, 0, 624, 123);
 		altaEstudiante.add(lblCodigo_3_4_2);
 
 		JLabel lblNewLabel_6 = new JLabel("Estado");
 		lblNewLabel_6.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblNewLabel_6.setBounds(391, 310, 86, 35);
+		lblNewLabel_6.setBounds(10, 438, 86, 35);
 		altaEstudiante.add(lblNewLabel_6);
 
 		JComboBox comboBox_7 = new JComboBox();
 
 		comboBox_7.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBox_7.setModel(new DefaultComboBoxModel(new String[] { " ", "ACTIVO", "EGRESADO", "DESVINCULADO" }));
-		comboBox_7.setBounds(487, 311, 137, 31);
+		comboBox_7.setBounds(106, 439, 137, 31);
 		altaEstudiante.add(comboBox_7);
 
 		JComboBox comboBox_9 = new JComboBox();
 		comboBox_9.setModel(new DefaultComboBoxModel(
 				new String[] { " ", "@anima.edu.uy", "@gmail.com", "@hotmail.com", "@outlook.com", "@yahoo.com" }));
-		comboBox_9.setBounds(285, 266, 137, 30);
+		comboBox_9.setBounds(213, 264, 137, 30);
 		altaEstudiante.add(comboBox_9);
 
 		JPanel altaDocente = new JPanel();
@@ -1470,13 +1442,13 @@ public class pantalla {
 		altaDocente.setLayout(null);
 
 		JLabel lblCodigo_3_8 = new JLabel("Nombre");
-		lblCodigo_3_8.setBounds(132, 138, 106, 38);
+		lblCodigo_3_8.setBounds(10, 138, 106, 38);
 		lblCodigo_3_8.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_8.setFont(new Font("Arial", Font.PLAIN, 25));
 		altaDocente.add(lblCodigo_3_8);
 
 		textField_2 = new JTextField();
-		textField_2.setBounds(248, 138, 167, 33);
+		textField_2.setBounds(126, 138, 167, 33);
 		textField_2.setColumns(10);
 		altaDocente.add(textField_2);
 
@@ -1526,24 +1498,24 @@ public class pantalla {
 			}
 		});
 
-		textField_9.setBounds(248, 232, 167, 33);
+		textField_9.setBounds(126, 232, 167, 33);
 		textField_9.setColumns(10);
 		altaDocente.add(textField_9);
 
 		JLabel lblCodigo_3_1_1 = new JLabel("C.I");
-		lblCodigo_3_1_1.setBounds(132, 232, 106, 38);
+		lblCodigo_3_1_1.setBounds(10, 232, 106, 38);
 		lblCodigo_3_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_1_1.setFont(new Font("Arial", Font.PLAIN, 25));
 		altaDocente.add(lblCodigo_3_1_1);
 
 		JLabel lblCodigo_3_2_1 = new JLabel("Mail");
-		lblCodigo_3_2_1.setBounds(132, 276, 66, 38);
+		lblCodigo_3_2_1.setBounds(10, 276, 66, 38);
 		lblCodigo_3_2_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_2_1.setFont(new Font("Arial", Font.PLAIN, 25));
 		altaDocente.add(lblCodigo_3_2_1);
 
 		textField_10 = new JTextField();
-		textField_10.setBounds(248, 276, 86, 33);
+		textField_10.setBounds(126, 276, 86, 33);
 		textField_10.setColumns(10);
 		altaDocente.add(textField_10);
 		textField_10.addKeyListener(new KeyAdapter() {
@@ -1560,33 +1532,33 @@ public class pantalla {
 		});
 
 		JDateChooser dateChooser_2 = new JDateChooser();
-		dateChooser_2.setBounds(400, 330, 167, 33);
+		dateChooser_2.setBounds(278, 330, 167, 33);
 		altaDocente.add(dateChooser_2);
 
 		JLabel lblCodigo_3_3_1 = new JLabel("Fecha De Nacimiento");
-		lblCodigo_3_3_1.setBounds(132, 325, 258, 38);
+		lblCodigo_3_3_1.setBounds(10, 325, 258, 38);
 		lblCodigo_3_3_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_3_1.setFont(new Font("Arial", Font.PLAIN, 25));
 		altaDocente.add(lblCodigo_3_3_1);
 
 		JLabel lblCodigo_3_4_1 = new JLabel("Apellido");
-		lblCodigo_3_4_1.setBounds(132, 187, 106, 38);
+		lblCodigo_3_4_1.setBounds(10, 187, 106, 38);
 		lblCodigo_3_4_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_4_1.setFont(new Font("Arial", Font.PLAIN, 25));
 		altaDocente.add(lblCodigo_3_4_1);
 
 		textField_11 = new JTextField();
-		textField_11.setBounds(248, 188, 167, 33);
+		textField_11.setBounds(126, 188, 167, 33);
 		textField_11.setColumns(10);
 		altaDocente.add(textField_11);
 
 		textField_15 = new JPasswordField();
-		textField_15.setBounds(284, 374, 167, 33);
+		textField_15.setBounds(162, 374, 167, 33);
 		textField_15.setColumns(10);
 		altaDocente.add(textField_15);
 
 		JLabel lblCodigo_3_5_1 = new JLabel("Contrase\u00F1a");
-		lblCodigo_3_5_1.setBounds(132, 374, 142, 38);
+		lblCodigo_3_5_1.setBounds(10, 374, 142, 38);
 		lblCodigo_3_5_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_5_1.setFont(new Font("Arial", Font.PLAIN, 25));
 		altaDocente.add(lblCodigo_3_5_1);
@@ -1594,28 +1566,28 @@ public class pantalla {
 		JButton btnNewButton_4_1 = new JButton("Crear Docente");
 		btnNewButton_4_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
-		btnNewButton_4_1.setBounds(485, 467, 234, 38);
+		btnNewButton_4_1.setBounds(376, 469, 234, 38);
 		altaDocente.add(btnNewButton_4_1);
 
 		JLabel lblCodigo_3_4_2_1 = new JLabel("Alta a un docente");
 		lblCodigo_3_4_2_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_1.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_1.setBounds(0, 0, 794, 127);
+		lblCodigo_3_4_2_1.setBounds(0, 0, 620, 127);
 		altaDocente.add(lblCodigo_3_4_2_1);
 
 		JComboBox comboBox_10 = new JComboBox();
 		comboBox_10.setModel(new DefaultComboBoxModel(
 				new String[] { " ", "@anima.edu.uy", "@gmail.com", "@hotmail.com", "@outlook.com", "@yahoo.com" }));
-		comboBox_10.setBounds(344, 276, 121, 33);
+		comboBox_10.setBounds(222, 276, 121, 33);
 		altaDocente.add(comboBox_10);
 
 		JLabel lblNewLabel_27 = new JLabel("ID Materia la cual Dicta");
 		lblNewLabel_27.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblNewLabel_27.setBounds(132, 423, 269, 22);
+		lblNewLabel_27.setBounds(10, 423, 269, 22);
 		altaDocente.add(lblNewLabel_27);
 
 		textField_48 = new JTextField();
-		textField_48.setBounds(411, 418, 167, 30);
+		textField_48.setBounds(289, 418, 167, 30);
 		altaDocente.add(textField_48);
 		textField_48.setColumns(10);
 		textField_48.addKeyListener(new KeyAdapter() {
@@ -1660,13 +1632,13 @@ public class pantalla {
 		JLabel lblCodigo_3_4_2_1_3 = new JLabel("Alta a un examen");
 		lblCodigo_3_4_2_1_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_1_3.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_1_3.setBounds(0, 0, 794, 142);
+		lblCodigo_3_4_2_1_3.setBounds(0, 0, 620, 142);
 		altaExamen.add(lblCodigo_3_4_2_1_3);
 
 		JLabel lblCodigo_3_2_1_1 = new JLabel("C.I Estudiante");
 		lblCodigo_3_2_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_2_1_1.setFont(new Font("Dialog", Font.PLAIN, 25));
-		lblCodigo_3_2_1_1.setBounds(121, 153, 179, 47);
+		lblCodigo_3_2_1_1.setBounds(10, 153, 179, 47);
 		altaExamen.add(lblCodigo_3_2_1_1);
 
 		textField_17 = new JTextField();
@@ -1716,19 +1688,19 @@ public class pantalla {
 
 		textField_17.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_17.setColumns(10);
-		textField_17.setBounds(310, 163, 168, 29);
+		textField_17.setBounds(199, 163, 168, 29);
 		altaExamen.add(textField_17);
 
 		JLabel lblCodigo_3_3_1_1 = new JLabel("Fecha");
 		lblCodigo_3_3_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_3_1_1.setFont(new Font("Dialog", Font.PLAIN, 25));
-		lblCodigo_3_3_1_1.setBounds(121, 190, 86, 38);
+		lblCodigo_3_3_1_1.setBounds(10, 190, 86, 38);
 		altaExamen.add(lblCodigo_3_3_1_1);
 
 		JLabel lblCodigo_3_2_1_1_1 = new JLabel("Nota");
 		lblCodigo_3_2_1_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_2_1_1_1.setFont(new Font("Dialog", Font.PLAIN, 25));
-		lblCodigo_3_2_1_1_1.setBounds(121, 239, 121, 29);
+		lblCodigo_3_2_1_1_1.setBounds(10, 239, 121, 29);
 		altaExamen.add(lblCodigo_3_2_1_1_1);
 
 		textField_18 = new JTextField();
@@ -1777,13 +1749,13 @@ public class pantalla {
 		});
 		textField_18.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_18.setColumns(10);
-		textField_18.setBounds(200, 239, 168, 29);
+		textField_18.setBounds(89, 239, 168, 29);
 		altaExamen.add(textField_18);
 
 		JLabel lblCodigo_3_7_4 = new JLabel("Codigo Materia");
 		lblCodigo_3_7_4.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_7_4.setFont(new Font("Dialog", Font.PLAIN, 25));
-		lblCodigo_3_7_4.setBounds(121, 279, 179, 29);
+		lblCodigo_3_7_4.setBounds(10, 279, 179, 29);
 		altaExamen.add(lblCodigo_3_7_4);
 
 		JDateChooser dateChooser_1 = new JDateChooser();
@@ -1791,15 +1763,15 @@ public class pantalla {
 		JButton btnNewButton_4_1_1 = new JButton("Guardar cambios");
 		btnNewButton_4_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
-		btnNewButton_4_1_1.setBounds(274, 319, 245, 38);
+		btnNewButton_4_1_1.setBounds(394, 276, 216, 38);
 		altaExamen.add(btnNewButton_4_1_1);
 
-		dateChooser_1.setBounds(200, 199, 168, 29);
+		dateChooser_1.setBounds(89, 199, 168, 29);
 		altaExamen.add(dateChooser_1);
 
 		textField_22 = new JTextField();
 		textField_22.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_22.setBounds(310, 279, 168, 29);
+		textField_22.setBounds(199, 279, 168, 29);
 		altaExamen.add(textField_22);
 		textField_22.setColumns(10);
 		textField_22.addKeyListener(new KeyAdapter() {
@@ -1844,25 +1816,25 @@ public class pantalla {
 		JLabel lblCodigo_3_4_2_1_4 = new JLabel("Alta a un funcionario");
 		lblCodigo_3_4_2_1_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_1_4.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_1_4.setBounds(0, 0, 794, 157);
+		lblCodigo_3_4_2_1_4.setBounds(0, 0, 620, 157);
 		altaFuncionario.add(lblCodigo_3_4_2_1_4);
 
 		JLabel lblCodigo_3_8_1 = new JLabel("Nombre");
 		lblCodigo_3_8_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_8_1.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_8_1.setBounds(123, 168, 96, 42);
+		lblCodigo_3_8_1.setBounds(10, 168, 96, 42);
 		altaFuncionario.add(lblCodigo_3_8_1);
 
 		textField_19 = new JTextField();
 		textField_19.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_19.setColumns(10);
-		textField_19.setBounds(229, 174, 135, 31);
+		textField_19.setBounds(116, 174, 135, 31);
 		altaFuncionario.add(textField_19);
 
 		textField_20 = new JTextField();
 		textField_20.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_20.setColumns(10);
-		textField_20.setBounds(183, 260, 181, 31);
+		textField_20.setBounds(70, 260, 181, 31);
 		altaFuncionario.add(textField_20);
 		textField_20.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
@@ -1911,19 +1883,19 @@ public class pantalla {
 		JLabel lblCodigo_3_1_1_1 = new JLabel("C.I");
 		lblCodigo_3_1_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_1_1_1.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_1_1_1.setBounds(123, 261, 50, 30);
+		lblCodigo_3_1_1_1.setBounds(10, 261, 50, 30);
 		altaFuncionario.add(lblCodigo_3_1_1_1);
 
 		JLabel lblCodigo_3_2_1_2 = new JLabel("Mail");
 		lblCodigo_3_2_1_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_2_1_2.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_2_1_2.setBounds(123, 302, 68, 31);
+		lblCodigo_3_2_1_2.setBounds(10, 302, 68, 31);
 		altaFuncionario.add(lblCodigo_3_2_1_2);
 
 		textField_21 = new JTextField();
 		textField_21.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_21.setColumns(10);
-		textField_21.setBounds(183, 302, 96, 31);
+		textField_21.setBounds(70, 302, 96, 31);
 		altaFuncionario.add(textField_21);
 		textField_21.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
@@ -1939,49 +1911,49 @@ public class pantalla {
 		});
 
 		JDateChooser dateChooser_2_2 = new JDateChooser();
-		dateChooser_2_2.setBounds(369, 344, 154, 31);
+		dateChooser_2_2.setBounds(256, 344, 154, 31);
 		altaFuncionario.add(dateChooser_2_2);
 
 		JLabel lblCodigo_3_3_1_2 = new JLabel("Fecha de Nacimiento");
 		lblCodigo_3_3_1_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_3_1_2.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_3_1_2.setBounds(123, 344, 241, 31);
+		lblCodigo_3_3_1_2.setBounds(10, 344, 241, 31);
 		altaFuncionario.add(lblCodigo_3_3_1_2);
 
 		JButton btnNewButton_4_1_2 = new JButton("Crear Funcionario");
 		btnNewButton_4_1_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
-		btnNewButton_4_1_2.setBounds(282, 440, 230, 31);
+		btnNewButton_4_1_2.setBounds(380, 386, 230, 31);
 		altaFuncionario.add(btnNewButton_4_1_2);
 
 		textField_23 = new JPasswordField();
 		textField_23.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_23.setColumns(10);
-		textField_23.setBounds(263, 386, 135, 31);
+		textField_23.setBounds(150, 386, 135, 31);
 		altaFuncionario.add(textField_23);
 
 		JLabel lblCodigo_3_5_1_1 = new JLabel("Contraseña");
 		lblCodigo_3_5_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_5_1_1.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_5_1_1.setBounds(123, 386, 130, 31);
+		lblCodigo_3_5_1_1.setBounds(10, 386, 130, 31);
 		altaFuncionario.add(lblCodigo_3_5_1_1);
 
 		JLabel lblCodigo_3_4_1_1 = new JLabel("Apellido");
 		lblCodigo_3_4_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCodigo_3_4_1_1.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_4_1_1.setBounds(123, 213, 96, 36);
+		lblCodigo_3_4_1_1.setBounds(10, 213, 96, 36);
 		altaFuncionario.add(lblCodigo_3_4_1_1);
 
 		textField_24 = new JTextField();
 		textField_24.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_24.setColumns(10);
-		textField_24.setBounds(229, 216, 135, 31);
+		textField_24.setBounds(116, 216, 135, 31);
 		altaFuncionario.add(textField_24);
 
 		JComboBox comboBox_11 = new JComboBox();
 		comboBox_11.setModel(new DefaultComboBoxModel(
 				new String[] { " ", "@anima.edu.uy", "@gmail.com", "@hotmail.com", "@outlook.com", "@yahoo.com" }));
-		comboBox_11.setBounds(289, 302, 109, 31);
+		comboBox_11.setBounds(176, 302, 109, 31);
 		altaFuncionario.add(comboBox_11);
 
 		JPanel listarDocente = new JPanel();
@@ -1991,11 +1963,11 @@ public class pantalla {
 		JLabel lblCodigo_3_4_2_6_3_1 = new JLabel("Listar docente");
 		lblCodigo_3_4_2_6_3_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_6_3_1.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_6_3_1.setBounds(0, 0, 794, 166);
+		lblCodigo_3_4_2_6_3_1.setBounds(0, 0, 610, 166);
 		listarDocente.add(lblCodigo_3_4_2_6_3_1);
 
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(10, 177, 774, 348);
+		scrollPane_2.setBounds(10, 177, 600, 348);
 		listarDocente.add(scrollPane_2);
 
 		table_2 = new JTable();
@@ -2008,11 +1980,11 @@ public class pantalla {
 		JLabel lblCodigo_3_4_2_6_3_1_1 = new JLabel("Listar materia");
 		lblCodigo_3_4_2_6_3_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_6_3_1_1.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_6_3_1_1.setBounds(0, 0, 794, 177);
+		lblCodigo_3_4_2_6_3_1_1.setBounds(0, 0, 610, 177);
 		listarMateria.add(lblCodigo_3_4_2_6_3_1_1);
 
 		JScrollPane scrollPane_4 = new JScrollPane();
-		scrollPane_4.setBounds(10, 188, 774, 332);
+		scrollPane_4.setBounds(10, 188, 600, 332);
 		listarMateria.add(scrollPane_4);
 
 		table_4 = new JTable();
@@ -2025,11 +1997,11 @@ public class pantalla {
 		JLabel lblCodigo_3_4_2_6_3_1_1_1 = new JLabel("Listar inasistencias");
 		lblCodigo_3_4_2_6_3_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_6_3_1_1_1.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_6_3_1_1_1.setBounds(0, 0, 794, 104);
+		lblCodigo_3_4_2_6_3_1_1_1.setBounds(0, 0, 610, 104);
 		listarInasistencias.add(lblCodigo_3_4_2_6_3_1_1_1);
 
 		JScrollPane scrollPane_6 = new JScrollPane();
-		scrollPane_6.setBounds(10, 173, 774, 347);
+		scrollPane_6.setBounds(10, 173, 600, 347);
 		listarInasistencias.add(scrollPane_6);
 
 		table_5 = new JTable();
@@ -2037,28 +2009,28 @@ public class pantalla {
 
 		JLabel lblNewLabel_28 = new JLabel("Orientacion");
 		lblNewLabel_28.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_28.setBounds(63, 115, 114, 34);
+		lblNewLabel_28.setBounds(10, 115, 114, 34);
 		listarInasistencias.add(lblNewLabel_28);
 
 		JComboBox comboBox_12 = new JComboBox();
 		comboBox_12.setModel(new DefaultComboBoxModel(new String[] { " ", "TIC", "ADM" }));
-		comboBox_12.setBounds(187, 115, 114, 34);
+		comboBox_12.setBounds(134, 115, 114, 34);
 		listarInasistencias.add(comboBox_12);
 
 		JLabel lblNewLabel_31 = new JLabel("Generacion");
 		lblNewLabel_31.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_31.setBounds(311, 115, 105, 34);
+		lblNewLabel_31.setBounds(258, 115, 105, 34);
 		listarInasistencias.add(lblNewLabel_31);
 
 		JComboBox comboBox_13 = new JComboBox();
 		comboBox_13.setModel(new DefaultComboBoxModel(new String[] { " ", "PRIMERO", "SEGUNDO", "TERCERO" }));
-		comboBox_13.setBounds(426, 115, 114, 34);
+		comboBox_13.setBounds(373, 115, 114, 34);
 		listarInasistencias.add(comboBox_13);
 
 		JButton btnNewButton_15 = new JButton("Listar");
 
 		btnNewButton_15.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton_15.setBounds(550, 115, 114, 34);
+		btnNewButton_15.setBounds(497, 115, 114, 34);
 		listarInasistencias.add(btnNewButton_15);
 
 		JPanel reporteEstadisticas = new JPanel();
@@ -2068,29 +2040,29 @@ public class pantalla {
 		JLabel lblCodigo_3_4_2_6_3_1_1_1_1 = new JLabel("Reporte de estad\u00EDsticas");
 		lblCodigo_3_4_2_6_3_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_6_3_1_1_1_1.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_6_3_1_1_1_1.setBounds(0, 0, 794, 139);
+		lblCodigo_3_4_2_6_3_1_1_1_1.setBounds(0, 0, 620, 139);
 		reporteEstadisticas.add(lblCodigo_3_4_2_6_3_1_1_1_1);
 
 		JLabel lblNewLabel_29 = new JLabel("Indice de inasistencias");
 		lblNewLabel_29.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_29.setBounds(91, 194, 212, 66);
+		lblNewLabel_29.setBounds(10, 193, 212, 66);
 		reporteEstadisticas.add(lblNewLabel_29);
 
 		textField_50 = new JTextField();
 		textField_50.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		textField_50.setBounds(313, 194, 386, 66);
+		textField_50.setBounds(232, 193, 363, 66);
 		reporteEstadisticas.add(textField_50);
 		textField_50.setColumns(10);
 		textField_50.setEditable(false);
 
 		JLabel lblNewLabel_30 = new JLabel("Materia con mas inasistencias");
 		lblNewLabel_30.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_30.setBounds(91, 281, 281, 66);
+		lblNewLabel_30.setBounds(10, 280, 281, 66);
 		reporteEstadisticas.add(lblNewLabel_30);
 
 		textField_51 = new JTextField();
 		textField_51.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		textField_51.setBounds(598, 285, 101, 66);
+		textField_51.setBounds(482, 284, 113, 66);
 		reporteEstadisticas.add(textField_51);
 		textField_51.setColumns(10);
 		textField_51.setEditable(false);
@@ -2098,7 +2070,7 @@ public class pantalla {
 		textField_52 = new JTextField();
 		textField_52.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_52.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		textField_52.setBounds(382, 285, 206, 66);
+		textField_52.setBounds(301, 284, 172, 66);
 		reporteEstadisticas.add(textField_52);
 		textField_52.setColumns(10);
 		textField_52.setEditable(false);
@@ -2109,25 +2081,25 @@ public class pantalla {
 
 		JLabel lblCodigo_3_4_2_6_3_1_1_1_1_1 = new JLabel("Listar estudiantes");
 		lblCodigo_3_4_2_6_3_1_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCodigo_3_4_2_6_3_1_1_1_1_1.setFont(new Font("Cambria", Font.PLAIN, 50));
-		lblCodigo_3_4_2_6_3_1_1_1_1_1.setBounds(10, 11, 439, 141);
+		lblCodigo_3_4_2_6_3_1_1_1_1_1.setFont(new Font("Cambria", Font.PLAIN, 45));
+		lblCodigo_3_4_2_6_3_1_1_1_1_1.setBounds(10, 11, 359, 141);
 		listarEstudiantes.add(lblCodigo_3_4_2_6_3_1_1_1_1_1);
 
 		JLabel lblCodigo_3_7_1_1 = new JLabel("Generacion");
 		lblCodigo_3_7_1_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCodigo_3_7_1_1.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_7_1_1.setBounds(459, 21, 143, 35);
+		lblCodigo_3_7_1_1.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblCodigo_3_7_1_1.setBounds(379, 13, 104, 35);
 		listarEstudiantes.add(lblCodigo_3_7_1_1);
 
 		JLabel lblCodigo_3_7_1_2 = new JLabel("Orientacion");
 		lblCodigo_3_7_1_2.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCodigo_3_7_1_2.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCodigo_3_7_1_2.setBounds(459, 67, 143, 37);
+		lblCodigo_3_7_1_2.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblCodigo_3_7_1_2.setBounds(379, 59, 104, 37);
 		listarEstudiantes.add(lblCodigo_3_7_1_2);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(null);
-		scrollPane.setBounds(10, 163, 774, 362);
+		scrollPane.setBounds(10, 163, 600, 362);
 		listarEstudiantes.add(scrollPane);
 
 		table = new JTable();
@@ -2136,13 +2108,13 @@ public class pantalla {
 		JComboBox comboBox_3 = new JComboBox();
 
 		comboBox_3.setModel(new DefaultComboBoxModel(new String[] { " ", "TIC", "ADM", "TICYADM" }));
-		comboBox_3.setBounds(612, 67, 172, 37);
+		comboBox_3.setBounds(493, 62, 117, 37);
 		listarEstudiantes.add(comboBox_3);
 
 		JComboBox comboBox_4 = new JComboBox();
 
 		comboBox_4.setModel(new DefaultComboBoxModel(new String[] { " ", "PRIMERO", "SEGUNDO", "TERCERO" }));
-		comboBox_4.setBounds(612, 19, 172, 37);
+		comboBox_4.setBounds(493, 15, 117, 37);
 		listarEstudiantes.add(comboBox_4);
 
 		JButton btnNewButton_11 = new JButton("Buscar");
@@ -2151,189 +2123,195 @@ public class pantalla {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnNewButton_11.setBounds(612, 115, 172, 37);
+		btnNewButton_11.setBounds(493, 107, 117, 37);
 		listarEstudiantes.add(btnNewButton_11);
 
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBorder(null);
-		menuBar.setFont(new Font("Segoe UI", Font.PLAIN, 25));
-		contentPane.setJMenuBar(menuBar);
+		JPanel menutop = new JPanel();
+		menutop.setBackground(Color.LIGHT_GRAY);
+		menutop.setBounds(180, 0, 620, 45);
+		contentPane.getContentPane().add(menutop);
+		menutop.setLayout(new CardLayout(0, 0));
+		cardLayouttt = (CardLayout) menutop.getLayout();
 
-		JMenu mnMenu = new JMenu("Menu");
-		mnMenu.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnMenu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		menuBar.add(mnMenu);
-		mnMenu.setVisible(false);
+		JPanel men = new JPanel();
+		men.setBackground(Color.LIGHT_GRAY);
+		menutop.add(men, "name_514521331277200");
+		men.setLayout(null);
 
-		JMenu mnDischange = new JMenu("Dar de alta");
-		mnDischange.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnMenu.add(mnDischange);
-
-		JMenuItem mntmUser = new JMenuItem("Usuario");
-		mntmUser.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnDischange.add(mntmUser);
-
-		JMenuItem mntmSubject = new JMenuItem("Materia");
-		mntmSubject.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnDischange.add(mntmSubject);
-
-		JMenuItem mntmAbsence = new JMenuItem("Inasistencia");
-		mntmAbsence.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnDischange.add(mntmAbsence);
-
-		JMenuItem mntmExamen = new JMenuItem("Examen");
-		mntmExamen.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-
-		mnDischange.add(mntmExamen);
-
-		JMenu mnConsult = new JMenu("Consultar");
-		mnConsult.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnMenu.add(mnConsult);
-
-		JMenuItem mntmUser_1 = new JMenuItem("Usuario");
-		mntmUser_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnConsult.add(mntmUser_1);
-
-		JMenuItem mntmSubject_1 = new JMenuItem("Materia");
-		mntmSubject_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnConsult.add(mntmSubject_1);
-
-		JMenuItem mntmAbsence_1 = new JMenuItem("Inasistencias");
-		mntmAbsence_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnConsult.add(mntmAbsence_1);
-
-		JMenu mnList = new JMenu("Listar");
-		mnList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnMenu.add(mnList);
-
-		JMenuItem mntmUsers = new JMenuItem("Estudiantes");
-		mntmUsers.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnList.add(mntmUsers);
-
-		JMenuItem mntmTeachers = new JMenuItem("Funcionarios");
-		mntmTeachers.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnList.add(mntmTeachers);
-
-		JMenuItem mntmOfficials = new JMenuItem("Docentes");
-		mntmOfficials.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnList.add(mntmOfficials);
-
-		JMenuItem mntmSubjects = new JMenuItem("Estudiantes con pendientes");
-		mntmSubjects.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnList.add(mntmSubjects);
-
-		JMenuItem mntmMaterias = new JMenuItem("Materias");
-		mntmMaterias.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mntmMaterias.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				cardLayout.show(panelMaster, "listarMateria");
-				DefaultTableModel model = new DefaultTableModel() {
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = 1L;
-
-					public boolean isCellEditable(int row, int column) {
-						return false;
-					}
-				};
-
-				model.addColumn("ID Materia");
-				model.addColumn("Nombre");
-				model.addColumn("Orientacion");
-				model.addColumn("Generacion");
-
-				String[] dato = new String[4];
-				try {
-					ControladorLogic controladorlogic = new ControladorLogic();
-					ResultSet result1 = controladorlogic.listarMaterias();
-
-					while (result1.next()) {
-						dato[0] = result1.getString(1);
-						dato[1] = result1.getString(2);
-						dato[2] = result1.getString(3);
-						dato[3] = result1.getString(4);
-						model.addRow(dato);
-					}
-					table_4.setModel(model);
-				}
-
-				catch (Exception e3) {
-					e3.printStackTrace();
-				}
-
-			}
-		});
-		mnList.add(mntmMaterias);
-
-		JMenuItem mntmInasistencias = new JMenuItem("Inasistencias");
-		mntmInasistencias.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mntmInasistencias.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				cardLayout.show(panelMaster, "listarInasistencias");
-
-			}
-		});
-		mnList.add(mntmInasistencias);
-
-		JMenuItem mntmAbsences = new JMenuItem("Reporte de estadisticas");
-		mntmAbsences.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnMenu.add(mntmAbsences);
-
-		JMenuItem mntmAbsences_1 = new JMenuItem("Salir");
-		mntmAbsences_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mntmAbsences_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		JLabel lblNewLabel_33 = new JLabel("X");
+		lblNewLabel_33.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				System.exit(0);
 			}
 		});
-		mnMenu.add(mntmAbsences_1);
+		lblNewLabel_33.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_33.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_33.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_33.setBounds(564, 11, 46, 23);
+		men.add(lblNewLabel_33);
 
-		mntmUsers.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(panelMaster, "listarEstudiantes");
+		JPanel crear = new JPanel();
+		crear.setBackground(Color.LIGHT_GRAY);
+		menutop.add(crear, "CREAR_TIPO");
+		crear.setLayout(null);
 
-				DefaultTableModel model = new DefaultTableModel() {
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = 1L;
-
-					public boolean isCellEditable(int row, int column) {
-						return false;
-					}
-				};
-
-				model.addColumn("Cedula De Identidad");
-				model.addColumn("Estado");
-				model.addColumn("Orientacion");
-				model.addColumn("Generacion");
-
-				String[] dato = new String[4];
-				try {
-					ControladorLogic controladorlogic = new ControladorLogic();
-					ResultSet result2 = controladorlogic.listarEstudiantes();
-					while (result2.next()) {
-						dato[0] = result2.getString(1);
-						dato[1] = result2.getString(2);
-						dato[2] = result2.getString(3);
-						dato[3] = result2.getString(4);
-						model.addRow(dato);
-					}
-					table.setModel(model);
-				}
-
-				catch (Exception e3) {
-					e3.printStackTrace();
-				}
+		JLabel lblNewLabel_33_1 = new JLabel("X");
+		lblNewLabel_33_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
 			}
 		});
+		lblNewLabel_33_1.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_33_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_33_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_33_1.setBounds(564, 11, 46, 23);
+		crear.add(lblNewLabel_33_1);
 
-		mntmTeachers.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel lblNewLabel_36 = new JLabel("Usuario");
+		lblNewLabel_36.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayout.show(panelMaster, "DISCHANGE_USER");
+			}
+		});
+		lblNewLabel_36.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_36.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_36.setBounds(10, 11, 75, 23);
+		crear.add(lblNewLabel_36);
+
+		JLabel lblNewLabel_36_1 = new JLabel("Materia");
+		lblNewLabel_36_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayout.show(panelMaster, "DISCHANGE_SUBJECT");
+			}
+		});
+		lblNewLabel_36_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_36_1.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_36_1.setBounds(95, 11, 75, 23);
+		crear.add(lblNewLabel_36_1);
+
+		JLabel lblNewLabel_36_2 = new JLabel("Inasistencia");
+		lblNewLabel_36_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayout.show(panelMaster, "DISCHANGE_ABSENCE");
+			}
+		});
+		lblNewLabel_36_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_36_2.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_36_2.setBounds(180, 11, 112, 23);
+		crear.add(lblNewLabel_36_2);
+
+		JLabel lblNewLabel_36_3 = new JLabel("Examen");
+		lblNewLabel_36_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayout.show(panelMaster, "altaExamen");
+			}
+		});
+		lblNewLabel_36_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_36_3.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_36_3.setBounds(302, 11, 87, 23);
+		crear.add(lblNewLabel_36_3);
+
+		JPanel consultar = new JPanel();
+		consultar.setBackground(Color.LIGHT_GRAY);
+		menutop.add(consultar, "consultaar");
+		consultar.setLayout(null);
+
+		JLabel lblNewLabel_33_2 = new JLabel("X");
+		lblNewLabel_33_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+			}
+		});
+		lblNewLabel_33_2.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_33_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_33_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_33_2.setBounds(564, 11, 46, 23);
+		consultar.add(lblNewLabel_33_2);
+
+		JLabel lblNewLabel_36_4 = new JLabel("Usuario");
+		lblNewLabel_36_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayout.show(panelMaster, "CONSULT_USER");
+			}
+		});
+		lblNewLabel_36_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_36_4.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_36_4.setBounds(10, 11, 75, 23);
+		consultar.add(lblNewLabel_36_4);
+
+		JLabel lblNewLabel_36_5 = new JLabel("Materia");
+		lblNewLabel_36_5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayout.show(panelMaster, "CONSULT_SUBJECT");
+			}
+		});
+		lblNewLabel_36_5.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_36_5.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_36_5.setBounds(95, 11, 75, 23);
+		consultar.add(lblNewLabel_36_5);
+
+		JLabel lblNewLabel_36_6 = new JLabel("Inasistencia");
+		lblNewLabel_36_6.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayout.show(panelMaster, "CONSULT_ABSENCE");
+			}
+		});
+		lblNewLabel_36_6.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_36_6.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_36_6.setBounds(180, 11, 112, 23);
+		consultar.add(lblNewLabel_36_6);
+
+		JPanel listar = new JPanel();
+		listar.setBackground(Color.LIGHT_GRAY);
+		menutop.add(listar, "LISTAR");
+		listar.setLayout(null);
+
+		JLabel lblNewLabel_33_3 = new JLabel("X");
+		lblNewLabel_33_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+			}
+		});
+		lblNewLabel_33_3.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_33_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_33_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_33_3.setBounds(564, 11, 46, 23);
+		listar.add(lblNewLabel_33_3);
+
+		JLabel lblNewLabel_36_4_1 = new JLabel("Estudiante");
+		lblNewLabel_36_4_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayout.show(panelMaster, "listarEstudiantes");
+			}
+		});
+		lblNewLabel_36_4_1.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNewLabel_36_4_1.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_36_4_1.setBounds(10, 11, 60, 23);
+		listar.add(lblNewLabel_36_4_1);
+
+		JLabel lblNewLabel_36_4_2 = new JLabel("Docente");
+
+		lblNewLabel_36_4_2.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNewLabel_36_4_2.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_36_4_2.setBounds(80, 11, 54, 23);
+		listar.add(lblNewLabel_36_4_2);
+
+		JLabel lblNewLabel_36_4_3 = new JLabel("Funcionario");
+		lblNewLabel_36_4_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				cardLayout.show(panelMaster, "LIST_TEACHERS");
 
 				DefaultTableModel model = new DefaultTableModel() {
@@ -2366,44 +2344,16 @@ public class pantalla {
 				}
 			}
 		});
+		lblNewLabel_36_4_3.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNewLabel_36_4_3.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_36_4_3.setBounds(144, 11, 60, 23);
+		listar.add(lblNewLabel_36_4_3);
 
-		mntmOfficials.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(panelMaster, "listarDocente");
+		JLabel lblNewLabel_36_4_4 = new JLabel("Estudiantes con pendientes");
+		lblNewLabel_36_4_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 
-				DefaultTableModel model = new DefaultTableModel() {
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = 1L;
-
-					public boolean isCellEditable(int row, int column) {
-						return false;
-					}
-				};
-
-				model.addColumn("Cedula De Identidad");
-
-				String[] dato = new String[1];
-				try {
-					ControladorLogic controladorlogic = new ControladorLogic();
-					ResultSet result4 = controladorlogic.listarDocentes();
-
-					while (result4.next()) {
-						dato[0] = result4.getString(1);
-						model.addRow(dato);
-					}
-					table_2.setModel(model);
-				}
-
-				catch (Exception e3) {
-					e3.printStackTrace();
-				}
-			}
-		});
-
-		mntmSubjects.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(panelMaster, "LIST_SUBJECTS");
 
 				DefaultTableModel model = new DefaultTableModel() {
@@ -2442,44 +2392,246 @@ public class pantalla {
 				}
 			}
 		});
+		lblNewLabel_36_4_4.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNewLabel_36_4_4.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_36_4_4.setBounds(214, 11, 133, 23);
+		listar.add(lblNewLabel_36_4_4);
 
-		mntmUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(panelMaster, "DISCHANGE_USER");
+		JLabel lblNewLabel_36_4_5 = new JLabel("Materia");
+
+		lblNewLabel_36_4_5.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNewLabel_36_4_5.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_36_4_5.setBounds(357, 11, 46, 23);
+		listar.add(lblNewLabel_36_4_5);
+
+		JLabel lblNewLabel_36_4_6 = new JLabel("Inasistencia");
+		lblNewLabel_36_4_6.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayout.show(panelMaster, "listarInasistencias");
 			}
 		});
+		lblNewLabel_36_4_6.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNewLabel_36_4_6.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_36_4_6.setBounds(413, 11, 60, 23);
+		listar.add(lblNewLabel_36_4_6);
 
-		mntmSubject.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(panelMaster, "DISCHANGE_SUBJECT");
-				textField.setText(null);
-				txtAs.setText(null);
-				textField_33.setText(null);
-				comboBox_5.setSelectedItem(null);
-				comboBox_1_4.setSelectedItem(null);
+		JPanel menu = new JPanel();
+		menu.setBackground(Color.BLACK);
+		menu.setBounds(0, 0, 180, 600);
+		contentPane.getContentPane().add(menu);
+		menu.setLayout(new CardLayout(0, 0));
+		cardLayoutt = (CardLayout) menu.getLayout();
+
+		JPanel Bienvenido = new JPanel();
+		Bienvenido.setBackground(Color.BLACK);
+		menu.add(Bienvenido, "name_514010230618200");
+		Bienvenido.setLayout(null);
+
+		JLabel lblNewLabel_32 = new JLabel("B");
+		lblNewLabel_32.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_32.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_32.setForeground(Color.WHITE);
+		lblNewLabel_32.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_32.setBounds(67, 11, 46, 31);
+		Bienvenido.add(lblNewLabel_32);
+
+		JLabel lblNewLabel_32_1 = new JLabel("i");
+		lblNewLabel_32_1.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_32_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_32_1.setForeground(Color.WHITE);
+		lblNewLabel_32_1.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_32_1.setBounds(67, 53, 46, 39);
+		Bienvenido.add(lblNewLabel_32_1);
+
+		JLabel lblNewLabel_32_2 = new JLabel("e");
+		lblNewLabel_32_2.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_32_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_32_2.setForeground(Color.WHITE);
+		lblNewLabel_32_2.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_32_2.setBounds(67, 103, 46, 39);
+		Bienvenido.add(lblNewLabel_32_2);
+
+		JLabel lblNewLabel_32_3 = new JLabel("n");
+		lblNewLabel_32_3.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_32_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_32_3.setForeground(Color.WHITE);
+		lblNewLabel_32_3.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_32_3.setBounds(67, 153, 46, 39);
+		Bienvenido.add(lblNewLabel_32_3);
+
+		JLabel lblNewLabel_32_4 = new JLabel("v");
+		lblNewLabel_32_4.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_32_4.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_32_4.setForeground(Color.WHITE);
+		lblNewLabel_32_4.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_32_4.setBounds(67, 203, 46, 39);
+		Bienvenido.add(lblNewLabel_32_4);
+
+		JLabel lblNewLabel_32_5 = new JLabel("e");
+		lblNewLabel_32_5.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_32_5.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_32_5.setForeground(Color.WHITE);
+		lblNewLabel_32_5.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_32_5.setBounds(67, 253, 46, 39);
+		Bienvenido.add(lblNewLabel_32_5);
+
+		JLabel lblNewLabel_32_6 = new JLabel("n");
+		lblNewLabel_32_6.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_32_6.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_32_6.setForeground(Color.WHITE);
+		lblNewLabel_32_6.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_32_6.setBounds(67, 303, 46, 39);
+		Bienvenido.add(lblNewLabel_32_6);
+
+		JLabel lblNewLabel_32_7 = new JLabel("i");
+		lblNewLabel_32_7.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_32_7.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_32_7.setForeground(Color.WHITE);
+		lblNewLabel_32_7.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_32_7.setBounds(67, 353, 46, 39);
+		Bienvenido.add(lblNewLabel_32_7);
+
+		JLabel lblNewLabel_32_8 = new JLabel("d");
+		lblNewLabel_32_8.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_32_8.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_32_8.setForeground(Color.WHITE);
+		lblNewLabel_32_8.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_32_8.setBounds(67, 403, 46, 39);
+		Bienvenido.add(lblNewLabel_32_8);
+
+		JLabel lblNewLabel_32_8_1 = new JLabel("o");
+		lblNewLabel_32_8_1.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_32_8_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_32_8_1.setForeground(Color.WHITE);
+		lblNewLabel_32_8_1.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_32_8_1.setBounds(67, 453, 46, 31);
+		Bienvenido.add(lblNewLabel_32_8_1);
+
+		JLabel lblNewLabel_32_8_2 = new JLabel("Proyecto Prog 2020");
+		lblNewLabel_32_8_2.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_32_8_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_32_8_2.setForeground(Color.WHITE);
+		lblNewLabel_32_8_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_32_8_2.setBounds(25, 495, 130, 43);
+		Bienvenido.add(lblNewLabel_32_8_2);
+
+		JPanel menuu = new JPanel();
+		menuu.setBackground(Color.BLACK);
+		menu.add(menuu, "menuu");
+		menuu.setLayout(null);
+
+		JLabel lblNewLabel_34 = new JLabel("Menu");
+		lblNewLabel_34.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_34.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_34.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNewLabel_34.setForeground(Color.WHITE);
+		lblNewLabel_34.setBounds(25, 11, 130, 54);
+		menuu.add(lblNewLabel_34);
+
+		JLabel lblNewLabel_35 = new JLabel("Dar de alta...");
+		lblNewLabel_35.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayouttt.show(menutop, "CREAR_TIPO");
 			}
 		});
+		lblNewLabel_35.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_35.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_35.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_35.setForeground(Color.WHITE);
+		lblNewLabel_35.setBounds(10, 76, 160, 43);
+		menuu.add(lblNewLabel_35);
 
-		mntmUser_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(panelMaster, "CONSULT_USER");
+		JLabel lblNewLabel_35_1 = new JLabel("Consultar...");
+		lblNewLabel_35_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayouttt.show(menutop, "consultaar");
+			}
+		});
+		lblNewLabel_35_1.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_35_1.setForeground(Color.WHITE);
+		lblNewLabel_35_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_35_1.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_35_1.setBounds(10, 130, 160, 43);
+		menuu.add(lblNewLabel_35_1);
+
+		JLabel lblNewLabel_35_2 = new JLabel("Listar...");
+		lblNewLabel_35_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayouttt.show(menutop, "LISTAR");
+			}
+		});
+		lblNewLabel_35_2.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_35_2.setForeground(Color.WHITE);
+		lblNewLabel_35_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_35_2.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_35_2.setBounds(10, 184, 160, 43);
+		menuu.add(lblNewLabel_35_2);
+
+		JLabel lblNewLabel_35_3 = new JLabel("Reporte de estadisticas");
+		lblNewLabel_35_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayout.show(panelMaster, "reporteEstadisticas");
+				ResultSet res456;
+				ResultSet res65;
+
+				Long inaCount = null;
+				Long estuCount = null;
+				int materiasRepetidas = 0;
+				String nombreMateriaRepetida = null;
+
+				res456 = controladorlg.reporteEstadisticasInasistenciaIndice();
+				res65 = controladorlg.reporteEstadisticasEstudiante();
+
+				try {
+					if (res456.next()) {
+						inaCount = res456.getLong(1);
+					}
+				} catch (Exception e456) {
+					e456.printStackTrace();
+				}
+
+				try {
+					if (res65.next()) {
+						estuCount = res65.getLong(1);
+					}
+
+				} catch (Exception e65) {
+					e65.printStackTrace();
+				}
+
+				double indiceInasistencia = ((double) inaCount / estuCount);
+				String indiceInasistenciaa = Double.toString(indiceInasistencia);
+				textField_50.setText(indiceInasistenciaa);
+
+				ResultSet res67;
+				res67 = controladorlg.materiasRepetidas();
+
+				try {
+					if (res67.next()) {
+						nombreMateriaRepetida = res67.getString(1);
+						materiasRepetidas = Integer.parseInt(res67.getString(2));
+					}
+
+				} catch (Exception e67) {
+					e67.printStackTrace();
+				}
+				String materiasRepetidass = Integer.toString(materiasRepetidas);
+				textField_52.setText(nombreMateriaRepetida);
+				textField_51.setText(materiasRepetidass);
 
 			}
 		});
-
-		mntmSubject_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(panelMaster, "CONSULT_SUBJECT");
-
-			}
-		});
-
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(panelMaster, "panelRegister");
-
-			}
-		});
+		lblNewLabel_35_3.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_35_3.setForeground(Color.WHITE);
+		lblNewLabel_35_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_35_3.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_35_3.setBounds(10, 238, 160, 43);
+		menuu.add(lblNewLabel_35_3);
 
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -2491,19 +2643,9 @@ public class pantalla {
 				cardLayout.show(panelMaster, "Alta docente");
 			}
 		});
-		mntmExamen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				cardLayout.show(panelMaster, "altaExamen");
-			}
-		});
 		btnAltaFuncionario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cardLayout.show(panelMaster, "altaFuncionario");
-			}
-		});
-		btnNewButton_8.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				cardLayout.show(panelMaster, "MENU");
 			}
 		});
 
@@ -3497,17 +3639,6 @@ public class pantalla {
 
 			}
 		});
-		mntmAbsence_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(panelMaster, "CONSULT_ABSENCE");
-				DefaultTableModel myTableModel = (DefaultTableModel) table_6.getModel();
-				if (myTableModel.getRowCount() > 0) {
-					for (int i = myTableModel.getRowCount() - 1; i > -1; i--) {
-						myTableModel.removeRow(i);
-					}
-				}
-			}
-		});
 
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -3866,7 +3997,7 @@ public class pantalla {
 							if (res344.next() == true) {
 								ResultSet res34 = controladorlg.datosLogin(ciLogin);
 								cardLayout.show(panelMaster, "random");
-								mnMenu.setVisible(true);
+								cardLayoutt.show(menu, "menuu");
 								if (res34.next() == true) {
 									JOptionPane.showMessageDialog(null, "Logeado con Exito! Bienvenido: "
 											+ res34.getString("nombre") + " " + res34.getString("apellido"));
@@ -3882,60 +4013,6 @@ public class pantalla {
 
 					}
 				}
-			}
-		});
-
-		mntmAbsences.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(panelMaster, "reporteEstadisticas");
-				ResultSet res456;
-				ResultSet res65;
-
-				Long inaCount = null;
-				Long estuCount = null;
-				int materiasRepetidas = 0;
-				String nombreMateriaRepetida = null;
-
-				res456 = controladorlg.reporteEstadisticasInasistenciaIndice();
-				res65 = controladorlg.reporteEstadisticasEstudiante();
-
-				try {
-					if (res456.next()) {
-						inaCount = res456.getLong(1);
-					}
-				} catch (Exception e456) {
-					e456.printStackTrace();
-				}
-
-				try {
-					if (res65.next()) {
-						estuCount = res65.getLong(1);
-					}
-
-				} catch (Exception e65) {
-					e65.printStackTrace();
-				}
-
-				double indiceInasistencia = ((double) inaCount / estuCount);
-				String indiceInasistenciaa = Double.toString(indiceInasistencia);
-				textField_50.setText(indiceInasistenciaa);
-
-				ResultSet res67;
-				res67 = controladorlg.materiasRepetidas();
-
-				try {
-					if (res67.next()) {
-						nombreMateriaRepetida = res67.getString(1);
-						materiasRepetidas = Integer.parseInt(res67.getString(2));
-					}
-
-				} catch (Exception e67) {
-					e67.printStackTrace();
-				}
-				String materiasRepetidass = Integer.toString(materiasRepetidas);
-				textField_52.setText(nombreMateriaRepetida);
-				textField_51.setText(materiasRepetidass);
-
 			}
 		});
 
@@ -3997,24 +4074,6 @@ public class pantalla {
 				dateChooser_2_2.setDate(null);
 			}
 		});
-		mntmAbsence.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(panelMaster, "DISCHANGE_ABSENCE");
-				textField_16.setText(null);
-				textField_5.setText(null);
-				dateChooser_5.setDate(null);
-				textField_14.setText(null);
-				comboBox_6.setSelectedItem(null);
-			}
-		});
-		mntmExamen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				textField_17.setText(null);
-				textField_22.setText(null);
-				dateChooser_1.setDate(null);
-				textField_18.setText(null);
-			}
-		});
 		btnNewButton_15.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (comboBox_12.getSelectedItem() == null || comboBox_12.getSelectedItem() == " "
@@ -4061,6 +4120,80 @@ public class pantalla {
 						e3.printStackTrace();
 					}
 
+				}
+			}
+		});
+		lblNewLabel_36_4_5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayout.show(panelMaster, "listarMateria");
+				DefaultTableModel model = new DefaultTableModel() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+				};
+
+				model.addColumn("ID Materia");
+				model.addColumn("Nombre");
+				model.addColumn("Orientacion");
+				model.addColumn("Generacion");
+
+				String[] dato = new String[4];
+				try {
+					ControladorLogic controladorlogic = new ControladorLogic();
+					ResultSet result1 = controladorlogic.listarMaterias();
+
+					while (result1.next()) {
+						dato[0] = result1.getString(1);
+						dato[1] = result1.getString(2);
+						dato[2] = result1.getString(3);
+						dato[3] = result1.getString(4);
+						model.addRow(dato);
+					}
+					table_4.setModel(model);
+				}
+
+				catch (Exception e3) {
+					e3.printStackTrace();
+				}
+			}
+		});
+		lblNewLabel_36_4_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayout.show(panelMaster, "listarDocente");
+				DefaultTableModel model = new DefaultTableModel() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+				};
+
+				model.addColumn("Cedula De Identidad");
+
+				String[] dato = new String[1];
+				try {
+					ControladorLogic controladorlogic = new ControladorLogic();
+					ResultSet result4 = controladorlogic.listarDocentes();
+
+					while (result4.next()) {
+						dato[0] = result4.getString(1);
+						model.addRow(dato);
+					}
+					table_2.setModel(model);
+				}
+
+				catch (Exception e3) {
+					e3.printStackTrace();
 				}
 			}
 		});
