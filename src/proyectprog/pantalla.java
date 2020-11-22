@@ -1408,7 +1408,7 @@ public class pantalla {
 		dateChooser.setBounds(229, 310, 137, 35);
 		altaEstudiante.add(dateChooser);
 
-		JButton btnNewButton_4 = new JButton("Guardar cambios");
+		JButton btnNewButton_4 = new JButton("Crear Estudiante");
 		btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton_4.setForeground(Color.DARK_GRAY);
 
@@ -1585,7 +1585,7 @@ public class pantalla {
 		lblCodigo_3_5_1.setFont(new Font("Arial", Font.PLAIN, 25));
 		altaDocente.add(lblCodigo_3_5_1);
 
-		JButton btnNewButton_4_1 = new JButton("Guardar cambios");
+		JButton btnNewButton_4_1 = new JButton("Crear Docente");
 		btnNewButton_4_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		btnNewButton_4_1.setBounds(485, 467, 234, 38);
@@ -1942,7 +1942,7 @@ public class pantalla {
 		lblCodigo_3_3_1_2.setBounds(123, 344, 241, 31);
 		altaFuncionario.add(lblCodigo_3_3_1_2);
 
-		JButton btnNewButton_4_1_2 = new JButton("Guardar cambios");
+		JButton btnNewButton_4_1_2 = new JButton("Crear Funcionario");
 		btnNewButton_4_1_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		btnNewButton_4_1_2.setBounds(282, 440, 230, 31);
@@ -2520,6 +2520,7 @@ public class pantalla {
 					try {
 						controladorlg.crearMateria(mat, ciDoc);
 						controladorlg.crearDictaMat(codigo, ciDoc);
+						JOptionPane.showMessageDialog(null, "Materia creada con exito con su docente dictadola!");
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
@@ -2558,6 +2559,7 @@ public class pantalla {
 								TipoInasistencia.valueOf(tipoIna));
 						try {
 							controladorlg.crearInasistencia(ina);
+							JOptionPane.showMessageDialog(null, "Inasistencia creada con exito!");
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -2594,6 +2596,7 @@ public class pantalla {
 						Examen exa = new Examen(ci, codM, date5, nta);
 						try {
 							controladorlg.crearExamen(exa);
+							JOptionPane.showMessageDialog(null, "Examen creado con exito!");
 						} catch (Exception e3) {
 							e3.printStackTrace();
 						}
@@ -2619,7 +2622,6 @@ public class pantalla {
 						JOptionPane.showMessageDialog(null, "Alguna casilla esta vacia, revise", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					} else {
-
 						String nameE = textField_6.getText();
 						String ciE = textField_7.getText();
 						String mailE = textField_8.getText() + comboBox_9.getSelectedItem();
@@ -2635,6 +2637,7 @@ public class pantalla {
 								Generacion.valueOf(genE), psswE, nameE, apeE, mailE, nacE);
 						try {
 							controladorlg.crearEstudiante(est);
+							JOptionPane.showMessageDialog(null, "Estudiante creado con exito!");
 						} catch (Exception e6) {
 							JOptionPane.showMessageDialog(null, "Este estudiante ya esta registrado con esa CI",
 									"Error", JOptionPane.ERROR_MESSAGE);
@@ -2654,7 +2657,7 @@ public class pantalla {
 					}
 				}
 				if (comboBox_7.getSelectedItem() == "ACTIVO") {
-					comboBox.setEnabled(true);
+
 					if (textField_6.getText().isEmpty() || textField_7.getText().isEmpty()
 							|| textField_8.getText().isEmpty() || date == null || textField_12.getText().isEmpty()
 							|| textField_13.getText().isEmpty() || comboBox_7.getSelectedItem() == null
@@ -2663,7 +2666,7 @@ public class pantalla {
 						JOptionPane.showMessageDialog(null, "Alguna casilla esta vacia, revise", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					} else {
-
+						comboBox.setEnabled(true);
 						String nameE = textField_6.getText();
 						String ciE = textField_7.getText();
 						String mailE = textField_8.getText() + comboBox_9.getSelectedItem();
@@ -2680,7 +2683,10 @@ public class pantalla {
 						try {
 
 							controladorlg.crearEstudiante(est);
+							JOptionPane.showMessageDialog(null, "Estudiante creado con exito!");
 						} catch (Exception e6) {
+							JOptionPane.showMessageDialog(null, "Este estudiante ya esta registrado con esa CI",
+									"Error", JOptionPane.ERROR_MESSAGE);
 							e6.printStackTrace();
 						}
 						comboBox_1.setSelectedItem(null);
@@ -2736,7 +2742,10 @@ public class pantalla {
 						controladorlg.crearDocente(doc);
 						try {
 							controladorlg.crearDictaDoc(ciD, idmatt);
+							JOptionPane.showMessageDialog(null, "Docente creado con exito");
 						} catch (Exception e76) {
+							JOptionPane.showMessageDialog(null, "Ya existe un docente con la CI ingresada", "Error",
+									JOptionPane.ERROR_MESSAGE);
 							e76.printStackTrace();
 						}
 					} catch (Exception e7) {
@@ -2775,7 +2784,10 @@ public class pantalla {
 
 					try {
 						controladorlg.crearFuncionario(fun);
+						JOptionPane.showMessageDialog(null, "Funcionario creado con exito!");
 					} catch (Exception e8) {
+						JOptionPane.showMessageDialog(null, "Ya existe un funcionario con la CI ingresada", "Error",
+								JOptionPane.ERROR_MESSAGE);
 						e8.printStackTrace();
 					}
 					textField_19.setText(null);
@@ -3729,6 +3741,8 @@ public class pantalla {
 											textField_37.setText(null);
 											textField_38.setText(null);
 											textField_41.setText(null);
+											comboBox_2.setSelectedItem(null);
+											comboBox_8.setSelectedItem(null);
 										}
 									}
 								}
@@ -3759,12 +3773,15 @@ public class pantalla {
 						String notaMateria = textField_46.getText();
 						try {
 							controladorlg.crearCursa(ciestudiante, idMateria, notaMateria);
+							JOptionPane.showMessageDialog(null, "Materia agregada al estudiante con exito!");
 						} catch (Exception e43) {
 
 							e43.printStackTrace();
 						}
 					}
 				}
+				textField_45.setText(null);
+				textField_46.setText(null);
 			}
 		});
 
@@ -3999,7 +4016,7 @@ public class pantalla {
 				} else {
 					String oriIna = comboBox_12.getSelectedItem().toString();
 					String genIna = comboBox_13.getSelectedItem().toString();
-					
+
 					DefaultTableModel model = new DefaultTableModel() {
 						/**
 						 * 
