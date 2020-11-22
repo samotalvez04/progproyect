@@ -106,7 +106,7 @@ public class ControladorBD {
 		Connection connection2 = conn.connectToMySQL();
 		Statement st2;
 		st2 = connection2.createStatement();
-		res2 = st2.executeQuery("SELECT * FROM estudiante");
+		res2 = st2.executeQuery("SELECT * FROM estudiante WHERE estado='ACTIVO'");
 		return res2;
 	}
 
@@ -137,12 +137,14 @@ public class ControladorBD {
 		return res5;
 	}
 
-	public ResultSet listarInasistencias() throws Exception {
+	public ResultSet listarInasistencias(String oriIna, String genIna) throws Exception {
 		ResultSet res6;
 		Connection connection6 = conn.connectToMySQL();
 		Statement st6;
 		st6 = connection6.createStatement();
-		res6 = st6.executeQuery("SELECT * FROM inasistencia");
+		res6 = st6.executeQuery(
+				"SELECT inasistencia.cantHoras, inasistencia.fecha, inasistencia.idMateria, inasistencia.tipo, inasistencia.ciEstudiante FROM inasistencia INNER JOIN estudiante ON estudiante.ci=inasistencia.ciEstudiante WHERE estudiante.orientacion='"
+						+ oriIna + "'AND estudiante.generacion='" + genIna + "'");
 		return res6;
 	}
 
@@ -264,7 +266,8 @@ public class ControladorBD {
 		try {
 			Statement comando = connection.createStatement();
 			res666 = comando.executeQuery(
-					"SELECT * FROM inasistencia WHERE fecha BETWEEN '" + dateInicio + "' AND '" + dateFin + "'");
+					"SELECT cantHoras, fecha, tipo, ciEstudiante, idMateria FROM inasistencia WHERE fecha BETWEEN '"
+							+ dateInicio + "' AND '" + dateFin + "'");
 		} catch (Exception e666) {
 			e666.printStackTrace();
 		}
@@ -272,12 +275,39 @@ public class ControladorBD {
 
 	}
 
+	public ResultSet traerNombreEstudiante(String ciEstudiante) {
+		ResultSet res544 = null;
+		try {
+			Statement comand = connection.createStatement();
+			res544 = comand.executeQuery(
+					"SELECT usuario.nombre FROM usuario INNER JOIN inasistencia ON usuario.ci=inasistencia.ciEstudiante WHERE inasistencia.ciEstudiante='"
+							+ ciEstudiante + "'");
+		} catch (Exception e55) {
+			e55.printStackTrace();
+		}
+		return res544;
+	}
+
+	public ResultSet traerNombreMateria(String idMateriaa) {
+		ResultSet res455 = null;
+		try {
+			Statement comandd = connection.createStatement();
+			res455 = comandd.executeQuery(
+					"SELECT materia.nombre FROM materia INNER JOIN inasistencia ON materia.id=inasistencia.idMateria WHERE materia.id='"
+							+ idMateriaa + "'");
+		} catch (Exception e55) {
+			e55.printStackTrace();
+		}
+		return res455;
+	}
+
 	public ResultSet consultarInasistenciaFI(LocalDate dateInicio, LocalDate dateFin) throws Exception {
 		ResultSet res666 = null;
 		try {
 			Statement comando = connection.createStatement();
 			res666 = comando.executeQuery(
-					"SELECT * FROM inasistencia WHERE fecha BETWEEN '" + dateFin + "' AND '" + dateInicio + "'");
+					"SELECT cantHoras, fecha, tipo, ciEstudiante, idMateria FROM inasistencia WHERE fecha BETWEEN '"
+							+ dateFin + "' AND '" + dateInicio + "'");
 		} catch (Exception e666) {
 			e666.printStackTrace();
 		}
@@ -289,8 +319,9 @@ public class ControladorBD {
 		ResultSet res666 = null;
 		try {
 			Statement comando = connection.createStatement();
-			res666 = comando
-					.executeQuery("SELECT * FROM inasistencia WHERE fecha='" + dateInicio + "' AND '" + dateFin + "'");
+			res666 = comando.executeQuery(
+					"SELECT cantHoras, fecha, tipo, ciEstudiante, idMateria FROM inasistencia WHERE fecha='"
+							+ dateInicio + "' AND '" + dateFin + "'");
 		} catch (Exception e666) {
 			e666.printStackTrace();
 		}

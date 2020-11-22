@@ -20,7 +20,7 @@ public class Conn {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, username, password);
 		} catch (ClassNotFoundException | SQLException e) {
-			JOptionPane.showMessageDialog(null, "Base de datos Offline","Error",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Base de datos Offline", "Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 			e.printStackTrace();
 		}

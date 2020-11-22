@@ -1215,7 +1215,7 @@ public class pantalla {
 		consultarInasistencia.add(btnNewButton_9);
 
 		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(97, 148, 587, 332);
+		scrollPane_3.setBounds(10, 148, 774, 332);
 		consultarInasistencia.add(scrollPane_3);
 
 		table_6 = new JTable();
@@ -2019,7 +2019,7 @@ public class pantalla {
 		JLabel lblCodigo_3_4_2_6_3_1_1_1 = new JLabel("Listar inasistencias");
 		lblCodigo_3_4_2_6_3_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo_3_4_2_6_3_1_1_1.setFont(new Font("Cambria", Font.PLAIN, 60));
-		lblCodigo_3_4_2_6_3_1_1_1.setBounds(0, 0, 794, 162);
+		lblCodigo_3_4_2_6_3_1_1_1.setBounds(0, 0, 794, 104);
 		listarInasistencias.add(lblCodigo_3_4_2_6_3_1_1_1);
 
 		JScrollPane scrollPane_6 = new JScrollPane();
@@ -2028,6 +2028,32 @@ public class pantalla {
 
 		table_5 = new JTable();
 		scrollPane_6.setViewportView(table_5);
+
+		JLabel lblNewLabel_28 = new JLabel("Orientacion");
+		lblNewLabel_28.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_28.setBounds(63, 115, 114, 34);
+		listarInasistencias.add(lblNewLabel_28);
+
+		JComboBox comboBox_12 = new JComboBox();
+		comboBox_12.setModel(new DefaultComboBoxModel(new String[] { " ", "TIC", "ADM" }));
+		comboBox_12.setBounds(187, 115, 114, 34);
+		listarInasistencias.add(comboBox_12);
+
+		JLabel lblNewLabel_31 = new JLabel("Generacion");
+		lblNewLabel_31.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_31.setBounds(311, 115, 105, 34);
+		listarInasistencias.add(lblNewLabel_31);
+
+		JComboBox comboBox_13 = new JComboBox();
+		comboBox_13.setModel(new DefaultComboBoxModel(new String[] { " ", "PRIMERO", "SEGUNDO", "TERCERO" }));
+		comboBox_13.setBounds(426, 115, 114, 34);
+		listarInasistencias.add(comboBox_13);
+
+		JButton btnNewButton_15 = new JButton("Listar");
+
+		btnNewButton_15.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnNewButton_15.setBounds(550, 115, 114, 34);
+		listarInasistencias.add(btnNewButton_15);
 
 		JPanel reporteEstadisticas = new JPanel();
 		panelMaster.add(reporteEstadisticas, "reporteEstadisticas");
@@ -2241,42 +2267,6 @@ public class pantalla {
 			public void actionPerformed(ActionEvent arg0) {
 				cardLayout.show(panelMaster, "listarInasistencias");
 
-				DefaultTableModel model = new DefaultTableModel() {
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = 1L;
-
-					public boolean isCellEditable(int row, int column) {
-						return false;
-					}
-				};
-
-				model.addColumn("Cantidad de Horas");
-				model.addColumn("Fecha");
-				model.addColumn("ID de Materia");
-				model.addColumn("Tipo de Inasistencia");
-				model.addColumn("CI de Estudiante");
-
-				String[] dato = new String[5];
-				try {
-					ControladorLogic controladorlogic = new ControladorLogic();
-					ResultSet result6 = controladorlogic.listarInasistencias();
-
-					while (result6.next()) {
-						dato[0] = result6.getString(1);
-						dato[1] = result6.getString(2);
-						dato[2] = result6.getString(3);
-						dato[3] = result6.getString(4);
-						dato[4] = result6.getString(5);
-						model.addRow(dato);
-					}
-					table_5.setModel(model);
-				}
-
-				catch (Exception e3) {
-					e3.printStackTrace();
-				}
 			}
 		});
 		mnList.add(mntmInasistencias);
@@ -2646,6 +2636,8 @@ public class pantalla {
 						try {
 							controladorlg.crearEstudiante(est);
 						} catch (Exception e6) {
+							JOptionPane.showMessageDialog(null, "Este estudiante ya esta registrado con esa CI",
+									"Error", JOptionPane.ERROR_MESSAGE);
 							e6.printStackTrace();
 						}
 						comboBox_1.setSelectedItem(null);
@@ -3352,22 +3344,29 @@ public class pantalla {
 								return false;
 							}
 						};
-						model.addColumn("Cantidad de Horas");
+						model.addColumn("Nombre de la Materia");
+						model.addColumn("Nombre del Estudiante");
 						model.addColumn("Fecha");
-						model.addColumn("Codigo de la Materia");
-						model.addColumn("Tipo de inasistencia");
-						model.addColumn("Cedula del Estudiante");
+						model.addColumn("Tipo inasistencia");
+						model.addColumn("Cantidad de horas");
 
 						String[] dato = new String[5];
 						try {
 							ResultSet result9 = controladorlg.consultarInasistenciaIF(dateInicio, dateFin);
 							while (result9.next()) {
-								dato[0] = result9.getString(1);
-								dato[1] = result9.getString(2);
-								dato[2] = result9.getString(3);
-								dato[3] = result9.getString(4);
-								dato[4] = result9.getString(5);
-								model.addRow(dato);
+								String ciEstudiante = result9.getString(4);
+								String idMateriaa = result9.getString(5);
+								ResultSet resss = controladorlg.traerNombreEstudiante(ciEstudiante);
+								ResultSet r = controladorlg.traerNombreMateria(idMateriaa);
+								while (resss.next() && r.next()) {
+									dato[0] = r.getString(1);
+									dato[1] = resss.getString(1);
+									dato[2] = result9.getString(2);
+									dato[3] = result9.getString(3);
+									dato[4] = result9.getString(1);
+									model.addRow(dato);
+
+								}
 							}
 
 							table_6.setModel(model);
@@ -3391,22 +3390,29 @@ public class pantalla {
 									return false;
 								}
 							};
-							model.addColumn("Cantidad de Horas");
+							model.addColumn("Nombre de la Materia");
+							model.addColumn("Nombre del Estudiante");
 							model.addColumn("Fecha");
-							model.addColumn("Codigo de la Materia");
-							model.addColumn("Tipo de inasistencia");
-							model.addColumn("Cedula del Estudiante");
+							model.addColumn("Tipo inasistencia");
+							model.addColumn("Cantidad de horas");
 
 							String[] dato = new String[5];
 							try {
 								ResultSet result9 = controladorlg.consultarInasistenciaFI(dateInicio, dateFin);
 								while (result9.next()) {
-									dato[0] = result9.getString(1);
-									dato[1] = result9.getString(2);
-									dato[2] = result9.getString(3);
-									dato[3] = result9.getString(4);
-									dato[4] = result9.getString(5);
-									model.addRow(dato);
+									String ciEstudiante = result9.getString(4);
+									String idMateriaa = result9.getString(5);
+									ResultSet resss = controladorlg.traerNombreEstudiante(ciEstudiante);
+									ResultSet r = controladorlg.traerNombreMateria(idMateriaa);
+									while (resss.next() && r.next()) {
+										dato[0] = r.getString(1);
+										dato[1] = resss.getString(1);
+										dato[2] = result9.getString(2);
+										dato[3] = result9.getString(3);
+										dato[4] = result9.getString(1);
+										model.addRow(dato);
+
+									}
 								}
 
 								table_6.setModel(model);
@@ -3415,7 +3421,6 @@ public class pantalla {
 							catch (Exception e3) {
 								e3.printStackTrace();
 							}
-
 							dateChooser_3.setDate(null);
 							dateChooser_4.setDate(null);
 						} else {
@@ -3430,23 +3435,30 @@ public class pantalla {
 										return false;
 									}
 								};
-								model.addColumn("Cantidad de Horas");
+								model.addColumn("Nombre de la Materia");
+								model.addColumn("Nombre del Estudiante");
 								model.addColumn("Fecha");
-								model.addColumn("Codigo de la Materia");
-								model.addColumn("Tipo de inasistencia");
-								model.addColumn("Cedula del Estudiante");
+								model.addColumn("Tipo inasistencia");
+								model.addColumn("Cantidad de horas");
 
 								String[] dato = new String[5];
 								try {
 									ResultSet result9 = controladorlg.consultarInasistenciaIequalsF(dateInicio,
 											dateFin);
 									while (result9.next()) {
-										dato[0] = result9.getString(1);
-										dato[1] = result9.getString(2);
-										dato[2] = result9.getString(3);
-										dato[3] = result9.getString(4);
-										dato[4] = result9.getString(5);
-										model.addRow(dato);
+										String ciEstudiante = result9.getString(4);
+										String idMateriaa = result9.getString(5);
+										ResultSet resss = controladorlg.traerNombreEstudiante(ciEstudiante);
+										ResultSet r = controladorlg.traerNombreMateria(idMateriaa);
+										while (resss.next() && r.next()) {
+											dato[0] = r.getString(1);
+											dato[1] = resss.getString(1);
+											dato[2] = result9.getString(2);
+											dato[3] = result9.getString(3);
+											dato[4] = result9.getString(1);
+											model.addRow(dato);
+
+										}
 									}
 
 									table_6.setModel(model);
@@ -3977,6 +3989,55 @@ public class pantalla {
 				textField_22.setText(null);
 				dateChooser_1.setDate(null);
 				textField_18.setText(null);
+			}
+		});
+		btnNewButton_15.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (comboBox_12.getSelectedItem() == null || comboBox_12.getSelectedItem() == " "
+						|| comboBox_13.getSelectedItem() == null || comboBox_13.getSelectedItem() == " ") {
+					JOptionPane.showMessageDialog(null, "Rellene bien las casillas de orientacion y generacion");
+				} else {
+					String oriIna = comboBox_12.getSelectedItem().toString();
+					String genIna = comboBox_13.getSelectedItem().toString();
+					
+					DefaultTableModel model = new DefaultTableModel() {
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+
+						public boolean isCellEditable(int row, int column) {
+							return false;
+						}
+					};
+
+					model.addColumn("Cantidad de Horas");
+					model.addColumn("Fecha");
+					model.addColumn("ID de Materia");
+					model.addColumn("Tipo de Inasistencia");
+					model.addColumn("CI de Estudiante");
+
+					String[] dato = new String[5];
+					try {
+						ControladorLogic controladorlogic = new ControladorLogic();
+						ResultSet result6 = controladorlogic.listarInasistencias(oriIna, genIna);
+
+						while (result6.next()) {
+							dato[0] = result6.getString(1);
+							dato[1] = result6.getString(2);
+							dato[2] = result6.getString(3);
+							dato[3] = result6.getString(4);
+							dato[4] = result6.getString(5);
+							model.addRow(dato);
+						}
+						table_5.setModel(model);
+					}
+
+					catch (Exception e3) {
+						e3.printStackTrace();
+					}
+
+				}
 			}
 		});
 

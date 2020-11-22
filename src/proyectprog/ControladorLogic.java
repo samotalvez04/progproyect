@@ -16,6 +16,14 @@ public class ControladorLogic {
 	public ResultSet listarMaterias() throws Exception {
 		return controladorbd.listarMaterias();
 	}
+	
+	public ResultSet traerNombreEstudiante(String ciEstudiante) {
+		return controladorbd.traerNombreEstudiante(ciEstudiante);
+	}
+	
+	public ResultSet traerNombreMateria(String idMateriaa) {
+		return controladorbd.traerNombreMateria(idMateriaa);
+	}
 
 	public ResultSet listarEstudiantes() throws Exception {
 		return controladorbd.listarEstudiantes();
@@ -33,8 +41,8 @@ public class ControladorLogic {
 		return controladorbd.listarPendientes();
 	}
 
-	public ResultSet listarInasistencias() throws Exception {
-		return controladorbd.listarInasistencias();
+	public ResultSet listarInasistencias(String oriIna, String genIna) throws Exception {
+		return controladorbd.listarInasistencias(oriIna, genIna);
 	}
 
 	public void crearInasistencia(Inasistencia inasistencia) throws Exception {
