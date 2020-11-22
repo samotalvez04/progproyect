@@ -65,6 +65,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.Dimension;
+import java.awt.Cursor;
 
 public class pantalla {
 
@@ -167,13 +169,17 @@ public class pantalla {
 		SimpleDateFormat sdft = new SimpleDateFormat("yyyy-MM-dd");
 
 		contentPane = new JFrame();
+		contentPane.setUndecorated(true);
+		contentPane.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+		contentPane.getContentPane().setBackground(Color.WHITE);
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setResizable(false);
-		contentPane.setBounds(289, 96, 800, 600);
+		contentPane.setBounds(289, 96, 795, 582);
 		contentPane.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane.getContentPane().setLayout(null);
 
 		JPanel panelMaster = new JPanel();
-		panelMaster.setBounds(0, 0, 794, 549);
+		panelMaster.setBounds(0, 0, 794, 597);
 		contentPane.getContentPane().add(panelMaster);
 		panelMaster.setLayout(new CardLayout(0, 0));
 		cardLayout = (CardLayout) panelMaster.getLayout();
@@ -2120,6 +2126,7 @@ public class pantalla {
 		listarEstudiantes.add(lblCodigo_3_7_1_2);
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBorder(null);
 		scrollPane.setBounds(10, 163, 774, 362);
 		listarEstudiantes.add(scrollPane);
 
@@ -2148,6 +2155,7 @@ public class pantalla {
 		listarEstudiantes.add(btnNewButton_11);
 
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBorder(null);
 		menuBar.setFont(new Font("Segoe UI", Font.PLAIN, 25));
 		contentPane.setJMenuBar(menuBar);
 
@@ -2279,8 +2287,7 @@ public class pantalla {
 		mntmAbsences_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mntmAbsences_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cardLayout.show(panelMaster, "MENU");
-				mnMenu.setVisible(false);
+				System.exit(0);
 			}
 		});
 		mnMenu.add(mntmAbsences_1);
